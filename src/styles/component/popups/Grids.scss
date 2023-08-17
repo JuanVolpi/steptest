@@ -1,0 +1,31 @@
+.gridProvaQuestoes {
+  @apply flex flex-row gap-5 items-center justify-between mr-3;
+
+  .nomeProva {
+    @apply w-fit flex flex-row gap-4 items-center;
+
+    h1 {
+      @apply text-4xl font-semibold;
+    }
+
+    p {
+      @apply text-2xl;
+    }
+
+    .numQuestoes {
+      @apply flex flex-row gap-2 items-center justify-between;
+
+      p {
+        @apply text-lg;
+      }
+    }
+  }
+
+  .interacoes {
+    @apply flex flex-row gap-3 items-center justify-between;
+  }
+}
+
+.questoes {
+  @apply flex flex-row flex-wrap p-4 px-5 gap-10 gap-y-3 border rounded;
+}
