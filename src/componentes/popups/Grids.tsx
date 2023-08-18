@@ -184,7 +184,7 @@ function exampleCards() {
           endIcon={<LockOutline fill="rgb(129 140 248)" />}
         />,
         <SimpleRedButton
-          key={"lock"}
+          key={"trash"}
           content={"Apagar"}
           endIcon={<TrashBin fill="salmon" />}
         />,
