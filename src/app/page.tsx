@@ -5,7 +5,7 @@ import {
   SimpleRedButton,
   SimpleYellowButton,
 } from "@/componentes/buttons/Buttons";
-import { GenericCard } from "@/componentes/cards/Card";
+import { CardStates, GenericCard } from "@/componentes/cards/Card";
 import {
   ChatBubbleSolid,
   ListBullet,
@@ -19,16 +19,36 @@ import StepTestLogo from "@/componentes/logos/StepTest";
 import { GridProvaQuestoes } from "@/componentes/popups/Grids";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
+import React from "react";
 
 export default function Home() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [cardSelection, setCardSelection] =
+    React.useState<CardStates>("inactive");
+
+  function toggleCard() {
+    cardSelection === "active"
+      ? setCardSelection("inactive")
+      : setCardSelection("active");
+    console.log(cardSelection);
+  }
 
   return (
     <main>
       <StepTestLogo />
       <Button onPress={onOpen}>Open modal</Button>
       <br />
+      <br />
+      <Button onPress={toggleCard}>Toggle card selection</Button>
+      <br />
+      <br />
       <GenericCard
+        state={cardSelection}
+        visualizeState={{
+          active: "blueviolet",
+          inactive: "gainsboro",
+        }}
         headerElements={[
           <SimpleBlueButton
             key={"fav"}
@@ -46,7 +66,7 @@ export default function Home() {
             endIcon={<LockOutline fill="rgb(129 140 248)" />}
           />,
           <SimpleRedButton
-            key={"lock"}
+            key={"trash"}
             content={"Apagar"}
             endIcon={<TrashBin fill="salmon" />}
           />,
