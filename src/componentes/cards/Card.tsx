@@ -3,29 +3,49 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { ReactNode } from "react";
 import "../../styles/component/cards/Cards.scss";
 
-interface GenericCardProps {
+export type CardStates =
+  | "active"
+  | "inactive"
+  | "success"
+  | "failure"
+  | "warning";
+
+export type CardContentSection = {
+  icon: ReactNode;
+  tittle: string;
+  headSubs?: ReactNode | string;
+  inner: ReactNode | string;
+};
+
+export type CardStateVisualizationColor = {
+  active: string;
+  inactive: string;
+  success?: string;
+  failure?: string;
+  warning?: string;
+};
+
+type GenericCardProps = {
+  state?: CardStates;
   headerElements?: ReactNode[];
-  visualizeState?: {
-    activeColor: string | "blueviolet";
-    inactiveColor: string | "gainsboro";
-    successColor?: string | "green";
-    failureColor?: string | "tomato";
-    warningColor?: string | "yellow";
-  };
-  content: {
-    icon: ReactNode;
-    tittle: string;
-    headSubs?: ReactNode | string;
-    inner: ReactNode | string;
-  }[];
+  visualizeState?: CardStateVisualizationColor;
+  content: CardContentSection[];
   footer?: ReactNode;
-}
+};
 
 export function GenericCard(props: GenericCardProps) {
+  function handleCardColorState(): string {
+    if (props.visualizeState !== undefined && props.state !== undefined)
+      return props.visualizeState[props.state] as string;
+    return "";
+  }
+
   return (
     <Card
       className="genericCard"
-      style={{ borderColor: props.visualizeState?.inactiveColor }}
+      style={{
+        borderColor: handleCardColorState(),
+      }}
     >
       <CardHeader className="header">{props.headerElements}</CardHeader>
 
