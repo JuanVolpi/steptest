@@ -5,23 +5,40 @@ import "../../styles/component/popups/Grids.scss";
 import { Titulo } from "@/lib/fonts";
 
 import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/modal";
-
-import { Button } from "@nextui-org/button";
-import {
+  Button,
   Divider,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
 } from "@nextui-org/react";
+
 import React, { SetStateAction } from "react";
-import { ListBullet, RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
+
+import {
+  SimpleBlueButton,
+  SimpleRedButton,
+  SimpleYellowButton,
+} from "../buttons/Buttons";
+
+import { GenericCard } from "../cards/Card";
+
+import {
+  ChatBubbleSolid,
+  ListBullet,
+  LockOutline,
+  QuestionSolid,
+  RectangleStack,
+  Send,
+  Share,
+  StarOutline,
+  TrashBin,
+} from "../icons/HeroIcons";
 
 type GenericGridProps = {
   gridTittle: string;
@@ -124,7 +141,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
             </ModalHeader>
 
             <ModalBody>
-              <div className="questoes"></div>
+              <div className="questoes">{exampleCards()}</div>
             </ModalBody>
 
             <ModalFooter>
@@ -145,4 +162,74 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
       </ModalContent>
     </Modal>
   );
+}
+
+function exampleCards() {
+  const data = new Array(5).fill(
+    <GenericCard
+      headerElements={[
+        <SimpleBlueButton
+          key={"fav"}
+          content={"Favorito"}
+          endIcon={<StarOutline fill="rgb(129 140 248)" />}
+        />,
+        <SimpleBlueButton
+          key={"share"}
+          content={"Partilhar"}
+          endIcon={<Share fill="rgb(129 140 248)" />}
+        />,
+        <SimpleBlueButton
+          key={"lock"}
+          content={"Trancar"}
+          endIcon={<LockOutline fill="rgb(129 140 248)" />}
+        />,
+        <SimpleRedButton
+          key={"lock"}
+          content={"Apagar"}
+          endIcon={<TrashBin fill="salmon" />}
+        />,
+      ]}
+      content={[
+        {
+          icon: <QuestionSolid fill="blue" />,
+          tittle: "Questões",
+          inner: (
+            <p>
+              Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
+              semana. Quantas peças são fabricadas em um mês de 4 semanas?
+            </p>
+          ),
+        },
+        {
+          icon: <ChatBubbleSolid fill="blue" />,
+          tittle: "Respostas",
+          inner: (
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi
+              veritatis alias, quidem odit rem consequatur nisi.
+            </p>
+          ),
+        },
+        {
+          icon: <ListBullet fill="blue" />,
+          headSubs: (
+            <>
+              <SimpleYellowButton
+                content={"Info"}
+                endIcon={<QuestionSolid fill="orange" />}
+              />
+            </>
+          ),
+          tittle: "Respostas",
+          inner: (
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi
+              veritatis alias, quidem odit rem consequatur nisi.
+            </p>
+          ),
+        },
+      ]}
+    />,
+  );
+  return <>{data.map((e) => e)}</>;
 }
