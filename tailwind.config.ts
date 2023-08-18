@@ -27,6 +27,7 @@ const config: Config = {
         mred: "#efb922", // * Mid yellow
         ared: "#efb922", // * Accent yellow
       },
+
     },
   },
   darkMode: "class",
