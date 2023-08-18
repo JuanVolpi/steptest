@@ -19,11 +19,8 @@ export default function RootLayout({
     <html lang="pt">
       <body style={Display.style} className={styles.Body}>
         <Providers>
-          <div className={styles.RootLayout}>
-            <BarraDeNavegacao></BarraDeNavegacao>
-            
-            {children}
-          </div>
+          <BarraDeNavegacao></BarraDeNavegacao>
+          <div className={styles.RootLayout}>{children}</div>
         </Providers>
       </body>
     </html>
