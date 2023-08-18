@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
-      <body style={Display.style} className={styles.Body}>
+      <body style={Display.style}>
         <Providers>
           <BarraDeNavegacao></BarraDeNavegacao>
           <div className={styles.RootLayout}>{children}</div>
