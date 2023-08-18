@@ -1,6 +1,7 @@
 .genericCard {
   @apply flex flex-col justify-between items-center h-fit w-fit rounded-lg border-2 pb-3;
   @apply max-w-md;
+  @apply transition-all ease-in-out duration-200;
 
   .header {
     @apply flex flex-row gap-3.5 justify-between items-center p-3;
