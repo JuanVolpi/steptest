@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
+
 import StepTest from "../logos/StepTest";
-import { SimpleYellowButton } from "../buttons/Buttons";
+import { SimpleYellowButton, SimpleYellowButtonLink } from "../buttons/Buttons";
 import {
   DocumentText,
   QuestionSolid,
@@ -19,10 +20,11 @@ export default function BarraDeNavegacao() {
           content={"Perfil"}
           endIcon={<User fill="rgb(195, 131, 29)" />}
         ></SimpleYellowButton>
-        <SimpleYellowButton
+        <SimpleYellowButtonLink
           content={"Provas"}
           endIcon={<DocumentText fill="rgb(195, 131, 29)" />}
-        ></SimpleYellowButton>
+          href={"/provas"}
+        ></SimpleYellowButtonLink>
         <SimpleYellowButton
           content={"Questões"}
           endIcon={<QuestionSolid fill="rgb(195, 131, 29)" />}
