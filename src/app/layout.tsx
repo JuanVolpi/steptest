@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt">
-      <body style={Display.style} className={styles.Body}>
+    <html lang="pt" className="w-full h-full bg-lgreen ">
+      <body style={Display.style}>
         <Providers>
           <BarraDeNavegacao></BarraDeNavegacao>
           <div className={styles.RootLayout}>{children}</div>

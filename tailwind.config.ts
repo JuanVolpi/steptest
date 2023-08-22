@@ -15,6 +15,7 @@ const config: Config = {
       colors: {
         transparent: "transparent",
         current: "currentColor",
+        bglgreen: "#fcfdfa", //* Background light green
         lgreen: "#dce9d4", // * light green
         mgreen: "#bef2ce", // * Mid green
         agreen: "#305c3d", // * Accent green

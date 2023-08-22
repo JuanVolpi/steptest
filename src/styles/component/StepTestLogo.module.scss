@@ -2,6 +2,7 @@
   @apply text-6xl font-bold tracking-[-.2rem] cursor-default transition-all ease-in-out duration-200 w-fit;
 
   &:hover {
+    cursor: pointer;
     animation: fade-through 4s ease-in-out 0.2s infinite alternate;
   }
 }
