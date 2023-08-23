@@ -20,25 +20,8 @@ import {
 
 import React, { SetStateAction } from "react";
 
-import {
-  SimpleBlueButton,
-  SimpleRedButton,
-  SimpleYellowButton,
-} from "../buttons/Buttons";
-
-import { GenericCard } from "../cards/Card";
-
-import {
-  ChatBubbleSolid,
-  ListBullet,
-  LockOutline,
-  QuestionSolid,
-  RectangleStack,
-  Send,
-  Share,
-  StarOutline,
-  TrashBin,
-} from "../icons/HeroIcons";
+import { SmallQuestionCard } from "../cards/Card";
+import { ListBullet, RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
 
 type GenericGridProps = {
   gridTittle: string;
@@ -82,8 +65,8 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
       isOpen={x.state.isOpen}
       onOpenChange={x.state.onOpenChange}
       scrollBehavior="inside"
-      size="5xl"
       backdrop="blur"
+      size="5xl"
       radius="sm"
       placement="center"
     >
@@ -165,70 +148,42 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
 }
 
 function exampleCards() {
-  const data = new Array(5).fill(
-    <GenericCard
-      headerElements={[
-        <SimpleBlueButton
-          key={"fav"}
-          content={"Favorito"}
-          endIcon={<StarOutline fill="rgb(129 140 248)" />}
-        />,
-        <SimpleBlueButton
-          key={"share"}
-          content={"Partilhar"}
-          endIcon={<Share fill="rgb(129 140 248)" />}
-        />,
-        <SimpleBlueButton
-          key={"lock"}
-          content={"Trancar"}
-          endIcon={<LockOutline fill="rgb(129 140 248)" />}
-        />,
-        <SimpleRedButton
-          key={"trash"}
-          content={"Apagar"}
-          endIcon={<TrashBin fill="salmon" />}
-        />,
-      ]}
-      content={[
+  const data = new Array(8).fill(
+    <SmallQuestionCard
+      visualizeState={{
+        active: "lime",
+        inactive: "transparent",
+      }}
+      bncc="EF06MA03"
+      dificuldade="Fácil"
+      respostas={[
         {
-          icon: <QuestionSolid fill="blue" />,
-          tittle: "Questões",
-          inner: (
-            <p>
-              Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-              semana. Quantas peças são fabricadas em um mês de 4 semanas?
-            </p>
-          ),
+          conteudo: "708 pontos",
+          correta: false,
         },
         {
-          icon: <ChatBubbleSolid fill="blue" />,
-          tittle: "Respostas",
-          inner: (
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi
-              veritatis alias, quidem odit rem consequatur nisi.
-            </p>
-          ),
+          conteudo: "512 pontos",
+          correta: false,
         },
         {
-          icon: <ListBullet fill="blue" />,
-          headSubs: (
-            <>
-              <SimpleYellowButton
-                content={"Info"}
-                endIcon={<QuestionSolid fill="orange" />}
-              />
-            </>
-          ),
-          tittle: "Respostas",
-          inner: (
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi
-              veritatis alias, quidem odit rem consequatur nisi.
-            </p>
-          ),
+          conteudo: "462 pontos",
+          correta: true,
+        },
+        {
+          conteudo: "188 pontos",
+          correta: false,
         },
       ]}
+      ordemAparencia={1}
+      footerActions={
+        <>
+          <Button>Fechar</Button>
+          <Button>Copiar</Button>
+        </>
+      }
+      expandTrigger={function (): void {
+        throw new Error("Function not implemented.");
+      }}
     />,
   );
   return <>{data.map((e) => e)}</>;
