@@ -1,40 +1,43 @@
 "use client";
 
-import { SimpleYellowButton, SimpleYellowButtonLink } from "../buttons/Buttons";
 import {
-  ChartPie,
-  DocumentText,
-  QuestionSolid,
-  User,
-  UserGroup,
-} from "../icons/HeroIcons";
+  ChartPieIcon,
+  DocumentTextIcon,
+  QuestionMarkCircleIcon,
+  UserGroupIcon,
+  UserIcon,
+} from "@heroicons/react/20/solid";
+
+import { SimpleYellowButton, SimpleYellowButtonLink } from "../buttons/Buttons";
+
 import StepTest from "../logos/StepTest";
 
 export default function BarraDeNavegacao() {
+  const iconStyle = "w-6 h-6 text-[rgb(195, 131, 29)]";
   return (
     <div className="w-full h-max flex flex-row bg-white sticky top-0 p-3">
       <StepTest />
       <div className=" flex flex-row gap-5 w-full self-center justify-end pr-2">
         <SimpleYellowButton
           content={"Perfil"}
-          endIcon={<User fill="rgb(195, 131, 29)" />}
+          endIcon={<UserIcon className={iconStyle} />}
         ></SimpleYellowButton>
         <SimpleYellowButtonLink
           content={"Provas"}
-          endIcon={<DocumentText fill="rgb(195, 131, 29)" />}
+          endIcon={<DocumentTextIcon className={iconStyle} />}
           href={"/provas"}
         ></SimpleYellowButtonLink>
         <SimpleYellowButton
           content={"Questões"}
-          endIcon={<QuestionSolid fill="rgb(195, 131, 29)" />}
+          endIcon={<QuestionMarkCircleIcon className={iconStyle} />}
         ></SimpleYellowButton>
         <SimpleYellowButton
           content={"Minha Turma"}
-          endIcon={<UserGroup fill="rgb(195, 131, 29)" />}
+          endIcon={<UserGroupIcon className={iconStyle} />}
         ></SimpleYellowButton>
         <SimpleYellowButton
           content={"Dashboard"}
-          endIcon={<ChartPie fill="rgb(195, 131, 29)" />}
+          endIcon={<ChartPieIcon className={iconStyle} />}
         ></SimpleYellowButton>
       </div>
     </div>
