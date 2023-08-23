@@ -1,10 +1,54 @@
-.genericCard {
+@mixin card-base {
   @apply flex flex-col justify-between items-center h-fit w-fit rounded-lg border-2 pb-3;
   @apply max-w-md;
   @apply transition-all ease-in-out duration-200;
+}
+
+@mixin card-header {
+  @apply flex flex-row gap-3.5 justify-between items-center p-3;
+}
+
+.smallCard {
+  @include card-base;
+  @apply overflow-clip shadow-sm border max-w-[450px] w-full h-fit transition-all ease-in-out duration-250;
+  @apply transition-height ease-in-out duration-250 pb-0 shadow;
+
+  .head {
+    @apply flex flex-row p-4 gap-5 rounded-none justify-between items-center;
+
+    h4 {
+      @apply text-2xl font-bold;
+    }
+
+    .chips {
+      @apply flex flex-row flex-nowrap overflow-x-auto gap-2 items-center justify-between;
+      .chip {
+        @apply bg-lblue text-mblue;
+      }
+    }
+  }
+
+  .body {
+    @apply flex flex-col gap-2 px-4 max-h-[290px] h-fit overflow-y-auto scroll-smooth pb-1;
+    .respostas {
+      @apply px-4 flex flex-col gap-2.5;
+
+      .resposta {
+        @apply flex flex-row gap-4 items-center justify-start;
+      }
+    }
+  }
+
+  .footer {
+    @apply space-x-3 py-4;
+  }
+}
+
+.genericCard {
+  @include card-base;
 
   .header {
-    @apply flex flex-row gap-3.5 justify-between items-center p-3;
+    @include card-header;
   }
 
   .body {
