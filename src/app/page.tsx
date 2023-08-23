@@ -5,7 +5,8 @@ import {
   SimpleRedButton,
   SimpleYellowButton,
 } from "@/componentes/buttons/Buttons";
-import { CardStates, GenericCard } from "@/componentes/cards/Card";
+import { GenericCard, SmallQuestionCard } from "@/componentes/cards/Card";
+
 import {
   ChatBubbleSolid,
   ListBullet,
@@ -15,8 +16,8 @@ import {
   StarOutline,
   TrashBin,
 } from "@/componentes/icons/HeroIcons";
-import StepTestLogo from "@/componentes/logos/StepTest";
 import { GridProvaQuestoes } from "@/componentes/popups/Grids";
+import { CardStates } from "@/lib/types/componentes/cards";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 import React from "react";
@@ -36,11 +37,49 @@ export default function Home() {
 
   return (
     <main>
-      <StepTestLogo />
       <Button onPress={onOpen}>Open modal</Button>
       <br />
       <br />
       <Button onPress={toggleCard}>Toggle card selection</Button>
+      <br />
+      <br />
+      <SmallQuestionCard
+        state={cardSelection}
+        visualizeState={{
+          active: "lime",
+          inactive: "transparent",
+        }}
+        bncc="EF06MA03"
+        dificuldade="Fácil"
+        respostas={[
+          {
+            conteudo: "708 pontos",
+            correta: false,
+          },
+          {
+            conteudo: "512 pontos",
+            correta: false,
+          },
+          {
+            conteudo: "462 pontos",
+            correta: true,
+          },
+          {
+            conteudo: "188 pontos",
+            correta: false,
+          },
+        ]}
+        ordemAparencia={1}
+        footerActions={
+          <>
+            <Button>Fechar</Button>
+            <Button>Copiar</Button>
+          </>
+        }
+        expandTrigger={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
       <br />
       <br />
       <GenericCard
