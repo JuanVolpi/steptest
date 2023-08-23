@@ -1,21 +1,20 @@
 "use client";
-import React from "react";
 
-import StepTest from "../logos/StepTest";
 import { SimpleYellowButton, SimpleYellowButtonLink } from "../buttons/Buttons";
 import {
+  ChartPie,
   DocumentText,
   QuestionSolid,
-  UserGroup,
   User,
-  ChartPie,
+  UserGroup,
 } from "../icons/HeroIcons";
+import StepTest from "../logos/StepTest";
 
 export default function BarraDeNavegacao() {
   return (
-    <div className="w-full h-max flex flex-row bg-white">
-      <StepTest></StepTest>
-      <div className=" flex  flex-row gap-5 w-full self-center justify-end pr-2">
+    <div className="w-full h-max flex flex-row bg-white sticky top-0 p-3">
+      <StepTest />
+      <div className=" flex flex-row gap-5 w-full self-center justify-end pr-2">
         <SimpleYellowButton
           content={"Perfil"}
           endIcon={<User fill="rgb(195, 131, 29)" />}
