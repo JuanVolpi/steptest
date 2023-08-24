@@ -13,6 +13,8 @@ import {
   QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
 import {
+  Accordion,
+  AccordionItem,
   Button,
   Chip,
   Divider,
@@ -78,7 +80,56 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             }
             className="tab"
           >
-            <p>{props.dadosQuestao.questao}</p>
+            <Accordion
+              className="conteudoQuestoes"
+              variant="splitted"
+              disabledKeys={[
+                props.dadosQuestao.contextualizacao !== undefined
+                  ? ""
+                  : "contexto",
+              ]}
+            >
+              <AccordionItem
+                key="contexto"
+                className="questaoContexto"
+                aria-label="Contexto Questao"
+                title={
+                  <Chip variant="flat" size="md" color="primary" radius="sm">
+                    Contexto
+                  </Chip>
+                }
+                subtitle={
+                  <>
+                    <Spacer />
+                    <Spacer />
+                    <span>Contexto para a resposta do aluno</span>
+                  </>
+                }
+              >
+                <p className="p-2 pt-0">
+                  {props.dadosQuestao.contextualizacao}
+                </p>
+              </AccordionItem>
+              <AccordionItem
+                key="questao"
+                className="questConteudo"
+                aria-label="Conteudo Questao"
+                title={
+                  <Chip variant="flat" size="md" color="primary" radius="sm">
+                    Questão
+                  </Chip>
+                }
+                subtitle={
+                  <>
+                    <Spacer />
+                    <Spacer />
+                    <span>Conteúdo alvo da avaliação</span>
+                  </>
+                }
+              >
+                <p className="p-2 pt-0">{props.dadosQuestao.questao}</p>
+              </AccordionItem>
+            </Accordion>
           </Tab>
           <Tab
             key="respostas"

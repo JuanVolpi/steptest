@@ -10,7 +10,7 @@
 
 .smallCard {
   @include card-base;
-  @apply overflow-clip shadow-sm border max-w-[450px] w-full h-fit transition-all ease-in-out duration-250;
+  @apply overflow-clip shadow-sm border max-w-[450px] w-full transition-all ease-in-out duration-250;
   @apply transition-height ease-in-out duration-250 pb-0 shadow;
 
   .head {
@@ -29,7 +29,7 @@
   }
 
   .body {
-    @apply flex flex-col gap-2 max-h-[290px] h-fit overflow-y-auto scroll-smooth pb-1;
+    @apply flex flex-col gap-2 overflow-y-auto scroll-smooth pb-1;
 
     .magnify {
       @apply w-10 h-10 text-indigo-500 drop-shadow-md bg-white rounded-full p-0;
