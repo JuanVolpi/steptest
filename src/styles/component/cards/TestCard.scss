@@ -1,10 +1,10 @@
 .Main {
   @apply w-64 h-96 border-2 border-transparent bg-white rounded-lg ease-in-out duration-400 flex align-middle self-center justify-center;
   &:hover {
-    @apply border-mblue cursor-pointer;
+    @apply border-mblue;
   }
   .Wrap {
-    @apply flex max-w-full max-h-full flex-col align-middle self-center justify-center overflow-hidden;
+    @apply flex p-2 max-w-full max-h-full flex-col align-middle self-center justify-center overflow-hidden;
     .NomeProva {
       @apply p-2 m-1 bg-lyellow h-10 max-w-[90%] overflow-hidden w-fit rounded-lg self-center whitespace-nowrap;
     }

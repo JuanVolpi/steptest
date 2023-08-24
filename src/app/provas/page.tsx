@@ -1,14 +1,16 @@
 "use client";
 
-import { SimpleBlueButton } from "@/componentes/buttons/Buttons";
 import { PageTag } from "@/componentes/cards/Pagetag";
-import TestCard from "@/componentes/cards/TestCard";
-import { PaperAirplane, Plus } from "@/componentes/icons/HeroIcons";
-import { SearchIcon } from "@/componentes/icons/SeachIcon";
+import React, { SetStateAction, useState } from "react";
+
 import CustomDropdown from "@/componentes/navegacao/Dropdown";
+import { SimpleBlueButton } from "@/componentes/buttons/Buttons";
+import { SearchIcon } from "@/componentes/icons/SeachIcon";
+import { PaperAirplane, Plus } from "@/componentes/icons/HeroIcons";
+import TestCard from "@/componentes/cards/TestCard";
 import { CardStates } from "@/lib/types/componentes/cards";
-import { Accordion, AccordionItem, Input } from "@nextui-org/react";
-import React, { useState } from "react";
+import { Input } from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@nextui-org/accordion";
 
 export default function BarraDeNavegacao() {
   const [selectedKeys1, setSelectedKeys1] = useState(new Set(["Ensino"]));
@@ -166,7 +168,10 @@ export default function BarraDeNavegacao() {
                 aria-label="Informações"
                 title="Informações"
               >
-                {defaultContent}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
               </AccordionItem>
             </Accordion>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { DadosQuestao } from "@/lib/types/componentes/cards";
 import { Button, Link } from "@nextui-org/react";
 import { ReactNode } from "react";
 

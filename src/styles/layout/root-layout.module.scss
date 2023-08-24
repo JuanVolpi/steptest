@@ -1,3 +1,8 @@
 .RootLayout {
-  @apply bg-[#dce9d4] h-screen p-9 overflow-scroll scroll-smooth;
+  height: 90vh;
+  background: #dce9d4;
+  display: flex;
+  flex-direction: column;
+  margin-inline: 1.5rem;
+  margin-block: 1rem;
 }
