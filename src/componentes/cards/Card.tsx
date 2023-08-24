@@ -21,14 +21,12 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Skeleton,
   Spacer,
   Tab,
   Tabs,
   Tooltip,
 } from "@nextui-org/react";
 
-import { useState } from "react";
 import "../../styles/component/cards/Cards.scss";
 
 export function SmallQuestionCard(props: SmallQuestionCardProps) {
@@ -36,12 +34,6 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
     if (props.visualizeState !== undefined && props.state !== undefined)
       return props.visualizeState[props.state] as string;
     return "";
-  }
-
-  const [questionLoaded, setQuestionLoaded] = useState<boolean>(false);
-
-  function toggleQuestionLoaded() {
-    setQuestionLoaded(!questionLoaded);
   }
 
   return (
@@ -86,14 +78,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             }
             className="tab"
           >
-            <Skeleton isLoaded={questionLoaded} className="rounded-md">
-              <p onLoad={toggleQuestionLoaded}>
-                Fábio está jogando no videogame novo que ganhou de presente de
-                aniversário. Na primeira fase do jogo, ele fez 260 pontos e, na
-                segunda, fez 325 pontos. Na terceira fase, Fábio perdeu 123
-                pontos. Quantos pontos Fábio conseguiu no total?
-              </p>
-            </Skeleton>
+            <p>{props.dadosQuestao.questao}</p>
           </Tab>
           <Tab
             key="respostas"
