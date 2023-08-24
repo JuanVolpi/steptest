@@ -1,11 +1,11 @@
-import React, { SetStateAction, useState } from "react";
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
 } from "@nextui-org/react";
+import React, { useState } from "react";
 
 interface CustomDropdownProps {
   initialSelectedKeys: Set<string>;
@@ -22,7 +22,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
+    [selectedKeys],
   );
 
   return (

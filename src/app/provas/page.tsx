@@ -1,26 +1,12 @@
 "use client";
 
-import {
-  SimpleBlueButton,
-  SimpleRedButton,
-  SimpleYellowButton,
-} from "@/componentes/buttons/Buttons";
-import { GenericCard } from "@/componentes/cards/Card";
-import { CardStates } from "@/componentes/cards/GenericCardProps";
+import { SimpleBlueButton } from "@/componentes/buttons/Buttons";
 import { PageTag } from "@/componentes/cards/Pagetag";
 import TestCard from "@/componentes/cards/TestCard";
-import {
-  ChatBubbleSolid,
-  ListBullet,
-  LockOutline,
-  PaperAirplane,
-  Plus,
-  QuestionSolid,
-  StarOutline,
-  TrashBin,
-} from "@/componentes/icons/HeroIcons";
+import { PaperAirplane, Plus } from "@/componentes/icons/HeroIcons";
 import { SearchIcon } from "@/componentes/icons/SeachIcon";
 import CustomDropdown from "@/componentes/navegacao/Dropdown";
+import { CardStates } from "@/lib/types/componentes/cards";
 import { Accordion, AccordionItem, Input } from "@nextui-org/react";
 import React, { useState } from "react";
 

@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
 import { ReactNode } from "react";
-import { Link } from "@nextui-org/react";
 
 export function SimpleBlueButton({
   endIcon,

@@ -174,7 +174,6 @@ export default function Home() {
           num_questoes: 8,
         }}
       />
-      
     </main>
   );
 }
