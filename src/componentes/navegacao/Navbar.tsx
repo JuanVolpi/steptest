@@ -15,7 +15,7 @@ import StepTest from "../logos/StepTest";
 export default function BarraDeNavegacao() {
   const iconStyle = "w-6 h-6 text-[rgb(195, 131, 29)]";
   return (
-    <div className="w-full h-max flex flex-row bg-white sticky top-0 p-3">
+    <div className="w-full h-max flex flex-row bg-white sticky top-0 p-3 z-50">
       <StepTest />
       <div className=" flex flex-row gap-5 w-full self-center justify-end pr-2">
         <SimpleYellowButton
