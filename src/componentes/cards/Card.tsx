@@ -89,27 +89,29 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
                   : "contexto",
               ]}
             >
-              <AccordionItem
-                key="contexto"
-                className="questaoContexto"
-                aria-label="Contexto Questao"
-                title={
-                  <Chip variant="flat" size="md" color="primary" radius="sm">
-                    Contexto
-                  </Chip>
-                }
-                subtitle={
-                  <>
-                    <Spacer />
-                    <Spacer />
-                    <span>Contexto para a resposta do aluno</span>
-                  </>
-                }
-              >
-                <p className="p-2 pt-0">
-                  {props.dadosQuestao.contextualizacao}
-                </p>
-              </AccordionItem>
+              {props.dadosQuestao.contextualizacao !== undefined ? (
+                <AccordionItem
+                  key="contexto"
+                  className="questaoContexto"
+                  aria-label="Contexto Questao"
+                  title={
+                    <Chip variant="flat" size="md" color="primary" radius="sm">
+                      Contexto
+                    </Chip>
+                  }
+                  subtitle={
+                    <>
+                      <Spacer />
+                      <Spacer />
+                      <span>Contexto para a resposta do aluno</span>
+                    </>
+                  }
+                >
+                  <p className="p-2 pt-0">
+                    {props.dadosQuestao.contextualizacao}
+                  </p>
+                </AccordionItem>
+              ) : null}
               <AccordionItem
                 key="questao"
                 className="questConteudo"
