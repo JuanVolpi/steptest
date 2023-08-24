@@ -1,3 +1,5 @@
 .RootLayout {
-  @apply bg-[#dce9d4] h-screen p-9 overflow-scroll scroll-smooth;
+  @apply bg-[#dce9d4] p-9;
+
+  scrollbar-width: thin;
 }
