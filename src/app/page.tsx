@@ -6,6 +6,7 @@ import {
   SimpleYellowButton,
 } from "@/componentes/buttons/Buttons";
 import { CardStates, GenericCard } from "@/componentes/cards/Card";
+import { TestCard } from "@/componentes/cards/TestCard";
 import {
   ChatBubbleSolid,
   ListBullet,
@@ -41,6 +42,8 @@ export default function Home() {
       <br />
       <br />
       <Button onPress={toggleCard}>Toggle card selection</Button>
+      <br />
+      <br />
       <br />
       <br />
       <GenericCard
@@ -124,6 +127,7 @@ export default function Home() {
           num_questoes: 8,
         }}
       />
+      
     </main>
   );
 }

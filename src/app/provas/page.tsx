@@ -27,8 +27,11 @@ import {
   QuestionSolid,
   ChatBubbleSolid,
   ListBullet,
+  PaperAirplane,
+  Plus,
 } from "@/componentes/icons/HeroIcons";
 import { Share } from "next/font/google";
+import TestCard from "@/componentes/cards/TestCard";
 
 export default function BarraDeNavegacao() {
   const [selectedKeys1, setSelectedKeys1] = useState(new Set(["Ensino"]));
@@ -95,7 +98,7 @@ export default function BarraDeNavegacao() {
     React.useState<CardStates>("inactive");
 
   return (
-    <div className="bg-bglgreen w-full h-full px-4 overflow-hidden">
+    <div className="bg-bglgreen w-full h-full px-4">
       <div className="w-full justify-between h-max flex flex-row">
         <h1 className="font-confortaa text-[40px] text-ayellow w-fit">
           Minhas provas
@@ -107,7 +110,7 @@ export default function BarraDeNavegacao() {
       <div className="w-full h-2 mb-3 rounded bg-mgreen self-center"></div>
       <div>
         <div className="flex flex-row justify-between">
-          <div className=" pb-5">
+          <div className=" pb-5 w-1/2">
             <h2 className="text-agreen text-[20px]">Filtros</h2>
             <div className="flex flex-row gap-5 pb-5">
               <CustomDropdown
@@ -136,36 +139,48 @@ export default function BarraDeNavegacao() {
                 options={dropdownOptions5}
               />
             </div>
-            <Input
-              label="Search"
-              isClearable
-              radius="lg"
-              classNames={{
-                label: "text-black/50 dark:text-white/90",
-                input: [
-                  "bg-transparent",
-                  "text-black/90 dark:text-white/90",
-                  "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-                ],
-                innerWrapper: "bg-transparent",
-                inputWrapper: [
-                  "shadow-xl",
-                  "bg-default-200/50",
-                  "dark:bg-default/60",
-                  "backdrop-blur-xl",
-                  "backdrop-saturate-200",
-                  "hover:bg-default-200/70",
-                  "dark:hover:bg-default/70",
-                  "group-data-[focused=true]:bg-default-200/50",
-                  "dark:group-data-[focused=true]:bg-default/60",
-                  "!cursor-text",
-                ],
-              }}
-              placeholder="Type to search..."
-              startContent={
-                <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-              }
-            />
+            <div className="flex flex-row gap-5 justify-center align-middle">
+              <Input
+                label="Search"
+                isClearable
+                radius="lg"
+                classNames={{
+                  label: "text-black/50 dark:text-white/90",
+                  input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                  ],
+                  innerWrapper: "bg-transparent",
+                  inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/50",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focused=true]:bg-default-200/50",
+                    "dark:group-data-[focused=true]:bg-default/60",
+                    "!cursor-text",
+                  ],
+                }}
+                placeholder="Type to search..."
+                startContent={
+                  <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+                }
+              />
+              <div className="w-max  h-full gap-5 align-middle justify-center self-center flex">
+                <SimpleBlueButton
+                  content={"Pesquisar"}
+                  endIcon={<PaperAirplane fill="rgb(129 140 248)" />}
+                ></SimpleBlueButton>
+                <SimpleBlueButton
+                  content={"Criar"}
+                  endIcon={<Plus fill="rgb(129 140 248)" />}
+                ></SimpleBlueButton>
+              </div>
+            </div>
           </div>
           <div className="w-1/3">
             <Accordion>
@@ -180,354 +195,107 @@ export default function BarraDeNavegacao() {
           </div>
         </div>
       </div>
-      <div id="cardSection" className="p-5 h-full overflow-y-scroll">
-        <div className="grid grid-cols-3 gap-10 w-fit pb-60">
-          <GenericCard
-            state={cardSelection}
-            visualizeState={{
-              active: "blueviolet",
-              inactive: "gainsboro",
-            }}
-            headerElements={[
-              <SimpleBlueButton
-                key={"fav"}
-                content={"Favorito"}
-                endIcon={<StarOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"share"}
-                content={"Partilhar"}
-                endIcon={<SearchIcon fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"lock"}
-                content={"Trancar"}
-                endIcon={<LockOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleRedButton
-                key={"trash"}
-                content={"Apagar"}
-                endIcon={<TrashBin fill="salmon" />}
-              />,
-            ]}
-            content={[
-              {
-                icon: <QuestionSolid fill="blue" />,
-                tittle: "Questões",
-                inner: (
-                  <p>
-                    Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-                    semana. Quantas peças são fabricadas em um mês de 4 semanas?
-                  </p>
-                ),
-              },
-              {
-                icon: <ChatBubbleSolid fill="blue" />,
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-              {
-                icon: <ListBullet fill="blue" />,
-                headSubs: (
-                  <>
-                    <SimpleYellowButton
-                      content={"Info"}
-                      endIcon={<QuestionSolid fill="orange" />}
-                    />
-                  </>
-                ),
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-            ]}
-          />
-          <GenericCard
-            state={cardSelection}
-            visualizeState={{
-              active: "blueviolet",
-              inactive: "gainsboro",
-            }}
-            headerElements={[
-              <SimpleBlueButton
-                key={"fav"}
-                content={"Favorito"}
-                endIcon={<StarOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"share"}
-                content={"Partilhar"}
-                endIcon={<SearchIcon fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"lock"}
-                content={"Trancar"}
-                endIcon={<LockOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleRedButton
-                key={"trash"}
-                content={"Apagar"}
-                endIcon={<TrashBin fill="salmon" />}
-              />,
-            ]}
-            content={[
-              {
-                icon: <QuestionSolid fill="blue" />,
-                tittle: "Questões",
-                inner: (
-                  <p>
-                    Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-                    semana. Quantas peças são fabricadas em um mês de 4 semanas?
-                  </p>
-                ),
-              },
-              {
-                icon: <ChatBubbleSolid fill="blue" />,
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-              {
-                icon: <ListBullet fill="blue" />,
-                headSubs: (
-                  <>
-                    <SimpleYellowButton
-                      content={"Info"}
-                      endIcon={<QuestionSolid fill="orange" />}
-                    />
-                  </>
-                ),
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-            ]}
-          />
-          <GenericCard
-            state={cardSelection}
-            visualizeState={{
-              active: "blueviolet",
-              inactive: "gainsboro",
-            }}
-            headerElements={[
-              <SimpleBlueButton
-                key={"fav"}
-                content={"Favorito"}
-                endIcon={<StarOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"share"}
-                content={"Partilhar"}
-                endIcon={<SearchIcon fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"lock"}
-                content={"Trancar"}
-                endIcon={<LockOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleRedButton
-                key={"trash"}
-                content={"Apagar"}
-                endIcon={<TrashBin fill="salmon" />}
-              />,
-            ]}
-            content={[
-              {
-                icon: <QuestionSolid fill="blue" />,
-                tittle: "Questões",
-                inner: (
-                  <p>
-                    Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-                    semana. Quantas peças são fabricadas em um mês de 4 semanas?
-                  </p>
-                ),
-              },
-              {
-                icon: <ChatBubbleSolid fill="blue" />,
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-              {
-                icon: <ListBullet fill="blue" />,
-                headSubs: (
-                  <>
-                    <SimpleYellowButton
-                      content={"Info"}
-                      endIcon={<QuestionSolid fill="orange" />}
-                    />
-                  </>
-                ),
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-            ]}
-          />
-          <GenericCard
-            state={cardSelection}
-            visualizeState={{
-              active: "blueviolet",
-              inactive: "gainsboro",
-            }}
-            headerElements={[
-              <SimpleBlueButton
-                key={"fav"}
-                content={"Favorito"}
-                endIcon={<StarOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"share"}
-                content={"Partilhar"}
-                endIcon={<SearchIcon fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"lock"}
-                content={"Trancar"}
-                endIcon={<LockOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleRedButton
-                key={"trash"}
-                content={"Apagar"}
-                endIcon={<TrashBin fill="salmon" />}
-              />,
-            ]}
-            content={[
-              {
-                icon: <QuestionSolid fill="blue" />,
-                tittle: "Questões",
-                inner: (
-                  <p>
-                    Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-                    semana. Quantas peças são fabricadas em um mês de 4 semanas?
-                  </p>
-                ),
-              },
-              {
-                icon: <ChatBubbleSolid fill="blue" />,
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-              {
-                icon: <ListBullet fill="blue" />,
-                headSubs: (
-                  <>
-                    <SimpleYellowButton
-                      content={"Info"}
-                      endIcon={<QuestionSolid fill="orange" />}
-                    />
-                  </>
-                ),
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-            ]}
-          />
-          <GenericCard
-            state={cardSelection}
-            visualizeState={{
-              active: "blueviolet",
-              inactive: "gainsboro",
-            }}
-            headerElements={[
-              <SimpleBlueButton
-                key={"fav"}
-                content={"Favorito"}
-                endIcon={<StarOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"share"}
-                content={"Partilhar"}
-                endIcon={<SearchIcon fill="rgb(129 140 248)" />}
-              />,
-              <SimpleBlueButton
-                key={"lock"}
-                content={"Trancar"}
-                endIcon={<LockOutline fill="rgb(129 140 248)" />}
-              />,
-              <SimpleRedButton
-                key={"trash"}
-                content={"Apagar"}
-                endIcon={<TrashBin fill="salmon" />}
-              />,
-            ]}
-            content={[
-              {
-                icon: <QuestionSolid fill="blue" />,
-                tittle: "Questões",
-                inner: (
-                  <p>
-                    Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-                    semana. Quantas peças são fabricadas em um mês de 4 semanas?
-                  </p>
-                ),
-              },
-              {
-                icon: <ChatBubbleSolid fill="blue" />,
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-              {
-                icon: <ListBullet fill="blue" />,
-                headSubs: (
-                  <>
-                    <SimpleYellowButton
-                      content={"Info"}
-                      endIcon={<QuestionSolid fill="orange" />}
-                    />
-                  </>
-                ),
-                tittle: "Respostas",
-                inner: (
-                  <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Commodi veritatis alias, quidem odit rem consequatur nisi.
-                  </p>
-                ),
-              },
-            ]}
-          />
-        </div>
+      <div className="w-full p-5 max-h-[68%] min-h-[68%] bg-lgreen grid grid-cols-6 gap-10 overflow-y-scroll">
+        <TestCard
+          nomeProva={"Desafio de Soma"}
+          numQuest={8}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Matemática"}
+          recomendacao={"3º ano"}
+          materia={"Matemática"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
+        <TestCard
+          nomeProva={"Exemplo"}
+          numQuest={10}
+          imgProva={
+            "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+          }
+          disciplina={"Exemplo"}
+          recomendacao={"4º ano"}
+          materia={"Exemplo"}
+        ></TestCard>
       </div>
     </div>
   );
