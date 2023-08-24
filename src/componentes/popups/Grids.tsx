@@ -154,26 +154,29 @@ function exampleCards() {
         active: "lime",
         inactive: "transparent",
       }}
-      bncc="EF06MA03"
-      dificuldade="Fácil"
-      respostas={[
-        {
-          conteudo: "708 pontos",
-          correta: false,
-        },
-        {
-          conteudo: "512 pontos",
-          correta: false,
-        },
-        {
-          conteudo: "462 pontos",
-          correta: true,
-        },
-        {
-          conteudo: "188 pontos",
-          correta: false,
-        },
-      ]}
+      dadosQuestao={{
+        bncc: "EF06MT",
+        dificuldade: "Fácil",
+        respostas: [
+          {
+            conteudo: "708 pontos",
+            correta: false,
+          },
+          {
+            conteudo: "512 pontos",
+            correta: false,
+          },
+          {
+            conteudo: "462 pontos",
+            correta: true,
+          },
+          {
+            conteudo: "188 pontos",
+            correta: false,
+          },
+        ],
+        imgApoio: "/images/GamingPana.svg",
+      }}
       ordemAparencia={1}
       footerActions={
         <>
