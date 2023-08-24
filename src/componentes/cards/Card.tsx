@@ -38,6 +38,8 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
     return "";
   }
 
+  const contextoDisponivel = props.dadosQuestao.contextualizacao !== undefined;
+
   return (
     <Card
       className="smallCard"
@@ -83,35 +85,34 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             <Accordion
               className="conteudoQuestoes"
               variant="splitted"
-              disabledKeys={[
-                props.dadosQuestao.contextualizacao !== undefined
-                  ? ""
-                  : "contexto",
-              ]}
+              disabledKeys={[contextoDisponivel ? "" : "contexto"]}
             >
-              {props.dadosQuestao.contextualizacao !== undefined ? (
-                <AccordionItem
-                  key="contexto"
-                  className="questaoContexto"
-                  aria-label="Contexto Questao"
-                  title={
-                    <Chip variant="flat" size="md" color="primary" radius="sm">
-                      Contexto
-                    </Chip>
-                  }
-                  subtitle={
-                    <>
-                      <Spacer />
-                      <Spacer />
-                      <span>Contexto para a resposta do aluno</span>
-                    </>
-                  }
-                >
-                  <p className="p-2 pt-0">
-                    {props.dadosQuestao.contextualizacao}
-                  </p>
-                </AccordionItem>
-              ) : null}
+              <AccordionItem
+                key="contexto"
+                className="questaoContexto"
+                style={{
+                  visibility: contextoDisponivel ? "visible" : "hidden",
+                  height: contextoDisponivel ? "auto" : "0",
+                }}
+                aria-label="Contexto Questao"
+                title={
+                  <Chip variant="flat" size="md" color="primary" radius="sm">
+                    Contexto
+                  </Chip>
+                }
+                subtitle={
+                  <>
+                    <Spacer />
+                    <Spacer />
+                    <span>Contexto para a resposta do aluno</span>
+                  </>
+                }
+              >
+                <p className="p-2 pt-0">
+                  {props.dadosQuestao.contextualizacao}
+                </p>
+              </AccordionItem>
+
               <AccordionItem
                 key="questao"
                 className="questConteudo"
