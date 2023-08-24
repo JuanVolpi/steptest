@@ -17,6 +17,7 @@ import {
   TrashBin,
 } from "@/componentes/icons/HeroIcons";
 import { GridProvaQuestoes } from "@/componentes/popups/Grids";
+import { DetalhesQuestao } from "@/componentes/popups/MoveOvers";
 import { CardStates } from "@/lib/types/componentes/cards";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
@@ -41,6 +42,14 @@ export default function Home() {
       <br />
       <br />
       <Button onPress={toggleCard}>Toggle card selection</Button>
+      <br />
+      <br />
+      <DetalhesQuestao
+        posReacts={12}
+        nomeQuestao={"Postos Turísticos"}
+        quanTestes={2}
+        visibilidade={"Publica"}
+      />
       <br />
       <br />
       <SmallQuestionCard

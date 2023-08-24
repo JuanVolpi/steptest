@@ -29,6 +29,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 
+import { SetStateAction, useState } from "react";
 import "../../styles/component/cards/Cards.scss";
 
 export function SmallQuestionCard(props: SmallQuestionCardProps) {
@@ -37,6 +38,8 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
       return props.visualizeState[props.state] as string;
     return "";
   }
+
+  const [selectedKeys, setSelectedKeys] = useState(new Set(["questao"]));
 
   const contextoDisponivel = props.dadosQuestao.contextualizacao !== undefined;
 
@@ -86,6 +89,10 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
               className="conteudoQuestoes"
               variant="splitted"
               disabledKeys={[contextoDisponivel ? "" : "contexto"]}
+              selectedKeys={selectedKeys}
+              onSelectionChange={(val) =>
+                setSelectedKeys(val as SetStateAction<Set<string>>)
+              }
             >
               <AccordionItem
                 key="contexto"
@@ -112,7 +119,6 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
                   {props.dadosQuestao.contextualizacao}
                 </p>
               </AccordionItem>
-
               <AccordionItem
                 key="questao"
                 className="questConteudo"
