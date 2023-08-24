@@ -178,12 +178,11 @@ function exampleCards() {
         imgApoio: "/images/GamingPana.svg",
       }}
       ordemAparencia={1}
-      footerActions={
-        <>
-          <Button>Fechar</Button>
-          <Button>Copiar</Button>
-        </>
-      }
+      footerActions={[
+        <Button key={"a"}>Fechar</Button>,
+        <Button key={"b"}>Copiar</Button>,
+        <Button key={"c"}>Favorito</Button>,
+      ]}
       expandTrigger={function (): void {
         throw new Error("Function not implemented.");
       }}
