@@ -28,21 +28,21 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../styles/component/cards/Cards.scss";
 
 export function SmallQuestionCard(props: SmallQuestionCardProps) {
+  const [questionLoaded, setQuestionLoaded] = useState<boolean>(false);
+
   function handleCardColorState(): string {
     if (props.visualizeState !== undefined && props.state !== undefined)
       return props.visualizeState[props.state] as string;
     return "";
   }
 
-  const [questionLoaded, setQuestionLoaded] = useState<boolean>(false);
-
-  function toggleQuestionLoaded() {
-    setQuestionLoaded(!questionLoaded);
-  }
+  useEffect(() => {
+    setQuestionLoaded(true);
+  }, [setQuestionLoaded]);
 
   return (
     <Card
@@ -87,7 +87,8 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             className="tab"
           >
             <Skeleton isLoaded={questionLoaded} className="rounded-md">
-              <p onLoad={toggleQuestionLoaded}>
+              <p>
+                {questionLoaded}
                 Fábio está jogando no videogame novo que ganhou de presente de
                 aniversário. Na primeira fase do jogo, ele fez 260 pontos e, na
                 segunda, fez 325 pontos. Na terceira fase, Fábio perdeu 123
