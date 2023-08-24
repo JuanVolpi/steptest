@@ -37,7 +37,7 @@ type Resposta = {
   conteudo: string;
 };
 
-type DadosQuestao = {
+export type DadosQuestao = {
   bncc: string;
   dificuldade: DificuldadeQuestao;
   respostas: Resposta[];
@@ -47,11 +47,8 @@ type DadosQuestao = {
 export type SmallQuestionCardProps = {
   state?: CardStates;
   visualizeState?: CardStateVisualizationColor;
-  bncc: string;
-  dificuldade: DificuldadeQuestao;
-  respostas: Resposta[];
+  dadosQuestao: DadosQuestao;
   ordemAparencia: number;
-  footerActions?: React.JSX.Element;
-  imgApoio?: string;
-  expandTrigger: () => void;
+  footerActions?: React.JSX.Element[];
+  expandTrigger: (dados: DadosQuestao) => void;
 };

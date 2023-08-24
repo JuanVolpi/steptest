@@ -29,7 +29,35 @@
   }
 
   .body {
-    @apply flex flex-col gap-2 px-4 max-h-[290px] h-fit overflow-y-auto scroll-smooth pb-1;
+    @apply flex flex-col gap-2 max-h-[290px] h-fit overflow-y-auto scroll-smooth pb-1;
+
+    .magnify {
+      @apply w-10 h-10 text-indigo-500 drop-shadow-md bg-white rounded-full p-0;
+      @apply duration-200 ease-soft-spring transition-all;
+      @apply absolute top-1/2 mt-2.5 -ml-5 z-30;
+
+      &:hover {
+        @apply scale-110 cursor-pointer;
+      }
+    }
+
+    .img {
+      @apply mx-auto w-fit h-fit;
+      @apply flex flex-row;
+
+      .content {
+        @apply border-2 rounded-md shadow transition-all ease-soft-spring duration-200;
+
+        &:hover {
+          @apply border-blue-500 border-2 cursor-pointer;
+        }
+      }
+    }
+
+    .tabs {
+      @apply mx-auto;
+    }
+
     .respostas {
       @apply px-4 flex flex-col gap-2.5;
 
@@ -41,6 +69,12 @@
 
   .footer {
     @apply space-x-3 py-4;
+
+    .actions {
+      .popOverContent {
+        @apply flex flex-col gap-3 p-6;
+      }
+    }
   }
 }
 

@@ -49,36 +49,47 @@ export default function Home() {
           active: "lime",
           inactive: "transparent",
         }}
-        bncc="EF06MA03"
-        dificuldade="Fácil"
-        respostas={[
-          {
-            conteudo: "708 pontos",
-            correta: false,
-          },
-          {
-            conteudo: "512 pontos",
-            correta: false,
-          },
-          {
-            conteudo: "462 pontos",
-            correta: true,
-          },
-          {
-            conteudo: "188 pontos",
-            correta: false,
-          },
+        footerActions={[
+          <Button key={1} size="sm">
+            Fechar
+          </Button>,
+          <Button key={2} size="sm">
+            Fechar
+          </Button>,
+          <Button key={3} size="sm">
+            Fechar
+          </Button>,
+          <Button key={4} size="sm">
+            Fechar
+          </Button>,
         ]}
-        ordemAparencia={1}
-        footerActions={
-          <>
-            <Button>Fechar</Button>
-            <Button>Copiar</Button>
-          </>
-        }
-        expandTrigger={function (): void {
+        expandTrigger={function (_): void {
           throw new Error("Function not implemented.");
         }}
+        dadosQuestao={{
+          bncc: "EF06MT",
+          dificuldade: "Fácil",
+          respostas: [
+            {
+              conteudo: "708 pontos",
+              correta: false,
+            },
+            {
+              conteudo: "512 pontos",
+              correta: false,
+            },
+            {
+              conteudo: "462 pontos",
+              correta: true,
+            },
+            {
+              conteudo: "188 pontos",
+              correta: false,
+            },
+          ],
+          imgApoio: "/images/GamingPana.svg",
+        }}
+        ordemAparencia={1}
       />
       <br />
       <br />

@@ -8,6 +8,7 @@ import {
 import {
   ArrowsPointingOutIcon,
   Bars3CenterLeftIcon,
+  MagnifyingGlassCircleIcon,
   PhotoIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
@@ -15,14 +16,16 @@ import {
   Button,
   Chip,
   Divider,
+  Image,
   Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   Spacer,
   Tab,
   Tabs,
   Tooltip,
 } from "@nextui-org/react";
-
-import Image from "next/image";
 
 import "../../styles/component/cards/Cards.scss";
 
@@ -49,11 +52,11 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
         </div>
         <div className="chips">
           <Chip variant="shadow" className="chip" size="sm">
-            {props.bncc}
+            {props.dadosQuestao.bncc}
           </Chip>
           {/* <Divider orientation="vertical" className="h-3" /> */}
           <Chip variant="shadow" className="chip" size="sm">
-            {props.dificuldade}
+            {props.dadosQuestao.dificuldade}
           </Chip>
         </div>
       </CardHeader>
@@ -95,10 +98,10 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             className="tab"
           >
             <ul className="respostas">
-              {props.respostas.map((resp, index) => (
+              {props.dadosQuestao.respostas.map((resp, index) => (
                 <li key={index}>
                   <Input
-                    className="w-fit hover:cursor-pointer hover:border-blue-500"
+                    className="w-full hover:cursor-pointer hover:border-blue-500 "
                     readOnly
                     type="text"
                     color={resp.correta ? "success" : "danger"}
@@ -131,9 +134,34 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             }
             className="tab"
           >
-            <section>
-              {props.imgApoio !== undefined ? (
-                <Image src={props.imgApoio} width={300} height={300} alt={""} />
+            <section className="img">
+              {props.dadosQuestao.imgApoio !== undefined ? (
+                <>
+                  <div>
+                    <Popover placement="right">
+                      <PopoverTrigger>
+                        <MagnifyingGlassCircleIcon className="magnify" />
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <Image
+                          loading="lazy"
+                          src={props.dadosQuestao.imgApoio}
+                          width={500}
+                          height={500}
+                          alt={""}
+                          className="content"
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <Image
+                    src={props.dadosQuestao.imgApoio}
+                    width={280}
+                    height={280}
+                    alt={""}
+                    className="content"
+                  />
+                </>
               ) : (
                 <>
                   <Spacer />
@@ -161,7 +189,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             radius="sm"
             color="primary"
             isIconOnly
-            onClick={props.expandTrigger}
+            onClick={() => props.expandTrigger(props.dadosQuestao)}
           >
             <ArrowsPointingOutIcon className="w-6 h-6" />
           </Button>
@@ -169,7 +197,11 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
         {props.footerActions !== undefined ? (
           <Divider orientation="vertical" className="h-4" />
         ) : null}
-        {props.footerActions}
+        <div className="w-full flex flex-row gap-3 scroll-smooth">
+          {props.footerActions?.map((action, index) => (
+            <div key={index}>{action}</div>
+          ))}
+        </div>
       </CardFooter>
     </Card>
   );
