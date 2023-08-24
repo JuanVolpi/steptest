@@ -67,8 +67,10 @@ export default function Home() {
           throw new Error("Function not implemented.");
         }}
         dadosQuestao={{
+          contextualizacao:
+            "A Prefeitura de uma cidade resolveu instalar 4 cabines de informações nos locais de grande fluxo de turistas no centro da cidade, com o objetivo de dar assistência àqueles que a visitam. Cada cabine de informação foi nomeada com uma letra do alfabeto, sendo elas: Cabine A, Cabine B, Cabine C e Cabine D. A figura abaixo mostra a localização de cada cabine e o local em que um turista japonês está, onde o mesmo procura uma dessas instalações para solicitar informações sobre alguns lugares que gostaria de visitar.",
           questao:
-            "Fábio está jogando no videogame novo que ganhou de presente de aniversário. Na primeira fase do jogo, ele fez 260 pontos e, na segunda, fez 325 pontos. Na terceira fase, Fábio perdeu 123 pontos. Quantos pontos Fábio conseguiu no total?",
+            "Sabendo que todas as quadras das ruas têm formato retangular e por ser de uma cidade planejada, tem a mesma medida, 250m x 150m, qual ou quais das cabines o turista japonês andaria o menor percurso, sabendo que ele se encontra na esquina da rua das Variedades com a Rua das Marias?",
           bncc: "EF06MT",
           dificuldade: "Fácil",
           respostas: [
