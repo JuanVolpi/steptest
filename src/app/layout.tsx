@@ -1,9 +1,9 @@
+import BarraDeNavegacao from "@/componentes/navegacao/Navbar";
 import { Display } from "@/lib/fonts";
 import "@/styles/globals.scss";
+import styles from "@/styles/layout/root-layout.module.scss";
 import type { Metadata } from "next";
 import { Providers } from "./providers";
-import styles from "@/styles/layout/root-layout.module.scss";
-import BarraDeNavegacao from "@/componentes/navegacao/Navbar";
 
 export const metadata: Metadata = {
   title: "StepTest",

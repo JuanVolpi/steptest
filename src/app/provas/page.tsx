@@ -1,37 +1,28 @@
 "use client";
 
-import { PageTag } from "@/componentes/cards/Pagetag";
-import React, { SetStateAction, useState } from "react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-  Input,
-  AccordionItem,
-  Accordion,
-} from "@nextui-org/react";
-import CustomDropdown from "@/componentes/navegacao/Dropdown";
 import {
   SimpleBlueButton,
   SimpleRedButton,
   SimpleYellowButton,
 } from "@/componentes/buttons/Buttons";
-import { SearchIcon } from "@/componentes/icons/SeachIcon";
-import { CardStates, GenericCard } from "@/componentes/cards/Card";
+import { GenericCard } from "@/componentes/cards/Card";
+import { CardStates } from "@/componentes/cards/GenericCardProps";
+import { PageTag } from "@/componentes/cards/Pagetag";
+import TestCard from "@/componentes/cards/TestCard";
 import {
-  StarOutline,
-  LockOutline,
-  TrashBin,
-  QuestionSolid,
   ChatBubbleSolid,
   ListBullet,
+  LockOutline,
   PaperAirplane,
   Plus,
+  QuestionSolid,
+  StarOutline,
+  TrashBin,
 } from "@/componentes/icons/HeroIcons";
-import { Share } from "next/font/google";
-import TestCard from "@/componentes/cards/TestCard";
+import { SearchIcon } from "@/componentes/icons/SeachIcon";
+import CustomDropdown from "@/componentes/navegacao/Dropdown";
+import { Accordion, AccordionItem, Input } from "@nextui-org/react";
+import React, { useState } from "react";
 
 export default function BarraDeNavegacao() {
   const [selectedKeys1, setSelectedKeys1] = useState(new Set(["Ensino"]));

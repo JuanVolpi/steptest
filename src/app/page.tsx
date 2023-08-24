@@ -5,8 +5,8 @@ import {
   SimpleRedButton,
   SimpleYellowButton,
 } from "@/componentes/buttons/Buttons";
-import { CardStates, GenericCard } from "@/componentes/cards/Card";
-import { TestCard } from "@/componentes/cards/TestCard";
+import { GenericCard, SmallQuestionCard } from "@/componentes/cards/Card";
+
 import {
   ChatBubbleSolid,
   ListBullet,
@@ -16,8 +16,8 @@ import {
   StarOutline,
   TrashBin,
 } from "@/componentes/icons/HeroIcons";
-import StepTestLogo from "@/componentes/logos/StepTest";
 import { GridProvaQuestoes } from "@/componentes/popups/Grids";
+import { CardStates } from "@/lib/types/componentes/cards";
 import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 import React from "react";
@@ -37,13 +37,60 @@ export default function Home() {
 
   return (
     <main>
-      <StepTestLogo />
       <Button onPress={onOpen}>Open modal</Button>
       <br />
       <br />
       <Button onPress={toggleCard}>Toggle card selection</Button>
       <br />
       <br />
+      <SmallQuestionCard
+        state={cardSelection}
+        visualizeState={{
+          active: "lime",
+          inactive: "transparent",
+        }}
+        footerActions={[
+          <Button key={1} size="sm">
+            Fechar
+          </Button>,
+          <Button key={2} size="sm">
+            Fechar
+          </Button>,
+          <Button key={3} size="sm">
+            Fechar
+          </Button>,
+          <Button key={4} size="sm">
+            Fechar
+          </Button>,
+        ]}
+        expandTrigger={function (_): void {
+          throw new Error("Function not implemented.");
+        }}
+        dadosQuestao={{
+          bncc: "EF06MT",
+          dificuldade: "Fácil",
+          respostas: [
+            {
+              conteudo: "708 pontos",
+              correta: false,
+            },
+            {
+              conteudo: "512 pontos",
+              correta: false,
+            },
+            {
+              conteudo: "462 pontos",
+              correta: true,
+            },
+            {
+              conteudo: "188 pontos",
+              correta: false,
+            },
+          ],
+          imgApoio: "/images/GamingPana.svg",
+        }}
+        ordemAparencia={1}
+      />
       <br />
       <br />
       <GenericCard
