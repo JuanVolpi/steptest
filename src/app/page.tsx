@@ -67,6 +67,8 @@ export default function Home() {
           throw new Error("Function not implemented.");
         }}
         dadosQuestao={{
+          questao:
+            "Fábio está jogando no videogame novo que ganhou de presente de aniversário. Na primeira fase do jogo, ele fez 260 pontos e, na segunda, fez 325 pontos. Na terceira fase, Fábio perdeu 123 pontos. Quantos pontos Fábio conseguiu no total?",
           bncc: "EF06MT",
           dificuldade: "Fácil",
           respostas: [

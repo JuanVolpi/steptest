@@ -40,6 +40,7 @@ type Resposta = {
 export type DadosQuestao = {
   bncc: string;
   dificuldade: DificuldadeQuestao;
+  questao: string;
   respostas: Resposta[];
   imgApoio?: string;
 };
