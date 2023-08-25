@@ -172,7 +172,7 @@ export function DetalhesQuestaoPageSelector(
     if (rootParentScroll.current !== null) {
       let selectedPageOffset = currentElement.offsetTop;
       rootParentScroll.current.scrollTop =
-        selectedPageOffset - currentElement.clientHeight;
+        selectedPageOffset - currentElement.clientHeight * 1.35;
     }
   }, [selectedIndex, refs]);
 
