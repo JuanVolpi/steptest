@@ -1,0 +1,96 @@
+.wrapper {
+  @apply w-fit h-fit;
+
+  .header {
+    @apply p-5;
+    header {
+      @apply flex flex-row items-center justify-between gap-4;
+
+      h3 {
+        @apply text-2xl font-bold flex flex-row flex-nowrap gap-2 items-baseline shadow px-3.5 p-2.5 bg-blue-600 rounded-md text-white;
+        i {
+          @apply text-2xl font-bold text-lg text-blue-100;
+        }
+      }
+
+      .chips {
+        @apply flex flex-row gap-3 items-center;
+      }
+
+      .upVotes {
+        @apply flex flex-row gap-2.5 font-bold items-center px-3 py-0.5 rounded-md border shadow;
+
+        .buttons {
+          @apply flex flex-col gap-0 items-center;
+
+          .button {
+            @apply w-5 h-5 transition-all ease-soft-spring duration-200;
+
+            &:hover {
+              @apply cursor-pointer text-blue-600 shadow-md rounded-full;
+            }
+          }
+        }
+      }
+    }
+  }
+  .body {
+    @apply max-w-[920px];
+
+    .pages {
+      @apply border rounded-lg shadow-md max-w-[300px] w-fit max-h-[460px] overflow-y-auto;
+      @apply py-3.5 pr-1.5 flex flex-col gap-3 items-start justify-start;
+      @apply scroll-smooth snap-proximity;
+
+      .seccao {
+        @apply flex flex-col gap-2 px-4 w-full;
+        &:nth-child(n + 1) {
+          @apply mt-2;
+        }
+
+        h2 {
+          @apply text-base font-extrabold text-blue-500 w-fit p-2 px-3.5 bg-sky-100 rounded-md;
+          @apply transition-all duration-250 ease-in-out;
+        }
+
+        section {
+          @apply flex flex-col gap-1.5;
+        }
+
+        .page {
+          @apply flex flex-row gap-3 items-center justify-between w-full;
+          @apply rounded-md p-2 px-3 snap-center;
+          @apply transition-all ease-soft-spring duration-250;
+          &:hover,
+          &.selected {
+            @apply bg-sky-50 cursor-pointer scale-95;
+            h3 {
+              @apply text-blue-600;
+            }
+            span {
+              @apply text-blue-400;
+            }
+            .endContent {
+              @apply text-blue-600;
+            }
+          }
+          &:last-of-type {
+            @apply mb-0;
+          }
+          h3 {
+            @apply font-semibold text-slate-700 tracking-wide;
+          }
+          span {
+            @apply text-slate-400 text-small;
+          }
+          .endContent {
+            @apply w-6 h-6 text-slate-800;
+            @apply duration-250 ease-in-out transition-all;
+          }
+        }
+      }
+    }
+  }
+  .footer {
+  }
+}
