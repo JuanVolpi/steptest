@@ -46,9 +46,10 @@ export default function Home() {
       <br />
       <DetalhesQuestao
         posReacts={12}
-        nomeQuestao={"Postos Turísticos"}
-        quanTestes={2}
+        nomeQuestao={"Pontos Turísticos"}
+        numTestes={2}
         visibilidade={"Publica"}
+        autor={"Camilla Rodrigues"}
       />
       <br />
       <br />
