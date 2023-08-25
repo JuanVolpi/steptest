@@ -11,6 +11,7 @@ import TestCard from "@/componentes/cards/TestCard";
 import { CardStates } from "@/lib/types/componentes/cards";
 import { Input } from "@nextui-org/react";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { TagIcon } from "@heroicons/react/20/solid";
 
 export default function BarraDeNavegacao() {
   const [selectedKeys1, setSelectedKeys1] = useState(new Set(["Ensino"]));
@@ -162,8 +163,9 @@ export default function BarraDeNavegacao() {
             </div>
           </div>
           <div className="w-1/3">
-            <Accordion>
+            <Accordion variant="shadow">
               <AccordionItem
+                startContent={<TagIcon className="w-6 h-6 text-mblue" />}
                 key="1"
                 aria-label="Informações"
                 title="Informações"

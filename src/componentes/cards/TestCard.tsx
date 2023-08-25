@@ -12,6 +12,11 @@ import { SimpleBlueButton } from "../buttons/Buttons";
 import Image from "next/image";
 import { Button, useDisclosure } from "@nextui-org/react";
 import { GridProvaQuestoes } from "../popups/Grids";
+import {
+  AcademicCapIcon,
+  DocumentTextIcon,
+  UserGroupIcon,
+} from "@heroicons/react/20/solid";
 
 export default function TestCard({
   nomeProva,
@@ -47,13 +52,16 @@ export default function TestCard({
         </div>
         <div className="LowerInfo">
           <div className="Disciplina">
-            <AcademicCap></AcademicCap> Disciplina: {disciplina}
+            <AcademicCapIcon className="w-6 h-auto text-ayellow" /> Disciplina:{" "}
+            {disciplina}
           </div>
           <div className="Recomendacao">
-            <UserGroup></UserGroup> Recomendação: {recomendacao}
+            <UserGroupIcon className="w-6 h-auto text-ayellow" /> Recomendação:{" "}
+            {recomendacao}
           </div>
           <div className="Materia">
-            <DocumentText></DocumentText> Matéria: {materia}
+            <DocumentTextIcon className="w-6 h-auto text-ayellow" /> Matéria:{" "}
+            {materia}
           </div>
         </div>
         <Button

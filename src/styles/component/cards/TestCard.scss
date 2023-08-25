@@ -17,13 +17,13 @@
     .LowerInfo {
       @apply p-2;
       .Disciplina {
-        @apply h-fit flex w-full flex-row overflow-hidden rounded-lg  whitespace-nowrap;
+        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg  whitespace-nowrap;
       }
       .Recomendacao {
-        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg self-center whitespace-nowrap;
+        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg  whitespace-nowrap;
       }
       .Materia {
-        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg self-center whitespace-nowrap;
+        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg whitespace-nowrap;
       }
     }
   }
