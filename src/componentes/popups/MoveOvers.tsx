@@ -1,9 +1,18 @@
 import {
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Chip,
   Divider,
+  Image,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  Textarea,
   User,
 } from "@nextui-org/react";
 
@@ -13,6 +22,7 @@ import {
   ChevronUpIcon,
   DocumentTextIcon,
   EyeIcon,
+  GlobeAmericasIcon,
   HandThumbUpIcon,
   UserCircleIcon,
 } from "@heroicons/react/20/solid";
@@ -23,9 +33,28 @@ import {
   NavegacaoDetalhesQuestao,
 } from "@/lib/types/componentes/move_overs";
 import "@/styles/component/popups/MoveOvers.scss";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 export function DetalhesQuestao(props: DetalhesQuestaoProps) {
+  const [pagina, setPagina] = useState<string>("notas");
+
+  function handleSelectedPage(): React.JSX.Element {
+    switch (pagina) {
+      case "bncc":
+        return <BnccTable />;
+      case "publicacao":
+        return <PublicacaoQuestao />;
+      default:
+        return <></>;
+    }
+  }
+
   return (
     <Card className="wrapper" radius="sm">
       <CardHeader className="header">
@@ -83,14 +112,106 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
       <Divider />
       <CardBody className="body">
         <DetalhesQuestaoPageSelector
-          defaultSelect={"notas"}
-          onSelectionChange={function (key: string): void {}}
+          defaultSelect={pagina}
+          onSelectionChange={setPagina}
           sections={defaultNavigation}
         />
-        <section className="info"></section>
+        <section className="info">{handleSelectedPage()}</section>
       </CardBody>
       {/* <Divider />
       <CardFooter className="footer"></CardFooter> */}
+    </Card>
+  );
+}
+
+function PublicacaoQuestao() {
+  return (
+    <Card className="page" radius="sm" shadow="sm">
+      <CardHeader className="flex gap-2 p-4 pr-6">
+        <GlobeAmericasIcon className="w-12 h-12 text-blue-500" />
+        <div className="flex flex-col">
+          <p className="text-md font-bold">Publicação</p>
+          <p className="text-small text-default-500">
+            Visibilidade, utilização e estatísticas.
+          </p>
+        </div>
+      </CardHeader>
+      <Divider />
+      <CardBody className="flex flex-row gap-4">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis,
+          odit fugiat illo, culpa atque non nihil corrupti fuga, architecto
+          porro velit iure amet. Est inventore quia placeat. Aut, ipsam maiores.
+        </p>
+      </CardBody>
+      <CardFooter></CardFooter>
+    </Card>
+  );
+}
+
+function BnccTable() {
+  return (
+    <Card className="page" radius="sm" shadow="sm">
+      <CardHeader className="flex gap-2 p-4 pr-6">
+        <Image
+          alt="bncc logo"
+          height={45}
+          width={45}
+          radius="sm"
+          src="/images/bncc.jpeg"
+        />
+        <div className="flex flex-col">
+          <p className="text-md font-bold">Bncc</p>
+          <p className="text-small text-default-500">
+            Descrição, habilidades e competências
+          </p>
+        </div>
+      </CardHeader>
+      <Divider />
+      <CardBody className="flex flex-row gap-4">
+        <Table
+          removeWrapper
+          isStriped
+          isHeaderSticky
+          classNames={{
+            wrapper: "max-h-[382px] ",
+            th: "outline-none bg-slate-50 text-red-200",
+          }}
+        >
+          <TableHeader>
+            <TableColumn>Ano/Faixa</TableColumn>
+            <TableColumn>Código</TableColumn>
+            <TableColumn>Atuação Social</TableColumn>
+          </TableHeader>
+          <TableBody>
+            {new Array(4).fill(1).map((_, a) => (
+              <TableRow key={a}>
+                <TableCell className="font-bold">{"1º, 2º, 3º"}</TableCell>
+                <TableCell>
+                  <Chip variant="flat" color="primary">
+                    EM13LP01
+                  </Chip>
+                </TableCell>
+                <TableCell className="min-w-full">
+                  {"Todos os Campos de atuação social"}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Textarea
+          readOnly
+          label="Habilidade"
+          labelPlacement="outside"
+          variant="bordered"
+          radius="sm"
+          color="primary"
+          value={
+            "Relacionar o texto, tanto na produção como na leitura/escuta, com suas condições de produção e seu contexto sócio-histórico de circulação (leitor/audiência previstos, objetivos, pontos de vista e perspectivas, papel social do autor, época, gênero do discurso etc.), de forma a ampliar as possibilidades de construção de sentidos e de análise crítica e produzir textos adequados a diferentes situações."
+          }
+        />
+      </CardBody>
+      <CardFooter></CardFooter>
     </Card>
   );
 }
@@ -158,23 +279,24 @@ export function DetalhesQuestaoPageSelector(
 ) {
   const [selected, setSelected] = useState<string>(props.defaultSelect);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
   const rootParentScroll = useRef<HTMLElement>(null);
 
-  const allPages = useCallback(
+  const allPages = useMemo(
     () => props.sections.map((x) => x.paginas).flat(),
     [props],
-  )();
+  );
   const refs = useRef<HTMLElement[]>(new Array(allPages.length));
 
   const scroll = useCallback(() => {
+    props.onSelectionChange(selected);
     const currentElement = refs.current[selectedIndex as number];
+
     if (rootParentScroll.current !== null) {
       let selectedPageOffset = currentElement.offsetTop;
       rootParentScroll.current.scrollTop =
         selectedPageOffset - currentElement.clientHeight * 1.35;
     }
-  }, [selectedIndex, refs]);
+  }, [selectedIndex, refs, props, selected]);
 
   useEffect(() => scroll(), [scroll]);
 
