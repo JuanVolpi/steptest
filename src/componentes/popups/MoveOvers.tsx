@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -17,16 +18,20 @@ import {
 } from "@nextui-org/react";
 
 import {
+  ChatBubbleLeftRightIcon,
   ChevronDownIcon,
   ChevronRightIcon,
   ChevronUpIcon,
   DocumentTextIcon,
   EyeIcon,
+  FlagIcon,
   GlobeAmericasIcon,
   HandThumbUpIcon,
+  PencilSquareIcon,
   UserCircleIcon,
 } from "@heroicons/react/20/solid";
 
+import { Conteudo } from "@/lib/fonts";
 import {
   DetalhesQuestaoPageSelectorProps,
   DetalhesQuestaoProps,
@@ -50,6 +55,8 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
         return <BnccTable />;
       case "publicacao":
         return <PublicacaoQuestao />;
+      case "feedback":
+        return <ComentariosQuestao />;
       default:
         return <></>;
     }
@@ -120,6 +127,85 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
       </CardBody>
       {/* <Divider />
       <CardFooter className="footer"></CardFooter> */}
+    </Card>
+  );
+}
+
+function ComentariosQuestao() {
+  const comments = new Array(6).fill(1);
+  return (
+    <div>
+      <h3 className="text-xl font-bold mb-5 w-full border py-3 px-2 rounded bg-white sticky top-0 z-30 flex items-center gap-2">
+        <ChatBubbleLeftRightIcon className="w-8 h-8 text-blue-600 drop-shadow" />
+        Comentários
+      </h3>
+      <section className="flex flex-col gap-5 overflow-scroll scroll-smooth px-3 snap-y">
+        {comments.map((_, a) => (
+          <div className="snap-center" key={a}>
+            <CommentarioQuestao />
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+}
+
+function CommentarioQuestao() {
+  return (
+    <Card className="page" radius="sm" shadow="sm">
+      <CardHeader className="flex gap-2 p-4 pr-6 items-center justify-between">
+        <User
+          name="Jane Doe"
+          description="Professora de Matemática"
+          avatarProps={{
+            src: "https://i.pravatar.cc/150",
+            size: "md",
+            isBordered: true,
+            color: "warning",
+          }}
+        />
+        <div className="flex flex-col">
+          <p className="text-small text-default-500 font-medium">12/04/23</p>
+        </div>
+      </CardHeader>
+      <Divider />
+      <CardBody className="flex flex-col gap-4">
+        <div className="flex flex-row items-baseline gap-2">
+          <h3 className="text-large text-blue-600 font-bold">Tópico:</h3>
+          <p style={Conteudo.style} className="text-medium">
+            lorem{"."}
+          </p>
+        </div>
+        <p
+          className="text-sm tracking-wider leading-5"
+          style={{
+            lineHeight: "1.5rem",
+          }}
+        >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis,
+          odit fugiat illo, culpa atque non nihil corrupti fuga, architecto
+          porro velit iure amet. Est inventore quia placeat. Aut, ipsam maiores.
+        </p>
+      </CardBody>
+      <Divider />
+      <CardFooter className="flex flex-row gap-3">
+        <Button
+          size="sm"
+          color="secondary"
+          variant="flat"
+          startContent={<PencilSquareIcon className="w-4 h-4" />}
+        >
+          Responder
+        </Button>
+        <Button
+          size="sm"
+          color="danger"
+          variant="flat"
+          startContent={<FlagIcon className="w-4 h-4" />}
+        >
+          Reportar
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

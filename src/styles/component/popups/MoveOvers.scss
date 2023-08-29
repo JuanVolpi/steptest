@@ -35,7 +35,7 @@
     }
   }
   .body {
-    @apply w-full min-w-full flex flex-row gap-10 items-start justify-start;
+    @apply w-full min-w-full flex flex-row gap-10 items-start justify-start max-h-[550px];
 
     .info {
       @apply h-full w-full max-w-full pt-3 mr-2;
