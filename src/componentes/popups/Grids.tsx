@@ -192,7 +192,7 @@ function exampleCards() {
         },
         {
           conteudo: "Cabine A e Cabine B",
-          correta: false,
+          correta: true,
         },
         {
           conteudo: "Cabine D",
@@ -235,8 +235,7 @@ function exampleCards() {
     {
       contextualizacao:
         "A figura abaixo mostra duas caixas, onde a caixa maior é uma aplicação em 2 vezes da caixa menor. ",
-      questao:
-        "Qual é o volume das duas caixas somados?",
+      questao: "Qual é o volume das duas caixas somados?",
       bncc: "EF09MA12",
       dificuldade: "Fácil",
       respostas: [

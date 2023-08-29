@@ -1,4 +1,10 @@
 import {
+  ArrowDownIcon,
+  ArrowLeftIcon,
+  ChevronDoubleLeftIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/20/solid";
+import {
   Button,
   Dropdown,
   DropdownItem,
@@ -22,13 +28,17 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys],
+    [selectedKeys]
   );
 
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="bordered" className="capitalize">
+        <Button
+          variant="bordered"
+          className="capitalize"
+          endContent={<ChevronDownIcon className="w-5 h-5" />}
+        >
           {selectedValue}
         </Button>
       </DropdownTrigger>
