@@ -44,6 +44,7 @@ export type DadosQuestao = {
   questao: string;
   respostas: Resposta[];
   imgApoio?: string;
+  nome: string;
 };
 
 export type SmallQuestionCardProps = {

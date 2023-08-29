@@ -27,7 +27,7 @@
 }
 
 .questoes {
-  @apply flex flex-row flex-wrap py-8 px-5  gap-5 justify-start;
+  @apply flex flex-row flex-wrap py-8 px-5 gap-5 justify-start;
   scroll-behavior: smooth;
   scroll-snap-type: proximity;
 }

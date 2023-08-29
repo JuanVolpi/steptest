@@ -20,10 +20,11 @@ import {
 
 import React, { SetStateAction } from "react";
 
+import { DadosQuestao } from "@/lib/types/componentes/cards";
+import { XCircleIcon } from "@heroicons/react/20/solid";
 import { SmallQuestionCard } from "../cards/Card";
 import { ListBullet, RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
-import { DefaultDeserializer } from "v8";
-import { DadosQuestao } from "@/lib/types/componentes/cards";
+import { DetalhesQuestao } from "./MoveOvers";
 
 type GenericGridProps = {
   gridTittle: string;
@@ -47,8 +48,12 @@ type GridProvaQuestoesProps = {
 
 export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
   const [selectedTurmas, setSelectedTurmas] = React.useState(
-    new Set(["Sem Turma"])
+    new Set(["Sem Turma"]),
   );
+
+  const [selectedQuestao, setSelectedQuestao] = React.useState<
+    DadosQuestao | undefined
+  >(undefined);
 
   const turmasDisponivies: string[] = [
     "Turma A",
@@ -59,7 +64,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedTurmas),
-    [selectedTurmas]
+    [selectedTurmas],
   );
 
   return (
@@ -71,6 +76,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
       size="5xl"
       radius="sm"
       placement="center"
+      closeButton={false}
     >
       <ModalContent>
         {(onClose) => (
@@ -125,8 +131,31 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
               </div>
             </ModalHeader>
 
-            <ModalBody>
-              <div className="questoes">{exampleCards()}</div>
+            <ModalBody className="flex flex-row gap-0">
+              <div className="questoes">
+                {exampleCards({
+                  selected: setSelectedQuestao,
+                })}
+              </div>
+              {selectedQuestao !== undefined && selectedQuestao !== null ? (
+                <div className="absolute z-20 top-0 left-0 w-full h-full bg-white  rounded">
+                  <Button
+                    onClick={() => setSelectedQuestao(undefined)}
+                    variant="flat"
+                    color="danger"
+                    startContent={<XCircleIcon className="w-6 h-6" />}
+                  >
+                    Close
+                  </Button>
+                  <DetalhesQuestao
+                    nomeQuestao={selectedQuestao.nome}
+                    numTestes={0}
+                    visibilidade={"Publica"}
+                    posReacts={0}
+                    autor={""}
+                  />
+                </div>
+              ) : null}
             </ModalBody>
 
             <ModalFooter>
@@ -136,6 +165,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
                 startContent={<TrashBin fill="red" />}
                 onClick={() => {
                   setSelectedTurmas(new Set(["Sem Turma"]));
+                  setSelectedQuestao(undefined);
                   onClose();
                 }}
               >
@@ -149,11 +179,16 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
   );
 }
 
-function exampleCards() {
+function exampleCards({
+  selected,
+}: {
+  selected: (dados: DadosQuestao) => void;
+}) {
   const questao: DadosQuestao[] = [
     {
       contextualizacao:
         "A pizzaria Q’Delícia resolveu inovar no formato das suas pizzas, não sendo maisredondas, mas sim com um formatooctogonal, de acordo com o padrão dascaixas, contendo 8 fatias triangulares,conforme figura abaixo.",
+      nome: "Temp",
       questao:
         "Sabendo que as fatias das pizzas são triângulos congruentes e isósceles, bem como o ângulo Ω mede 68º, qual é a medida da soma dos ângulos β + α?",
       bncc: "EF09MA05",
@@ -181,6 +216,7 @@ function exampleCards() {
     {
       contextualizacao:
         "A Prefeitura de uma cidade resolveu instalar 4 cabines de informações nos locais de grande fluxo de turistas no centro da cidade, com o objetivo de dar assistência àqueles que a visitam. Cada cabine de informação foi nomeada com uma letra do alfabeto, sendo elas: Cabine A, Cabine B, Cabine C e Cabine D. A figura abaixo mostra a localização de cada cabine e o local em que um turista japonês está, onde o mesmo procura uma dessas instalações para solicitar informações sobre alguns lugares que gostaria de visitar.",
+      nome: "Temp",
       questao:
         "Sabendo que todas as quadras das ruas têm formato retangular e por ser de uma cidade planejada, tem a mesma medida, 250m x 150m, qual ou quais das cabines o turista japonês andaria o menor percurso, sabendo que ele se encontra na esquina da rua das Variedades com a Rua das Marias?",
       bncc: "EF09MA09",
@@ -208,6 +244,7 @@ function exampleCards() {
     {
       contextualizacao:
         "Um agricultor estava tendo problemas com uma árvore plantada em seu terreno, os animais acabavam comendo suas folhas, destruindo-a. Então, ele resolveu cercar a árvore com arame farpado, para evitar que animais se aproximassem dela. Ele demarcou no chão um círculo com raio de 5 metros e firmou as estacas ao seu redor. Solicitou ao seu irmão que comprasse arame farpado para formar cinco voltas nas estacas, com curto espaço entre um a e outra, evitando que qualquer animal se aproximasse da árvore. ",
+      nome: "Temp",
       questao:
         "Sabendo que o valor do metro do arame farpado custa R$ 5,00, quanto o irmão do agricultor irá gastar para comprar o arame suficiente para dar 5 voltas na demarcação feita para proteger a árvore dos animais? Considere o valor de  = 3,14. ",
       bncc: "EF09MA02",
@@ -235,8 +272,8 @@ function exampleCards() {
     {
       contextualizacao:
         "A figura abaixo mostra duas caixas, onde a caixa maior é uma aplicação em 2 vezes da caixa menor. ",
-      questao:
-        "Qual é o volume das duas caixas somados?",
+      nome: "TEMP",
+      questao: "Qual é o volume das duas caixas somados?",
       bncc: "EF09MA12",
       dificuldade: "Fácil",
       respostas: [
@@ -260,6 +297,7 @@ function exampleCards() {
       imgApoio: "/images/q4.png",
     },
     {
+      nome: "Temp",
       questao:
         " Para fazer a dieta de leite de um bebê recém-nascido, o médico orientou que a equipe do hospital usasse uma porção do medidor padrão de fórmula de leite para cada 30 ml de água morna. Suponhamos que a equipe precise fazer 6 L de leite para a dieta de várias crianças internadas na enfermaria, quantas porções do medidor de leite em pó (fórmula) a equipe precisará usar?",
       bncc: "EF09MA15",
@@ -286,6 +324,7 @@ function exampleCards() {
     {
       contextualizacao:
         "O dono de uma sorveteria resolveu colocar um outdoor no formato de um sorvete gigante, para divulgar a sua marca. Ele encomendou a uma empresa um molde de madeira, no formato de um sorvete, para que ele pudesse enviar para a gráfica para acabamento. A empresa construiu o formato de madeira por justaposição de um triângulo a um semicírculo, onde a base do triângulo e o diâmetro do semicírculo tem a mesma medida, conforme figura abaixo. ",
+      nome: "Temp",
       questao:
         "Sabendo que a empresa cobra por metro quadrado da peça final, e que o metro quadrado da madeira escolhida custa R$ 50,00, quanto o dono da sorveteria precisou pagar na peça entregue pela empresa? Considere pi = 3,14.",
       bncc: "EF09MA19",
@@ -313,6 +352,7 @@ function exampleCards() {
     {
       contextualizacao:
         "O Sr. Paulo está pensando em construir uma nova porta (porteira) de madeira para a entrada da sua fazenda, conforme o modelo abaixo. ",
+      nome: "Temp",
       questao:
         "Sabendo que a altura da porteira é igual a 1,5m e a sua largura igual a 2m, considerando apenas a altura e largura da porteira, qual o tamanho da madeira que ele precisará fixar de forma diagonal, conforme apresentada na imagem.",
       bncc: "EF09MA23",
@@ -340,6 +380,7 @@ function exampleCards() {
     {
       contextualizacao:
         "Observe o mapa do nordeste ilustrado no plano cartesiano. ",
+      nome: "Temp",
       questao:
         "Quais os estados correspondem as seguintes coordenadas (9, 6), (5, 7) e (7, 9), respectivamente.",
       bncc: "EF09MA14",
@@ -380,6 +421,7 @@ function exampleCards() {
         dificuldade: dados.dificuldade,
         respostas: dados.respostas,
         imgApoio: dados.imgApoio,
+        nome: dados.nome,
       }}
       ordemAparencia={1}
       footerActions={[
@@ -387,9 +429,7 @@ function exampleCards() {
         <Button key={"b"}>Copiar</Button>,
         <Button key={"c"}>Favorito</Button>,
       ]}
-      expandTrigger={function (): void {
-        throw new Error("Function not implemented.");
-      }}
+      expandTrigger={selected}
     />
   ));
   return miniCard;

@@ -7,6 +7,8 @@ import {
   Chip,
   Divider,
   Image,
+  Pagination,
+  Spacer,
   Table,
   TableBody,
   TableCell,
@@ -25,10 +27,13 @@ import {
   DocumentTextIcon,
   EyeIcon,
   FlagIcon,
+  GlobeAltIcon,
   GlobeAmericasIcon,
   HandThumbUpIcon,
+  HomeIcon,
   PencilSquareIcon,
   UserCircleIcon,
+  UserGroupIcon,
 } from "@heroicons/react/20/solid";
 
 import { Conteudo } from "@/lib/fonts";
@@ -49,7 +54,7 @@ import React, {
 export function DetalhesQuestao(props: DetalhesQuestaoProps) {
   const [pagina, setPagina] = useState<string>("notas");
 
-  function handleSelectedPage(): React.JSX.Element {
+  const handleSelectedPage = useMemo(() => {
     switch (pagina) {
       case "bncc":
         return <BnccTable />;
@@ -58,9 +63,13 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
       case "feedback":
         return <ComentariosQuestao />;
       default:
-        return <></>;
+        return (
+          <>
+            <i className="text-default-400">Sem Conteúdo Atribuído</i>
+          </>
+        );
     }
-  }
+  }, [pagina]);
 
   return (
     <Card className="wrapper" radius="sm">
@@ -123,7 +132,7 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
           onSelectionChange={setPagina}
           sections={defaultNavigation}
         />
-        <section className="info">{handleSelectedPage()}</section>
+        <section className="info">{handleSelectedPage}</section>
       </CardBody>
       {/* <Divider />
       <CardFooter className="footer"></CardFooter> */}
@@ -211,6 +220,124 @@ function CommentarioQuestao() {
 }
 
 function PublicacaoQuestao() {
+  const data: { nome: string; escola: string; posicao: string }[] = useMemo(
+    () => [
+      { nome: "Carla Rodrigues", escola: "Estrela Azul", posicao: "Diretora" },
+      { nome: "João Silva", escola: "Monte Verde", posicao: "Aluno" },
+      { nome: "Amanda Oliveira", escola: "Céu Claro", posicao: "Coordenadora" },
+      { nome: "Pedro Santos", escola: "Rosa Branca", posicao: "Professor" },
+      { nome: "Isabela Souza", escola: "Sol Nascente", posicao: "Estudante" },
+      { nome: "Lucas Fernandes", escola: "Alvorada", posicao: "Assistente" },
+      { nome: "Mariana Costa", escola: "Pássaro Azul", posicao: "Instrutora" },
+      { nome: "Ricardo Almeida", escola: "Mar Azul", posicao: "Gestor" },
+      {
+        nome: "Patrícia Nunes",
+        escola: "Floresta Encantada",
+        posicao: "Educadora",
+      },
+      { nome: "Fernando Rodrigues", escola: "Vale Sereno", posicao: "Tutor" },
+      { nome: "Sofia Pereira", escola: "Rio Sereno", posicao: "Estagiária" },
+      {
+        nome: "Gustavo Oliveira",
+        escola: "Montanha Alta",
+        posicao: "Treinador",
+      },
+      { nome: "Camila Santos", escola: "Cascata Azul", posicao: "Mentora" },
+      { nome: "Daniel Costa", escola: "Nascer do Sol", posicao: "Instrutor" },
+      {
+        nome: "Laura Ferreira",
+        escola: "Serra Verde",
+        posicao: "Pesquisadora",
+      },
+      { nome: "André Alves", escola: "Marfim", posicao: "Conselheiro" },
+      {
+        nome: "Luísa Mendes",
+        escola: "Árvore Alta",
+        posicao: "Educadora Física",
+      },
+      { nome: "Marcos Vieira", escola: "Pico Alto", posicao: "Palestrante" },
+      {
+        nome: "Clara Ramos",
+        escola: "Mundo Novo",
+        posicao: "Artista Residente",
+      },
+      {
+        nome: "Roberto Ferreira",
+        escola: "Pôr do Sol",
+        posicao: "Administrador",
+      },
+      {
+        nome: "Ana Oliveira",
+        escola: "Lagoa Tranquila",
+        posicao: "Orientadora",
+      },
+      {
+        nome: "Paulo Sousa",
+        escola: "Vila Serena",
+        posicao: "Líder Estudantil",
+      },
+      {
+        nome: "Mariana Silva",
+        escola: "Floresta Profunda",
+        posicao: "Exploradora",
+      },
+      {
+        nome: "Thiago Santos",
+        escola: "Céu Aberto",
+        posicao: "Instrutor de Arte",
+      },
+      {
+        nome: "Carolina Lima",
+        escola: "Monte Cristal",
+        posicao: "Animadora Cultural",
+      },
+      {
+        nome: "Vinícius Almeida",
+        escola: "Trilha Alegre",
+        posicao: "Facilitador",
+      },
+      {
+        nome: "Lívia Pereira",
+        escola: "Praia Dourada",
+        posicao: "Guia Turístico",
+      },
+      { nome: "Eduardo Costa", escola: "Estrela do Mar", posicao: "Mentor" },
+      {
+        nome: "Bianca Oliveira",
+        escola: "Jardim Silvestre",
+        posicao: "Educadora Ambiental",
+      },
+      {
+        nome: "Henrique Mendes",
+        escola: "Planalto Verde",
+        posicao: "Explorador Científico",
+      },
+      {
+        nome: "Raquel Ferreira",
+        escola: "Nascente Serena",
+        posicao: "Coordenadora Pedagógica",
+      },
+      {
+        nome: "Gabriel Sousa",
+        escola: "Sombra Fresca",
+        posicao: "Estudante de Intercâmbio",
+      },
+    ],
+    [],
+  );
+
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 5;
+
+  const pages = Math.ceil(data.length / rowsPerPage);
+
+  const items = React.useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return data.slice(start, end);
+  }, [page, data]);
+
   return (
     <Card className="page" radius="sm" shadow="sm">
       <CardHeader className="flex gap-2 p-4 pr-6">
@@ -223,12 +350,93 @@ function PublicacaoQuestao() {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody className="flex flex-row gap-4">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis,
-          odit fugiat illo, culpa atque non nihil corrupti fuga, architecto
-          porro velit iure amet. Est inventore quia placeat. Aut, ipsam maiores.
-        </p>
+      <CardBody className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
+          <h3 className="text-large font-extrabold tracking-wide text-indigo-500">
+            Visibilidade
+          </h3>
+          <div className="flex flex-row gap-3">
+            <Chip
+              startContent={<HomeIcon className="h-6 w-6" />}
+              size="lg"
+              color="warning"
+              radius="md"
+              variant="flat"
+              classNames={{
+                base: "flex flex-row items-center justify-center",
+                content: "italic font-bold tracking-wide",
+              }}
+            >
+              Pública
+            </Chip>
+            <Chip
+              startContent={<UserGroupIcon className="h-6 w-6" />}
+              size="lg"
+              color="warning"
+              radius="md"
+              variant="flat"
+              classNames={{
+                base: "flex flex-row items-center justify-center",
+                content: "italic font-bold tracking-wide",
+              }}
+            >
+              Pública
+            </Chip>
+            <Chip
+              startContent={<GlobeAltIcon className="h-6 w-6" />}
+              size="lg"
+              color="warning"
+              radius="md"
+              variant="flat"
+              classNames={{
+                base: "flex flex-row items-center justify-center",
+                content: "italic font-bold tracking-wide",
+              }}
+            >
+              Privada
+            </Chip>
+          </div>
+        </div>
+        <Spacer />
+        <Divider />
+        <Spacer />
+        <div className="flex flex-col gap-3">
+          <h3 className="text-large font-extrabold tracking-wide text-indigo-500">
+            Utilizadores
+          </h3>
+          <Table
+            aria-label="Example static collection table"
+            removeWrapper
+            lang="pt-br"
+            className="flex flex-col items-center justify-start "
+            bottomContent={
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="secondary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            }
+          >
+            <TableHeader>
+              <TableColumn>NOME</TableColumn>
+              <TableColumn>ESCOLA</TableColumn>
+              <TableColumn>POSIÇÃO</TableColumn>
+            </TableHeader>
+            <TableBody items={items}>
+              {(d) => (
+                <TableRow key={d.nome}>
+                  <TableCell>{d.nome}</TableCell>
+                  <TableCell>{d.escola}</TableCell>
+                  <TableCell>{d.posicao}</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </CardBody>
       <CardFooter></CardFooter>
     </Card>

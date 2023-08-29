@@ -1,5 +1,5 @@
 .wrapper {
-  @apply w-fit h-fit;
+  @apply w-full h-full;
 
   .header {
     @apply p-5;
@@ -35,7 +35,7 @@
     }
   }
   .body {
-    @apply w-full min-w-full flex flex-row gap-10 items-start justify-start max-h-[550px];
+    @apply min-w-full w-full flex flex-row gap-10 items-start justify-start max-h-full;
 
     .info {
       @apply h-full w-full max-w-full pt-3 mr-2;
@@ -46,7 +46,7 @@
     }
 
     .pages {
-      @apply border rounded-lg shadow-md max-w-[300px] min-w-fit max-h-[460px] overflow-y-auto bg-white;
+      @apply border rounded-lg shadow-md  min-w-fit max-h-[460px] overflow-y-auto bg-white;
       @apply py-3.5 pr-1.5 flex flex-col gap-3 items-start justify-start;
       @apply sticky top-0;
       @apply scroll-smooth snap-proximity;
