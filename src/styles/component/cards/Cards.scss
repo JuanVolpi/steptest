@@ -10,7 +10,7 @@
 
 .smallCard {
   @include card-base;
-  @apply overflow-clip shadow-sm border max-w-[450px] w-full transition-all ease-in-out duration-250;
+  @apply overflow-clip shadow-sm border max-w-[450px] w-full transition-all ease-in-out duration-250 min-h-full;
   @apply transition-height ease-in-out duration-250 pb-0 shadow;
 
   .head {
@@ -29,7 +29,7 @@
   }
 
   .body {
-    @apply flex flex-col gap-2 overflow-y-auto scroll-smooth pb-1;
+    @apply flex flex-col gap-2 pb-1 bg-white;
 
     .magnify {
       @apply w-10 h-10 text-indigo-500 drop-shadow-md bg-white rounded-full p-0;
@@ -38,19 +38,6 @@
 
       &:hover {
         @apply scale-110 cursor-pointer;
-      }
-    }
-
-    .img {
-      @apply mx-auto w-fit h-fit;
-      @apply flex flex-row;
-
-      .content {
-        @apply border-2 rounded-md shadow transition-all ease-soft-spring duration-200;
-
-        &:hover {
-          @apply border-blue-500 border-2 cursor-pointer;
-        }
       }
     }
 

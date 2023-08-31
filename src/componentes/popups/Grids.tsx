@@ -4,6 +4,8 @@ import "../../styles/component/popups/Grids.scss";
 
 import { Titulo } from "@/lib/fonts";
 
+import { motion } from "framer-motion";
+
 import {
   Button,
   Divider,
@@ -16,12 +18,17 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Tooltip,
 } from "@nextui-org/react";
 
-import React, { SetStateAction } from "react";
+import { SetStateAction, useMemo, useState } from "react";
 
 import { DadosQuestao } from "@/lib/types/componentes/cards";
-import { XCircleIcon } from "@heroicons/react/20/solid";
+import {
+  DocumentDuplicateIcon,
+  ScissorsIcon,
+  XMarkIcon,
+} from "@heroicons/react/20/solid";
 import { SmallQuestionCard } from "../cards/Card";
 import { ListBullet, RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
 import { DetalhesQuestao } from "./MoveOvers";
@@ -47,13 +54,21 @@ type GridProvaQuestoesProps = {
 };
 
 export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
-  const [selectedTurmas, setSelectedTurmas] = React.useState(
-    new Set(["Sem Turma"]),
-  );
+  const [selectedTurmas, setSelectedTurmas] = useState(new Set(["Sem Turma"]));
 
-  const [selectedQuestao, setSelectedQuestao] = React.useState<
-    DadosQuestao | undefined
-  >(undefined);
+  const questoes = useMemo(() => {
+    return exampleCards();
+  }, []);
+
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const getQuestion = () => {
+    return questoes[selectedPage - 1];
+  };
+
+  const [selectedQuestao, setSelectedQuestao] = useState<DadosQuestao>(
+    getQuestion(),
+  );
 
   const turmasDisponivies: string[] = [
     "Turma A",
@@ -62,7 +77,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
     "Turma D",
   ];
 
-  const selectedValue = React.useMemo(
+  const selectedValue = useMemo(
     () => Array.from(selectedTurmas),
     [selectedTurmas],
   );
@@ -73,26 +88,35 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
       onOpenChange={x.state.onOpenChange}
       scrollBehavior="inside"
       backdrop="blur"
-      size="5xl"
-      radius="sm"
+      size="full"
       placement="center"
-      closeButton={false}
+      classNames={{
+        body: "flex flex-row gap-5 py-5",
+        base: "text-base min-h-full overflow-y-none",
+        header:
+          "flex flex-row gap-5 items-center justify-between border-b-1 border-b-slate-300",
+        footer:
+          "flex flex-row gap-5 items-center justify-end border-t-1 border-t-slate-300",
+      }}
+      closeButton={<></>}
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="gridProvaQuestoes">
-              <div className="nomeProva">
-                <h1 style={Titulo.style}>Prova</h1>
-                <p>{x.content.titulo}</p>
+            <ModalHeader className="flex flex-row gap-5 items-center justify-between ">
+              <div className="w-fit flex flex-row gap-4 items-center">
+                <h1 style={Titulo.style} className="text-4xl font-semibold">
+                  Prova
+                </h1>
+                <p className="text-2xl">{x.content.titulo}</p>
                 <Divider orientation="vertical" className="h-5" />
-                <div className="numQuestoes">
+                <div className="flex flex-row gap-2 items-center justify-between">
                   <RectangleStack />
-                  <p>Questões: {x.content.num_questoes}</p>
+                  <p className="text-lg">Questões: {x.content.num_questoes}</p>
                 </div>
               </div>
 
-              <div className="interacoes">
+              <div className="flex flex-row gap-3 items-center justify-between">
                 <div>
                   <Dropdown>
                     <DropdownTrigger>
@@ -128,34 +152,78 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
                 >
                   Aplicar Prova
                 </Button>
+                <Button
+                  variant="flat"
+                  color="danger"
+                  size="sm"
+                  isIconOnly
+                  className="rounded-full"
+                  onClick={onClose}
+                >
+                  <XMarkIcon className="w-5 h-5" />
+                </Button>
               </div>
             </ModalHeader>
 
-            <ModalBody className="flex flex-row gap-0">
-              <div className="questoes">
-                {exampleCards({
-                  selected: setSelectedQuestao,
-                })}
+            <ModalBody>
+              <motion.div
+                className="min-w-fit h-full space-y-5 overflow-y-auto scroll-smooth snap-y pr-3"
+                initial={{ opacity: 0, left: "-110%" }}
+                animate={{ opacity: 1, left: "0%" }}
+                transition={{
+                  duration: 1.5,
+                  delay: 0.2,
+                  ease: [0, 0.71, 0.2, 1.01],
+                }}
+              >
+                {questoes.map((questao, index) => (
+                  <div key={index} className="snap-start">
+                    <SmallQuestionCard
+                      visualizeState={{
+                        active: "lime",
+                        inactive: "transparent",
+                      }}
+                      dadosQuestao={questao}
+                      ordemAparencia={index + 1}
+                      footerActions={[
+                        <Tooltip
+                          key={"a"}
+                          content="Exclui a questão da prova"
+                          placement="bottom"
+                          delay={550}
+                          slot="arrow"
+                        >
+                          <Button isIconOnly color="danger" variant="flat">
+                            <ScissorsIcon className="w-5 h-5" />
+                          </Button>
+                        </Tooltip>,
+                        <Tooltip
+                          key={"b"}
+                          content="Duplica questão para a minha biblioteca"
+                          placement="bottom"
+                          delay={550}
+                          slot="arrow"
+                        >
+                          <Button isIconOnly color="success" variant="flat">
+                            <DocumentDuplicateIcon className="w-5 h-5" />
+                          </Button>
+                        </Tooltip>,
+                      ]}
+                      expandTrigger={setSelectedQuestao}
+                    />
+                  </div>
+                ))}
+              </motion.div>
+
+              <div className="w-full h-full sticky top-0">
+                <DetalhesQuestao
+                  nomeQuestao={selectedQuestao?.nome || "a"}
+                  numTestes={0}
+                  visibilidade={"Publica"}
+                  posReacts={0}
+                  autor={selectedQuestao?.nome || "Camilla"}
+                />
               </div>
-              {selectedQuestao !== undefined && selectedQuestao !== null ? (
-                <div className="absolute z-20 top-0 left-0 w-full h-full bg-white  rounded">
-                  <Button
-                    onClick={() => setSelectedQuestao(undefined)}
-                    variant="flat"
-                    color="danger"
-                    startContent={<XCircleIcon className="w-6 h-6" />}
-                  >
-                    Close
-                  </Button>
-                  <DetalhesQuestao
-                    nomeQuestao={selectedQuestao.nome}
-                    numTestes={0}
-                    visibilidade={"Publica"}
-                    posReacts={0}
-                    autor={""}
-                  />
-                </div>
-              ) : null}
             </ModalBody>
 
             <ModalFooter>
@@ -165,7 +233,8 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
                 startContent={<TrashBin fill="red" />}
                 onClick={() => {
                   setSelectedTurmas(new Set(["Sem Turma"]));
-                  setSelectedQuestao(undefined);
+                  setSelectedPage(1);
+                  setSelectedQuestao(getQuestion);
                   onClose();
                 }}
               >
@@ -179,11 +248,11 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
   );
 }
 
-function exampleCards({
+function exampleCards(/* {
   selected,
 }: {
   selected: (dados: DadosQuestao) => void;
-}) {
+} */) {
   const questao: DadosQuestao[] = [
     {
       contextualizacao:
@@ -270,6 +339,7 @@ function exampleCards({
       imgApoio: "/images/q3.png",
     },
     {
+      nome: "TEMP",
       contextualizacao:
         "A figura abaixo mostra duas caixas, onde a caixa maior é uma aplicação em 2 vezes da caixa menor. ",
       questao: "Qual é o volume das duas caixas somados?",
@@ -406,30 +476,5 @@ function exampleCards({
     },
   ];
 
-  const miniCard = questao.map((dados, index) => (
-    <SmallQuestionCard
-      visualizeState={{
-        active: "lime",
-        inactive: "transparent",
-      }}
-      key={index}
-      dadosQuestao={{
-        contextualizacao: dados.contextualizacao,
-        questao: dados.questao,
-        bncc: dados.bncc,
-        dificuldade: dados.dificuldade,
-        respostas: dados.respostas,
-        imgApoio: dados.imgApoio,
-        nome: dados.nome,
-      }}
-      ordemAparencia={1}
-      footerActions={[
-        <Button key={"a"}>Fechar</Button>,
-        <Button key={"b"}>Copiar</Button>,
-        <Button key={"c"}>Favorito</Button>,
-      ]}
-      expandTrigger={selected}
-    />
-  ));
-  return miniCard;
+  return questao;
 }

@@ -2,14 +2,15 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 
 import { Display } from "@/lib/fonts";
 import {
+  DificuldadeQuestao,
   GenericCardProps,
   SmallQuestionCardProps,
 } from "@/lib/types/componentes/cards";
 import {
-  ArrowsPointingOutIcon,
   Bars3CenterLeftIcon,
   MagnifyingGlassCircleIcon,
   PhotoIcon,
+  PresentationChartBarIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
 import {
@@ -32,6 +33,27 @@ import {
 import { SetStateAction, useState } from "react";
 import "../../styles/component/cards/Cards.scss";
 
+export function ChipDificuldade({
+  dificuldade,
+}: {
+  dificuldade: DificuldadeQuestao;
+}) {
+  let chipColor: "success" | "warning" | "primary" | "danger" = "primary";
+  if (dificuldade === "Fácil") {
+    chipColor = "success";
+  } else if (dificuldade === "Médio") {
+    chipColor = "warning";
+  } else {
+    chipColor = "danger";
+  }
+
+  return (
+    <Chip variant="flat" size="sm" color={chipColor}>
+      {dificuldade}
+    </Chip>
+  );
+}
+
 export function SmallQuestionCard(props: SmallQuestionCardProps) {
   function handleCardColorState(): string {
     if (props.visualizeState !== undefined && props.state !== undefined)
@@ -45,7 +67,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
 
   return (
     <Card
-      className="smallCard"
+      className={"smallCard " + (props.className || "")}
       style={{
         borderColor: handleCardColorState(),
       }}
@@ -62,9 +84,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             {props.dadosQuestao.bncc}
           </Chip>
           {/* <Divider orientation="vertical" className="h-3" /> */}
-          <Chip variant="shadow" className="chip" size="sm">
-            {props.dadosQuestao.dificuldade}
-          </Chip>
+          <ChipDificuldade dificuldade="Fácil" />
         </div>
       </CardHeader>
       <Divider />
@@ -137,6 +157,44 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
                 }
               >
                 <p className="p-2 pt-0">{props.dadosQuestao.questao}</p>
+                <section className="w-fit mx-auto mt-3.5">
+                  {props.dadosQuestao.imgApoio !== undefined ? (
+                    <>
+                      <div>
+                        <Popover placement="right">
+                          <PopoverTrigger>
+                            <MagnifyingGlassCircleIcon className="w-10 h-10 text-indigo-500 drop-shadow-md bg-white rounded-full p-0 duration-200 ease-soft-spring transition-all absolute -mt-5 -ml-5 z-30 hover:scale-110 hover:cursor-pointer" />
+                          </PopoverTrigger>
+                          <PopoverContent>
+                            <Image
+                              loading="lazy"
+                              src={props.dadosQuestao.imgApoio}
+                              width={500}
+                              height={500}
+                              alt={""}
+                              className="content"
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                      <Image
+                        src={props.dadosQuestao.imgApoio}
+                        width={280}
+                        height={280}
+                        alt={""}
+                        className="border-2 border-slate-200 transition-all duration-200 ease-in-out hover:border-violet-600"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Spacer />
+                      <p className="p-3 m-auto text-center rounded bg-slate-100 text-slate-100">
+                        <i>Sem Imagem</i>
+                      </p>
+                      <Spacer />
+                    </>
+                  )}
+                </section>
               </AccordionItem>
             </Accordion>
           </Tab>
@@ -244,7 +302,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
             isIconOnly
             onClick={() => props.expandTrigger(props.dadosQuestao)}
           >
-            <ArrowsPointingOutIcon className="w-6 h-6" />
+            <PresentationChartBarIcon className="w-6 h-6" />
           </Button>
         </Tooltip>
         {props.footerActions !== undefined ? (

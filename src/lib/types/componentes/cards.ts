@@ -30,9 +30,9 @@ export type GenericCardProps = {
   footer?: ReactNode;
 };
 
-type DificuldadeQuestao = "Fácil" | "Médio" | "Difícil";
+export type DificuldadeQuestao = "Fácil" | "Médio" | "Difícil";
 
-type Resposta = {
+export type Resposta = {
   correta: boolean;
   conteudo: string;
 };
@@ -48,6 +48,7 @@ export type DadosQuestao = {
 };
 
 export type SmallQuestionCardProps = {
+  className?: string | undefined;
   state?: CardStates;
   visualizeState?: CardStateVisualizationColor;
   dadosQuestao: DadosQuestao;
