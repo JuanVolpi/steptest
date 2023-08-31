@@ -1,13 +1,9 @@
-import type { Config } from "tailwindcss";
-
 import { nextui } from "@nextui-org/react";
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/styles/**/*.{scss,sass,css}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -28,7 +24,21 @@ const config: Config = {
         mred: "#efb922", // * Mid yellow
         ared: "#efb922", // * Accent yellow
       },
-
+      keyframes: {
+        "slide-left": {
+          "0%": {
+            left: "-100%",
+            opacity: "0",
+          },
+          "100%": {
+            left: "100%",
+            opacity: "1",
+          },
+        },
+      },
+      animation: {
+        slideLeft: "slide-left 2s ease-in-out once forward normal",
+      },
     },
   },
   darkMode: "class",
