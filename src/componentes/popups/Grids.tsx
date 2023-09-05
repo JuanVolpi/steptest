@@ -9,10 +9,6 @@ import { motion } from "framer-motion";
 import {
   Button,
   Divider,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Modal,
   ModalBody,
   ModalContent,
@@ -21,7 +17,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 
-import { SetStateAction, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { DadosQuestao } from "@/lib/types/componentes/cards";
 import {
@@ -30,7 +26,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/20/solid";
 import { SmallQuestionCard } from "../cards/Card";
-import { ListBullet, RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
+import { RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
 import { DetalhesQuestao } from "./MoveOvers";
 
 type GenericGridProps = {
@@ -117,7 +113,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
               </div>
 
               <div className="flex flex-row gap-3 items-center justify-between">
-                <div>
+                {/* <div>
                   <Dropdown>
                     <DropdownTrigger>
                       <Button
@@ -143,7 +139,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
                       ))}
                     </DropdownMenu>
                   </Dropdown>
-                </div>
+                </div> */}
                 <Button
                   color="success"
                   variant="faded"

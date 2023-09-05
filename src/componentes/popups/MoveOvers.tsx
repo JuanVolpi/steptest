@@ -32,6 +32,7 @@ import {
   HandThumbUpIcon,
   HomeIcon,
   PencilSquareIcon,
+  QueueListIcon,
   UserCircleIcon,
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
@@ -62,6 +63,8 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
         return <PublicacaoQuestao />;
       case "feedback":
         return <ComentariosQuestao />;
+      case "resps":
+        return <RespostasQuestao />;
       default:
         return (
           <>
@@ -127,11 +130,16 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
       </CardHeader>
       <Divider />
       <CardBody className="body">
-        <DetalhesQuestaoPageSelector
-          defaultSelect={pagina}
-          onSelectionChange={setPagina}
-          sections={defaultNavigation}
-        />
+        <div className="min-w-fit space-y-2">
+          <h2 className="text-xl font-extrabold text-blue-500 bg-sky-100 w-full p-2.5 rounded">
+            Paginas de Detalhes
+          </h2>
+          <DetalhesQuestaoPageSelector
+            defaultSelect={pagina}
+            onSelectionChange={setPagina}
+            sections={defaultNavigation}
+          />
+        </div>
         <section className="info">{handleSelectedPage}</section>
       </CardBody>
       {/* <Divider />
@@ -140,15 +148,63 @@ export function DetalhesQuestao(props: DetalhesQuestaoProps) {
   );
 }
 
+function RespostasQuestao() {
+  const exampleIndexig = new Array(15).fill(1);
+  return (
+    <Card
+      className="max-w-fit"
+      radius="sm"
+      shadow="none"
+      classNames={{ base: "border" }}
+    >
+      <CardHeader className="flex gap-2 p-4 pr-6 items-center justify-between">
+        <QueueListIcon className="w-9 h-9 text-blue-500" />
+        <div className="flex flex-col">
+          <p className="text-md font-bold">Respostas</p>
+          <p className="text-small text-default-500">
+            Explicações e opções validas.
+          </p>
+        </div>
+      </CardHeader>
+      <Divider />
+      <CardBody className="space-y-5">
+        <fieldset className="border rounded p-2 px-3">
+          <legend className="text-base text-blue-400 font-medium px-1.5">
+            Repostas
+          </legend>
+          <section className="space-y-4 pt-0 mt-0">
+            {exampleIndexig.map((_, index) => (
+              <div
+                key={index}
+                className="p-2 flex flex-col gap-1 border rounded-md shadow-sm ease-in-out duration-200  hover:border-sky-400"
+              >
+                <Chip variant="dot" color="primary" size="sm">
+                  {index}
+                </Chip>
+              </div>
+            ))}
+          </section>
+        </fieldset>
+        <fieldset className="border rounded p-2 px-3">
+          <legend className="text-base text-blue-400 font-medium px-1.5">
+            Construção
+          </legend>
+          <div className=""></div>
+        </fieldset>
+      </CardBody>
+    </Card>
+  );
+}
+
 function ComentariosQuestao() {
   const comments = new Array(6).fill(1);
   return (
     <div>
-      <h3 className="text-xl font-bold mb-5 w-full border py-3 px-2 rounded bg-white sticky top-0 z-30 flex items-center gap-2">
+      <h3 className="text-xl font-bold w-full border py-3 px-2 rounded bg-white sticky top-0 z-30 flex items-center gap-2">
         <ChatBubbleLeftRightIcon className="w-8 h-8 text-blue-600 drop-shadow" />
         Comentários
       </h3>
-      <section className="flex flex-col gap-5 overflow-scroll scroll-smooth px-3 snap-y">
+      <section className="flex flex-col gap-5 overflow-scroll scroll-smooth px-3 snap-y py-5 pb-7">
         {comments.map((_, a) => (
           <div className="snap-center" key={a}>
             <CommentarioQuestao />
@@ -161,7 +217,7 @@ function ComentariosQuestao() {
 
 function CommentarioQuestao() {
   return (
-    <Card className="page" radius="sm" shadow="sm">
+    <Card className="max-w-fit" radius="sm" shadow="sm">
       <CardHeader className="flex gap-2 p-4 pr-6 items-center justify-between">
         <User
           name="Jane Doe"
@@ -178,7 +234,7 @@ function CommentarioQuestao() {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody className="flex flex-col gap-4">
+      <CardBody className="flex flex-col gap-4 ">
         <div className="flex flex-row items-baseline gap-2">
           <h3 className="text-large text-blue-600 font-bold">Tópico:</h3>
           <p style={Conteudo.style} className="text-medium">
@@ -186,7 +242,7 @@ function CommentarioQuestao() {
           </p>
         </div>
         <p
-          className="text-sm tracking-wider leading-5"
+          className="text-sm tracking-wide leading-5"
           style={{
             lineHeight: "1.5rem",
           }}
@@ -462,14 +518,14 @@ function BnccTable() {
         </div>
       </CardHeader>
       <Divider />
-      <CardBody className="flex flex-row gap-4">
+      <CardBody className="flex flex-col gap-4">
         <Table
           removeWrapper
           isStriped
           isHeaderSticky
           classNames={{
-            wrapper: "max-h-[382px] ",
-            th: "outline-none bg-slate-50 text-red-200",
+            base: "max-h-[382px] max-w-fit",
+            th: "outline-none bg-slate-50 text-base text-blue-400 font-bolder text-medium",
           }}
         >
           <TableHeader>
@@ -500,6 +556,10 @@ function BnccTable() {
           variant="bordered"
           radius="sm"
           color="primary"
+          classNames={{
+            base: "max-w-fit",
+            input: "min-w-[75ch]",
+          }}
           value={
             "Relacionar o texto, tanto na produção como na leitura/escuta, com suas condições de produção e seu contexto sócio-histórico de circulação (leitor/audiência previstos, objetivos, pontos de vista e perspectivas, papel social do autor, época, gênero do discurso etc.), de forma a ampliar as possibilidades de construção de sentidos e de análise crítica e produzir textos adequados a diferentes situações."
           }

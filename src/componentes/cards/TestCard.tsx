@@ -1,22 +1,15 @@
 "use client";
 
 import "@/styles/component/cards/TestCard.scss";
-import { Url } from "next/dist/shared/lib/router/router";
-import {
-  AcademicCap,
-  DocumentText,
-  FolderOpen,
-  UserGroup,
-} from "../icons/HeroIcons";
-import { SimpleBlueButton } from "../buttons/Buttons";
-import Image from "next/image";
-import { Button, useDisclosure } from "@nextui-org/react";
-import { GridProvaQuestoes } from "../popups/Grids";
 import {
   AcademicCapIcon,
   DocumentTextIcon,
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
+import { Button, useDisclosure } from "@nextui-org/react";
+import Image from "next/image";
+import { FolderOpen } from "../icons/HeroIcons";
+import { GridProvaQuestoes } from "../popups/Grids";
 
 export default function TestCard({
   nomeProva,
@@ -41,7 +34,7 @@ export default function TestCard({
         <div className="flex flex-col w-max h-max">
           <div className="NomeProva">Prova: {nomeProva}</div>
           <div className="NumQuest">
-            <FolderOpen></FolderOpen> {numQuest} Questões
+            <FolderOpen /> {numQuest} Questões
           </div>
           <Image
             src={imgProva}

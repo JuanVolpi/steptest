@@ -188,7 +188,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
                   ) : (
                     <>
                       <Spacer />
-                      <p className="p-3 m-auto text-center rounded bg-slate-100 text-slate-100">
+                      <p className="p-3 m-auto text-center rounded bg-slate-100 text-slate-400">
                         <i>Sem Imagem</i>
                       </p>
                       <Spacer />
@@ -276,7 +276,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
               ) : (
                 <>
                   <Spacer />
-                  <p className="p-3 m-auto text-center rounded bg-slate-100 text-slate-100">
+                  <p className="p-3 m-auto text-center rounded bg-slate-100 text-slate-400">
                     <i>Sem Imagem</i>
                   </p>
                   <Spacer />

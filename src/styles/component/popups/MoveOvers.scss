@@ -38,7 +38,7 @@
     @apply min-w-full w-full flex flex-row gap-10 items-start justify-start max-h-full;
 
     .info {
-      @apply h-full w-full max-w-full pt-3 mr-2;
+      @apply h-full w-full max-w-full mr-2;
 
       p {
         @apply max-w-[70ch];
@@ -58,7 +58,7 @@
         }
 
         h2 {
-          @apply text-base font-extrabold text-blue-500 w-fit p-2 px-3.5 bg-sky-100 rounded-md;
+          @apply text-base font-extrabold text-blue-500 w-fit  bg-sky-100 p-2 px-3.5  rounded-md;
           @apply transition-all duration-250 ease-in-out;
         }
 

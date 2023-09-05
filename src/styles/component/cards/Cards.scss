@@ -10,7 +10,7 @@
 
 .smallCard {
   @include card-base;
-  @apply overflow-clip shadow-sm border max-w-[450px] w-full transition-all ease-in-out duration-250 min-h-full;
+  @apply overflow-clip shadow-sm border max-w-[450px] w-full transition-all ease-in-out duration-250 min-h-fit;
   @apply transition-height ease-in-out duration-250 pb-0 shadow;
 
   .head {

@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="pt" className="w-full h-full bg-lgreen ">
       <body style={Display.style}>
         <Providers>
-          <BarraDeNavegacao></BarraDeNavegacao>
+          <BarraDeNavegacao />
           <div className={styles.RootLayout}>{children}</div>
         </Providers>
       </body>

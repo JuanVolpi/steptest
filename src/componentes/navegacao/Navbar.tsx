@@ -35,10 +35,11 @@ export default function BarraDeNavegacao() {
           content={"Minha Turma"}
           endIcon={<UserGroupIcon className={iconStyle} />}
         ></SimpleYellowButton>
-        <SimpleYellowButton
-          content={"Dashboard"}
+        <SimpleYellowButtonLink
+          content={"Dashboards"}
           endIcon={<ChartPieIcon className={iconStyle} />}
-        ></SimpleYellowButton>
+          href={"/dashboards"}
+        ></SimpleYellowButtonLink>
       </div>
     </div>
   );
