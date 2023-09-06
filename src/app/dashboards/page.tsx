@@ -14,7 +14,7 @@ import {
 import { Button, Divider, Input, Spacer } from "@nextui-org/react";
 import React, { useMemo, useRef, useState } from "react";
 
- // Certifique-se de importar os dados corretos
+// Certifique-se de importar os dados corretos
 
 export default function Dashboards() {
   const seccoes: { nome: string; numProvas: number }[] = useMemo(() => {
@@ -173,7 +173,7 @@ type TextInputAutoCompleteOptionsProps = {
   onSelection: (selection: string) => void;
 };
 
-export function TextInputAutoCompleteOptions(
+function TextInputAutoCompleteOptions(
   props: TextInputAutoCompleteOptionsProps,
 ) {
   let filteredOptions = props.opcoes;
