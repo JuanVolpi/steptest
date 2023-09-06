@@ -178,7 +178,7 @@ export default function app() {
             title={"Descritor"}
           ></CustomDropdown>
         </div>
-        <button onClick={onOpen}>aaaaaaaaaaaaaa</button>
+        <button onClick={onOpen}>teste abrir tudo</button>
         <main>
           {exibirEnunciado && (
             <Enunciado
