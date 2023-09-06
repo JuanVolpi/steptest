@@ -24,21 +24,6 @@ const config: Config = {
         mred: "#ff7339", // * Mid red
         ared: "#dd4d32", // * Accent red
       },
-      keyframes: {
-        "slide-left": {
-          "0%": {
-            left: "-100%",
-            opacity: "0",
-          },
-          "100%": {
-            left: "100%",
-            opacity: "1",
-          },
-        },
-      },
-      animation: {
-        slideLeft: "slide-left 2s ease-in-out once forward normal",
-      },
     },
   },
   darkMode: "class",

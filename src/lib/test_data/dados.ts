@@ -1,5 +1,20 @@
 import { Alunos, Respostas } from "./tipos";
 
+export type OpcaoResposta = "A" | "B" | "C" | "D";
+
+export function traduzLetraParaIndexResposta(letra: OpcaoResposta) {
+  switch (letra) {
+    case "A":
+      return 0;
+    case "B":
+      return 1;
+    case "C":
+      return 2;
+    case "D":
+      return 3;
+  }
+}
+
 export const respostas: Respostas = [
   { nomeAluno: "Andre Gomes", idQuestao: 0, resposta: "A", correta: "B" },
   { nomeAluno: "Andre Gomes", idQuestao: 1, resposta: "B", correta: "B" },
