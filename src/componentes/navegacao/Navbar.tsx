@@ -27,10 +27,11 @@ export default function BarraDeNavegacao() {
           endIcon={<DocumentTextIcon className={iconStyle} />}
           href={"/provas"}
         ></SimpleYellowButtonLink>
-        <SimpleYellowButton
+        <SimpleYellowButtonLink
           content={"Questões"}
           endIcon={<QuestionMarkCircleIcon className={iconStyle} />}
-        ></SimpleYellowButton>
+          href={"/questoes"}
+        ></SimpleYellowButtonLink>
         <SimpleYellowButton
           content={"Minha Turma"}
           endIcon={<UserGroupIcon className={iconStyle} />}
