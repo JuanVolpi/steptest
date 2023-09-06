@@ -20,9 +20,9 @@ const config: Config = {
         lblue: "#e7f1fe", // * Lhight yellow
         mblue: "#95c3ff", // * Mid yellow
         ablue: "#003a92", // * Accent yellow
-        lred: "#efb922", // * Light yellow
-        mred: "#efb922", // * Mid yellow
-        ared: "#efb922", // * Accent yellow
+        lred: "#ffdede", // * Light red
+        mred: "#ff7339", // * Mid red
+        ared: "#dd4d32", // * Accent red
       },
       keyframes: {
         "slide-left": {
@@ -42,7 +42,11 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui(
+   {
+    addCommonColors:true, themes: {
+    }
+})],
 };
 
 export default config;
