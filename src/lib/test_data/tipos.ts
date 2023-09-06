@@ -10,6 +10,7 @@ export type Resposta = {
   nomeAluno: string;
   idQuestao: number;
   resposta: string;
+  correta: string;
 };
 
 export type Respostas = Resposta[];
