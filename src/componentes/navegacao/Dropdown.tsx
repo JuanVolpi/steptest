@@ -1,7 +1,4 @@
 import {
-  ArrowDownIcon,
-  ArrowLeftIcon,
-  ChevronDoubleLeftIcon,
   ChevronDownIcon,
 } from "@heroicons/react/20/solid";
 import {
