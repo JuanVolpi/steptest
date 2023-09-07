@@ -2,16 +2,19 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
+import TabelaAlunos from "@/componentes/cards/ResultsTable";
+import { alunos, respostas } from "@/lib/test_data/dados";
 import {
   CubeTransparentIcon,
-  DocumentIcon,
   DocumentTextIcon,
+  GlobeAmericasIcon,
   MagnifyingGlassIcon,
   QuestionMarkCircleIcon,
   UserGroupIcon,
+  XCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/20/solid";
-import { Button, Divider, Input, Spacer } from "@nextui-org/react";
+import { Button, Divider, Input, Spacer, Tab, Tabs } from "@nextui-org/react";
 import React, { useMemo, useRef, useState } from "react";
 
 // Certifique-se de importar os dados corretos
@@ -32,6 +35,9 @@ export default function Dashboards() {
 
   const [filterText, setFilterText] = useState<string>("");
   const [showAutoComplete, setShowAutoComplete] = useState(false);
+  const [selectedDashboard, setSelectedDashboard] = useState<
+    string | undefined
+  >();
 
   const seccoesObj: { [key: string]: HTMLDivElement } = useMemo(() => {
     return Object.fromEntries([
@@ -80,10 +86,11 @@ export default function Dashboards() {
             {/* Prova select filter */}
             <section className="space-y-2 mt-3 mb-6 ">
               <Input
-                label="Nome categoria"
+                label="Qual categoria?"
                 placeholder={"Nome da categoria"}
                 classNames={{
                   input: "placeholder:italic placeholder:opacity-40",
+                  label: "text-sm font-semibold",
                 }}
                 variant="flat"
                 color="primary"
@@ -108,7 +115,7 @@ export default function Dashboards() {
               />
             </section>
           </header>
-          <main className="max-h-[450px] overflow-y-scroll space-y-4 snap-y scroll-smooth">
+          <main className="max-h-[450px] overflow-y-scroll space-y-4 snap-y scroll-smooth shadow-inner">
             {seccoes.map(({ nome, numProvas }, i) => (
               <div
                 key={i}
@@ -124,42 +131,134 @@ export default function Dashboards() {
             ))}
           </main>
         </section>
+
         <Divider className="bg-slate-200" />
 
         <section className="mt-4 space-y-4">
-          <h2 className="font-bold text-xl text-blue-500 bg-sky-100 p-2 rounded-md w-fit before:content-['#'] before:mr-1 before:text-blue-300 hover:before:text-blue-500 before:ease-soft-spring before:duration-250">
-            Tipo de Dashboard
-          </h2>
-          <div className="flex flex-row flex-wrap gap-3">
-            <Button
-              variant="flat"
-              color="success"
-              size="md"
-              startContent={<DocumentIcon className="w-5 h-5" />}
+          <header className="space-y-2">
+            <h2 className="font-bold text-xl text-blue-500 bg-sky-100 p-2 rounded-md w-fit before:content-['#'] before:mr-1 before:text-blue-300 hover:before:text-blue-500 before:ease-soft-spring before:duration-250">
+              Dashboard
+            </h2>
+            <i className="text-default-400 text-sm">
+              Selecione o tipo de dashboard a visualizar
+            </i>
+          </header>
+          <main className="flex flex-col gap-0.5 justify-center">
+            <AnimatePresence>
+              {selectedDashboard !== undefined && (
+                <motion.div
+                  initial={{ opacity: 0, x: "-20px" }}
+                  animate={{ opacity: 1, x: "0px" }}
+                  exit={{ opacity: 0, y: "20px", animationDelay: "0.5s" }}
+                  transition={{ ease: "easeInOut", duration: 0.35 }}
+                  className="inline-flex gap-2 my-2 items-center"
+                >
+                  <h3 className="text-blue-500 font-medium text-md">
+                    Dashboard selecionado:
+                  </h3>
+                  <motion.div
+                    initial={{ opacity: 0, y: "15px" }}
+                    animate={{ opacity: 1, y: "0px" }}
+                    exit={{ opacity: 0, y: "-15px" }}
+                    transition={{
+                      ease: "easeInOut",
+                      duration: 0.25,
+                      delay: 0.5,
+                    }}
+                    className="inline-flex items-center gap-0.5"
+                  >
+                    <p className="text-sm p-2 px-3 py-1 bg-sky-100 text-blue-600 rounded-md">
+                      {selectedDashboard}
+                    </p>
+                    <XCircleIcon
+                      className="w-5 h-5 text-red-400/80"
+                      onClick={() => setSelectedDashboard(undefined)}
+                    />
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <Spacer />
+            <Spacer />
+            <Tabs
+              aria-label="Dashboards Provas"
+              color="secondary"
+              variant="underlined"
+              classNames={{
+                base: "rounded-md border border-fuchsia-400 mb-1 py-1 shadow mx-auto w-fit",
+              }}
             >
-              Prova Geral
-            </Button>
-            <Button
-              variant="flat"
-              color="success"
-              size="md"
-              startContent={<QuestionMarkCircleIcon className="w-5 h-5" />}
-            >
-              Prova Questão-A-Questão
-            </Button>
-            <Button
-              variant="flat"
-              color="success"
-              size="md"
-              startContent={<UserGroupIcon className="w-5 h-5" />}
-            >
-              Alunos
-            </Button>
-          </div>
+              <Tab key="Provas" title="Específicos para prova">
+                <motion.div
+                  initial={{ opacity: 0, y: "-15px" }}
+                  animate={{ opacity: 1, y: "0px" }}
+                  exit={{ opacity: 0, y: "-15px" }}
+                  transition={{ ease: "easeInOut", duration: 0.35 }}
+                  className="flex flex-row flex-wrap items-center justify-center gap-2"
+                >
+                  <Button
+                    variant="flat"
+                    color="success"
+                    size="md"
+                    startContent={<GlobeAmericasIcon className="w-5 h-5" />}
+                    onClick={() => setSelectedDashboard("Vista Geral")}
+                  >
+                    Vista Geral
+                  </Button>
+                  <Button
+                    variant="flat"
+                    color="success"
+                    size="md"
+                    startContent={
+                      <QuestionMarkCircleIcon className="w-5 h-5" />
+                    }
+                    onClick={() => setSelectedDashboard("Questão-A-Questão")}
+                  >
+                    Questão-A-Questão
+                  </Button>
+                </motion.div>
+              </Tab>
+              <Tab key="Alunos" title="Específicos para alunos">
+                <motion.div
+                  initial={{ opacity: 0, y: "-15px" }}
+                  animate={{ opacity: 1, y: "0px" }}
+                  exit={{ opacity: 0, y: "-15px" }}
+                  transition={{ ease: "easeInOut", duration: 0.35 }}
+                  className="flex flex-row flex-wrap items-center justify-center gap-2"
+                >
+                  <Button
+                    variant="flat"
+                    color="success"
+                    size="md"
+                    startContent={<UserGroupIcon className="w-5 h-5" />}
+                    onClick={() => setSelectedDashboard("Aluno-Aluno")}
+                  >
+                    Analise prova Aluno-Aluno
+                  </Button>
+                </motion.div>
+              </Tab>
+            </Tabs>
+          </main>
         </section>
       </section>
       {/* Representação dos dados */}
-      <section className="w-full aspect-video rounded bg-white"></section>
+      <AnimatePresence>
+        <motion.section
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ ease: "easeInOut", duration: 0.35 }}
+          className="w-full h-fit aspect-video rounded bg-white p-4 grid place-items-start"
+        >
+          <h2 className="text-lg font-bold text-fuchsia-600 p-2 px-3 bg-fuchsia-100 rounded-md">
+            Prova: Nome Prova
+          </h2>
+          <Spacer y={3} />
+          <Divider />
+          <Spacer y={3} />
+          <TabelaAlunos alunos={alunos} respostas={respostas} />
+        </motion.section>
+      </AnimatePresence>
     </main>
   );
 }
