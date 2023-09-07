@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import {
@@ -37,158 +38,51 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <Button onPress={onOpen}>Open modal</Button>
-      <br />
-      <br />
-      <Button onPress={toggleCard}>Toggle card selection</Button>
-      <br />
-      <br />
-      <DetalhesQuestao
-        posReacts={12}
-        nomeQuestao={"Pontos Turísticos"}
-        numTestes={2}
-        visibilidade={"Publica"}
-        autor={"Camilla Rodrigues"}
-      />
-      <br />
-      <br />
-      <SmallQuestionCard
-        state={cardSelection}
-        visualizeState={{
-          active: "lime",
-          inactive: "transparent",
-        }}
-        footerActions={[
-          <Button key={1} size="sm">
-            Fechar
-          </Button>,
-          <Button key={2} size="sm">
-            Fechar
-          </Button>,
-          <Button key={3} size="sm">
-            Fechar
-          </Button>,
-          <Button key={4} size="sm">
-            Fechar
-          </Button>,
-        ]}
-        expandTrigger={function (_): void {
-          throw new Error("Function not implemented.");
-        }}
-        dadosQuestao={{
-          nome: "TEMP",
-          contextualizacao:
-            "A Prefeitura de uma cidade resolveu instalar 4 cabines de informações nos locais de grande fluxo de turistas no centro da cidade, com o objetivo de dar assistência àqueles que a visitam. Cada cabine de informação foi nomeada com uma letra do alfabeto, sendo elas: Cabine A, Cabine B, Cabine C e Cabine D. A figura abaixo mostra a localização de cada cabine e o local em que um turista japonês está, onde o mesmo procura uma dessas instalações para solicitar informações sobre alguns lugares que gostaria de visitar.",
-          questao:
-            "Sabendo que todas as quadras das ruas têm formato retangular e por ser de uma cidade planejada, tem a mesma medida, 250m x 150m, qual ou quais das cabines o turista japonês andaria o menor percurso, sabendo que ele se encontra na esquina da rua das Variedades com a Rua das Marias?",
-          bncc: "EF06MT",
-          dificuldade: "Fácil",
-          respostas: [
-            {
-              conteudo: "708 pontos",
-              correta: false,
-            },
-            {
-              conteudo: "512 pontos",
-              correta: false,
-            },
-            {
-              conteudo: "462 pontos",
-              correta: true,
-            },
-            {
-              conteudo: "188 pontos",
-              correta: false,
-            },
-          ],
-          imgApoio: "/images/GamingPana.svg",
-        }}
-        ordemAparencia={1}
-      />
-      <br />
-      <br />
-      <GenericCard
-        state={cardSelection}
-        visualizeState={{
-          active: "blueviolet",
-          inactive: "gainsboro",
-        }}
-        headerElements={[
-          <SimpleBlueButton
-            key={"fav"}
-            content={"Favorito"}
-            endIcon={<StarOutline fill="rgb(129 140 248)" />}
-          />,
-          <SimpleBlueButton
-            key={"share"}
-            content={"Partilhar"}
-            endIcon={<Share fill="rgb(129 140 248)" />}
-          />,
-          <SimpleBlueButton
-            key={"lock"}
-            content={"Trancar"}
-            endIcon={<LockOutline fill="rgb(129 140 248)" />}
-          />,
-          <SimpleRedButton
-            key={"trash"}
-            content={"Apagar"}
-            endIcon={<TrashBin fill="salmon" />}
-          />,
-        ]}
-        content={[
-          {
-            icon: <QuestionSolid fill="blue" />,
-            tittle: "Questões",
-            inner: (
-              <p>
-                Uma empresa fabrica 600 peças por dia e trabalha 5 dias por
-                semana. Quantas peças são fabricadas em um mês de 4 semanas?
-              </p>
-            ),
-          },
-          {
-            icon: <ChatBubbleSolid fill="blue" />,
-            tittle: "Respostas",
-            inner: (
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Commodi veritatis alias, quidem odit rem consequatur nisi.
-              </p>
-            ),
-          },
-          {
-            icon: <ListBullet fill="blue" />,
-            headSubs: (
-              <>
-                <SimpleYellowButton
-                  content={"Info"}
-                  endIcon={<QuestionSolid fill="orange" />}
-                />
-              </>
-            ),
-            tittle: "Respostas",
-            inner: (
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Commodi veritatis alias, quidem odit rem consequatur nisi.
-              </p>
-            ),
-          },
-        ]}
-      />
-      <br />
-      <GridProvaQuestoes
-        state={{
-          onOpen,
-          isOpen,
-          onOpenChange,
-        }}
-        content={{
-          titulo: "Matematica#2",
-          num_questoes: 8,
-        }}
-      />
-    </main>
+    <div className="bg-white rounded-lg shadow-md self-center p-6 w-full max-h-[98%] h-full md:w-2/3 lg:w-1/2">
+      <h1 className="text-3xl font-semibold mb-4">Registro de Atualizações</h1>
+      <div className="max-h-[90%] overflow-y-scroll">
+        <div className="bg-white rounded-lg shadow-md p-6 my-5 border-2 hover:border-mblue ease-in-out transition-all">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Data: 07/09/2023</h2>
+            <p>
+              Nota: Fique à vontade para navegar entre as páginas através da
+              navbar e explorar as funcionalidades disponíveis.
+            </p>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Página "Provas":</h2>
+            <ul className="list-disc list-inside">
+              <li>Adição da página "Provas" que contém cards de provas.</li>
+              <li>
+                Possibilidade de visualizar detalhes de uma prova, incluindo
+                questões e respostas.
+              </li>
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Página "Questões":</h2>
+            <ul className="list-disc list-inside">
+              <li>Adição da página "Questões".</li>
+              <li>Botão para acessar a página "Questões/Criar" em produção.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Página "Dashboards":</h2>
+            <ul className="list-disc list-inside">
+              <li>
+                Estágio inicial de desenvolvimento da página "Dashboards".
+              </li>
+              <li>
+                Futuramente, irá exibir dados de uma prova por meio de tabelas e
+                gráficos.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

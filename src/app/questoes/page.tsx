@@ -8,7 +8,7 @@ export default function Questoes() {
       <header className="bg-bglgreen w-full h-fit px-4 pb-3 ">
         <div className="w-full justify-between h-max flex flex-row">
           <h1 className="font-confortaa text-[40px] text-ayellow w-fit">
-            Questões - Criar
+            Questões
           </h1>
           <div className="self-center">
             <PageTag content={"Questão"}></PageTag>
