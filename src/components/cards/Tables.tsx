@@ -1,11 +1,11 @@
-import { Alunos, Respostas } from "@/lib/test_data/tipos";
+import { Alunos, Respostas } from "@/lib/mock_data/tipos";
 
 interface TabelaAlunosProps {
   alunos: Alunos;
   respostas: Respostas;
 }
 
-export default function TabelaAlunos({ alunos, respostas }: TabelaAlunosProps) {
+export default function Alunos({ alunos, respostas }: TabelaAlunosProps) {
   // Crie um objeto para mapear as respostas corretas por questão
   const respostasCorretasPorQuestao: { [key: number]: string } = {};
   respostas.forEach((resposta) => {

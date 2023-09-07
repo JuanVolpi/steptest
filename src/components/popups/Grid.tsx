@@ -25,7 +25,7 @@ import {
   ScissorsIcon,
   XMarkIcon,
 } from "@heroicons/react/20/solid";
-import { SmallQuestionCard } from "../cards/Card";
+import { SmallQuestion } from "../cards/Card";
 import { RectangleStack, Send, TrashBin } from "../icons/HeroIcons";
 import { DetalhesQuestao } from "./MoveOvers";
 
@@ -174,7 +174,7 @@ export function GridProvaQuestoes(x: GridProvaQuestoesProps) {
               >
                 {questoes.map((questao, index) => (
                   <div key={index} className="snap-start">
-                    <SmallQuestionCard
+                    <SmallQuestion
                       visualizeState={{
                         active: "lime",
                         inactive: "transparent",

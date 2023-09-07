@@ -1,5 +1,5 @@
 "use client";
-import { PageTag } from "@/componentes/cards/Pagetag";
+import { PageTag } from "@/components/cards/Pagetag";
 import { Button, Link } from "@nextui-org/react";
 
 export default function Questoes() {

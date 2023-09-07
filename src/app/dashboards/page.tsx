@@ -2,8 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-import TabelaAlunos from "@/componentes/cards/ResultsTable";
-import { alunos, respostas } from "@/lib/test_data/dados";
+import TabelaAlunos from "@/components/cards/ResultsTable";
+import { alunos, respostas } from "@/lib/mock_data/dados";
 import {
   CubeTransparentIcon,
   DocumentTextIcon,

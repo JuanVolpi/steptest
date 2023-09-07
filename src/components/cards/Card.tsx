@@ -1,25 +1,30 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import Image from "next/image";
 
-import { Display } from "@/lib/fonts";
+import { SetStateAction, useState } from "react";
+
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Button, useDisclosure } from "@nextui-org/react";
+
+import { FolderOpen } from "../icons/HeroIcons";
+import { ChipDificuldade } from "../misc/Chip";
+import { GridProvaQuestoes } from "../popups/Grid";
+
 import {
-  DificuldadeQuestao,
-  GenericCardProps,
-  SmallQuestionCardProps,
-} from "@/lib/types/componentes/cards";
-import {
+  AcademicCapIcon,
   Bars3CenterLeftIcon,
+  DocumentTextIcon,
   MagnifyingGlassCircleIcon,
   PhotoIcon,
   PresentationChartBarIcon,
   QuestionMarkCircleIcon,
+  UserGroupIcon,
 } from "@heroicons/react/20/solid";
+
 import {
   Accordion,
   AccordionItem,
-  Button,
   Chip,
   Divider,
-  Image,
   Input,
   Popover,
   PopoverContent,
@@ -30,31 +35,16 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 
-import { SetStateAction, useState } from "react";
+import { Display } from "@/lib/fonts";
+import {
+  GenericCardProps,
+  SmallQuestionCardProps,
+} from "@/lib/types/componentes/cards";
+
+import "@/styles/component/cards/TestCard.scss";
 import "../../styles/component/cards/Cards.scss";
 
-export function ChipDificuldade({
-  dificuldade,
-}: {
-  dificuldade: DificuldadeQuestao;
-}) {
-  let chipColor: "success" | "warning" | "primary" | "danger" = "primary";
-  if (dificuldade === "Fácil") {
-    chipColor = "success";
-  } else if (dificuldade === "Médio") {
-    chipColor = "warning";
-  } else {
-    chipColor = "danger";
-  }
-
-  return (
-    <Chip variant="flat" size="sm" color={chipColor}>
-      {dificuldade}
-    </Chip>
-  );
-}
-
-export function SmallQuestionCard(props: SmallQuestionCardProps) {
+export function SmallQuestion(props: SmallQuestionCardProps) {
   function handleCardColorState(): string {
     if (props.visualizeState !== undefined && props.state !== undefined)
       return props.visualizeState[props.state] as string;
@@ -83,7 +73,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
           <Chip variant="shadow" className="chip" size="sm">
             {props.dadosQuestao.bncc}
           </Chip>
-          {/* <Divider orientation="vertical" className="h-3" /> */}
+
           <ChipDificuldade dificuldade="Fácil" />
         </div>
       </CardHeader>
@@ -318,7 +308,7 @@ export function SmallQuestionCard(props: SmallQuestionCardProps) {
   );
 }
 
-export function GenericCard(props: GenericCardProps) {
+export function Generic(props: GenericCardProps) {
   function handleCardColorState(): string {
     if (props.visualizeState !== undefined && props.state !== undefined)
       return props.visualizeState[props.state] as string;
@@ -354,5 +344,76 @@ export function GenericCard(props: GenericCardProps) {
         <CardFooter className="footer">{props.footer}</CardFooter>
       )}
     </Card>
+  );
+}
+
+export default function TestCard({
+  nomeProva,
+  numQuest,
+  imgProva,
+  disciplina,
+  recomendacao,
+  materia,
+}: {
+  nomeProva: string;
+  numQuest: number;
+  imgProva: string;
+  disciplina: string;
+  recomendacao: string;
+  materia: string;
+}) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  return (
+    <div className="Main">
+      <div className="Wrap">
+        <div className="flex flex-col w-max h-max">
+          <div className="NomeProva">Prova: {nomeProva}</div>
+          <div className="NumQuest">
+            <FolderOpen /> {numQuest} Questões
+          </div>
+          <Image
+            src={imgProva}
+            width={240}
+            height={50}
+            alt="Picture of the author"
+          />
+        </div>
+        <div className="LowerInfo">
+          <div className="Disciplina">
+            <AcademicCapIcon className="w-6 h-auto text-ayellow" /> Disciplina:{" "}
+            {disciplina}
+          </div>
+          <div className="Recomendacao">
+            <UserGroupIcon className="w-6 h-auto text-ayellow" /> Recomendação:{" "}
+            {recomendacao}
+          </div>
+          <div className="Materia">
+            <DocumentTextIcon className="w-6 h-auto text-ayellow" /> Matéria:{" "}
+            {materia}
+          </div>
+        </div>
+        <Button
+          onClick={onOpen}
+          radius="md"
+          color="primary"
+          variant="solid"
+          size="md"
+        >
+          Detalhes
+        </Button>
+        <GridProvaQuestoes
+          state={{
+            onOpen,
+            isOpen,
+            onOpenChange,
+          }}
+          content={{
+            titulo: "Matematica#2",
+            num_questoes: 8,
+          }}
+        />
+      </div>
+    </div>
   );
 }

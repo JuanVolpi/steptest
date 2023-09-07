@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { PageTag } from "@/componentes/cards/Pagetag";
-import CustomDropdown from "@/componentes/navegacao/CustomDropdown";
+import { PageTag } from "@/components/cards/Pagetag";
+import CustomDropdown from "@/components/navigation/CustomDropdown";
+import ConfirmationModal from "@/components/popups/ConfirmationModal";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
   Button,
   ButtonGroup,
@@ -12,11 +14,8 @@ import {
   DropdownTrigger,
   useDisclosure,
 } from "@nextui-org/react";
-import { SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { Comentario, Enunciado } from "./ComponentsCaller";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import React from "react";
-import ConfirmationModal from "@/componentes/popups/ConfirmationModal";
 
 export default function app() {
   const [selectedKeys1, setSelectedKeys1] = useState(new Set([""]));

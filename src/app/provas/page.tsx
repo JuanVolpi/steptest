@@ -1,13 +1,13 @@
 "use client";
 
-import { PageTag } from "@/componentes/cards/Pagetag";
+import { PageTag } from "@/components/cards/Pagetag";
 import React, { useState } from "react";
 
-import { SimpleBlue } from "@/componentes/buttons/Button";
-import TestCard from "@/componentes/cards/TestCard";
-import { PaperAirplane, Plus } from "@/componentes/icons/HeroIcons";
-import { SearchIcon } from "@/componentes/icons/SeachIcon";
-import CustomDropdown from "@/componentes/navegacao/Dropdown";
+import { SimpleBlue } from "@/components/buttons/Button";
+import TestCard from "@/components/cards/TestCard";
+import { PaperAirplane, Plus } from "@/components/icons/HeroIcons";
+import { SearchIcon } from "@/components/icons/SeachIcon";
+import CustomDropdown from "@/components/navigation/Dropdown";
 import { CardStates } from "@/lib/types/componentes/cards";
 import { TagIcon } from "@heroicons/react/20/solid";
 import { Accordion, AccordionItem } from "@nextui-org/accordion";

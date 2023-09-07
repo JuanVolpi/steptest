@@ -5,7 +5,7 @@ function changePage() {
   window.location.href = "/";
 }
 
-export default function StepTestLogo() {
+export default function StepTest() {
   return (
     <h1 onClick={changePage} style={Titulo.style} className={style.wrapper}>
       StepTest.

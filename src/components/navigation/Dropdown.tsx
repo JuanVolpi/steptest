@@ -1,6 +1,4 @@
-import {
-  ChevronDownIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
   Button,
   Dropdown,
@@ -16,16 +14,16 @@ interface CustomDropdownProps {
   options: { key: string; label: string }[];
 }
 
-const CustomDropdown: React.FC<CustomDropdownProps> = ({
+export function CustomDropdown({
   initialSelectedKeys,
   onSelectChange,
   options,
-}) => {
+}: CustomDropdownProps) {
   const [selectedKeys, setSelectedKeys] = useState(initialSelectedKeys);
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
+    [selectedKeys],
   );
 
   return (
@@ -56,6 +54,6 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       </DropdownMenu>
     </Dropdown>
   );
-};
+}
 
 export default CustomDropdown;
