@@ -1,15 +1,17 @@
-"use client";
+import { Button } from "@nextui-org/button";
+import { Link } from "@nextui-org/link";
 
-import { DadosQuestao } from "@/lib/types/componentes/cards";
-import { Button, Link } from "@nextui-org/react";
-import { ReactNode } from "react";
+export type JSX = React.JSX.Element;
+export type ButtonContent = JSX | string | number;
 
-export function SimpleBlueButton({
+export function SimpleBlue({
   endIcon,
   content,
+  href,
 }: {
-  endIcon?: ReactNode;
   content: any;
+  href?: string;
+  endIcon?: JSX;
 }) {
   return (
     <Button
@@ -19,18 +21,22 @@ export function SimpleBlueButton({
       size="sm"
       color="primary"
       endContent={endIcon}
+      href={href}
+      as={Link}
     >
       {content}
     </Button>
   );
 }
 
-export function SimpleRedButton({
+export function SimpleRed({
   endIcon,
   content,
+  href,
 }: {
-  endIcon?: ReactNode;
   content: any;
+  href?: string;
+  endIcon?: JSX;
 }) {
   return (
     <Button
@@ -40,41 +46,22 @@ export function SimpleRedButton({
       size="sm"
       color="danger"
       endContent={endIcon}
+      href={href}
+      as={Link}
     >
       {content}
     </Button>
   );
 }
 
-export function SimpleYellowButton({
-  endIcon,
-  content,
-}: {
-  endIcon?: ReactNode;
-  content: any;
-}) {
-  return (
-    <Button
-      key={"fav"}
-      variant="flat"
-      radius="sm"
-      size="sm"
-      color="warning"
-      endContent={endIcon}
-    >
-      {content}
-    </Button>
-  );
-}
-
-export function SimpleYellowButtonLink({
+export function SimpleYellow({
   endIcon,
   content,
   href,
 }: {
-  endIcon?: ReactNode;
   content: any;
-  href: string;
+  href?: string;
+  endIcon?: JSX;
 }) {
   return (
     <Button

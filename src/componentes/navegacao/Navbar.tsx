@@ -8,7 +8,7 @@ import {
   UserIcon,
 } from "@heroicons/react/20/solid";
 
-import { SimpleYellowButton, SimpleYellowButtonLink } from "../buttons/Buttons";
+import { SimpleYellow } from "../buttons/Button";
 
 import StepTest from "../logos/StepTest";
 
@@ -18,29 +18,29 @@ export default function BarraDeNavegacao() {
     <div className="w-full h-max flex flex-row bg-white sticky top-0 p-2 z-50 shadow">
       <StepTest />
       <div className=" flex flex-row gap-5 w-full self-center justify-end pr-2">
-        <SimpleYellowButton
+        <SimpleYellow
           content={"Perfil"}
           endIcon={<UserIcon className={iconStyle} />}
-        ></SimpleYellowButton>
-        <SimpleYellowButtonLink
+        ></SimpleYellow>
+        <SimpleYellow
           content={"Provas"}
           endIcon={<DocumentTextIcon className={iconStyle} />}
           href={"/provas"}
-        ></SimpleYellowButtonLink>
-        <SimpleYellowButtonLink
+        ></SimpleYellow>
+        <SimpleYellow
           content={"Questões"}
           endIcon={<QuestionMarkCircleIcon className={iconStyle} />}
           href={"/questoes"}
-        ></SimpleYellowButtonLink>
-        <SimpleYellowButton
+        ></SimpleYellow>
+        <SimpleYellow
           content={"Minha Turma"}
           endIcon={<UserGroupIcon className={iconStyle} />}
-        ></SimpleYellowButton>
-        <SimpleYellowButtonLink
+        ></SimpleYellow>
+        <SimpleYellow
           content={"Dashboards"}
           endIcon={<ChartPieIcon className={iconStyle} />}
           href={"/dashboards"}
-        ></SimpleYellowButtonLink>
+        ></SimpleYellow>
       </div>
     </div>
   );

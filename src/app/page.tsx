@@ -1,26 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import {
-  SimpleBlueButton,
-  SimpleRedButton,
-  SimpleYellowButton,
-} from "@/componentes/buttons/Buttons";
-import { GenericCard, SmallQuestionCard } from "@/componentes/cards/Card";
-
-import {
-  ChatBubbleSolid,
-  ListBullet,
-  LockOutline,
-  QuestionSolid,
-  Share,
-  StarOutline,
-  TrashBin,
-} from "@/componentes/icons/HeroIcons";
-import { GridProvaQuestoes } from "@/componentes/popups/Grids";
-import { DetalhesQuestao } from "@/componentes/popups/MoveOvers";
 import { CardStates } from "@/lib/types/componentes/cards";
-import { Button } from "@nextui-org/button";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 import React from "react";
 
@@ -51,9 +31,13 @@ export default function Home() {
           </div>
 
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Página "Provas":</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              Página &quot;Provas&quot;:
+            </h2>
             <ul className="list-disc list-inside">
-              <li>Adição da página "Provas" que contém cards de provas.</li>
+              <li>
+                Adição da página &quot;Provas&quot; que contém cards de provas.
+              </li>
               <li>
                 Possibilidade de visualizar detalhes de uma prova, incluindo
                 questões e respostas.
@@ -62,18 +46,26 @@ export default function Home() {
           </div>
 
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Página "Questões":</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              Página &quot;Questões&quot;:
+            </h2>
             <ul className="list-disc list-inside">
-              <li>Adição da página "Questões".</li>
-              <li>Botão para acessar a página "Questões/Criar" em produção.</li>
+              <li>Adição da página &quot;Questões&quot;.</li>
+              <li>
+                Botão para acessar a página &quot;Questões/Criar&quot; em
+                produção.
+              </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold mb-2">Página "Dashboards":</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              Página &quot;Dashboards&quot;:
+            </h2>
             <ul className="list-disc list-inside">
               <li>
-                Estágio inicial de desenvolvimento da página "Dashboards".
+                Estágio inicial de desenvolvimento da página
+                &quot;Dashboards&quot;.
               </li>
               <li>
                 Futuramente, irá exibir dados de uma prova por meio de tabelas e

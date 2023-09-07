@@ -1,17 +1,17 @@
 "use client";
 
 import { PageTag } from "@/componentes/cards/Pagetag";
-import React, { SetStateAction, useState } from "react";
+import React, { useState } from "react";
 
-import CustomDropdown from "@/componentes/navegacao/Dropdown";
-import { SimpleBlueButton } from "@/componentes/buttons/Buttons";
-import { SearchIcon } from "@/componentes/icons/SeachIcon";
-import { PaperAirplane, Plus } from "@/componentes/icons/HeroIcons";
+import { SimpleBlue } from "@/componentes/buttons/Button";
 import TestCard from "@/componentes/cards/TestCard";
+import { PaperAirplane, Plus } from "@/componentes/icons/HeroIcons";
+import { SearchIcon } from "@/componentes/icons/SeachIcon";
+import CustomDropdown from "@/componentes/navegacao/Dropdown";
 import { CardStates } from "@/lib/types/componentes/cards";
-import { Input } from "@nextui-org/react";
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
 import { TagIcon } from "@heroicons/react/20/solid";
+import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { Input } from "@nextui-org/react";
 
 export default function BarraDeNavegacao() {
   const [selectedKeys1, setSelectedKeys1] = useState(new Set(["Ensino"]));
@@ -151,14 +151,14 @@ export default function BarraDeNavegacao() {
                 }
               />
               <div className="w-max  h-full gap-5 align-middle justify-center self-center flex">
-                <SimpleBlueButton
+                <SimpleBlue
                   content={"Pesquisar"}
                   endIcon={<PaperAirplane fill="rgb(129 140 248)" />}
-                ></SimpleBlueButton>
-                <SimpleBlueButton
+                ></SimpleBlue>
+                <SimpleBlue
                   content={"Criar"}
                   endIcon={<Plus fill="rgb(129 140 248)" />}
-                ></SimpleBlueButton>
+                ></SimpleBlue>
               </div>
             </div>
           </div>
