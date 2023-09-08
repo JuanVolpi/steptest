@@ -3,7 +3,8 @@ import { Alunos, Respostas } from "@/lib/mock_data/tipos";
 import { DadosQuestao } from "@/lib/types/componentes/cards";
 import { ArrowDownCircleIcon } from "@heroicons/react/20/solid";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useImmerReducer } from "use-immer";
 
 interface TabelaAlunosProps {
   alunos: Alunos;
@@ -105,44 +106,78 @@ export function Alunos({ alunos, respostas }: TabelaAlunosProps) {
 export type QuestoesProvaProps = { questoes: DadosQuestao[] };
 
 export function QuestoesProva({ questoes }: QuestoesProvaProps) {
-  const secoes: { categoria: string; questoes: DadosQuestao[] }[] = [
-    {
-      categoria: "Trigonometria",
-      questoes: [questoes[0], questoes[5]],
+  const secoes: Seccao[] = useMemo(() => {
+    return [
+      {
+        aberta: false,
+        categoria: "Trigonometria",
+        questoes: [questoes[0], questoes[5]],
+      },
+      {
+        aberta: false,
+        categoria: "Geometria",
+        questoes: [questoes[1]],
+      },
+      {
+        aberta: false,
+        categoria: "Planeamento & Areas",
+        questoes: [questoes[2], questoes[3], questoes[6]],
+      },
+      {
+        aberta: false,
+        categoria: "Proporções",
+        questoes: [questoes[4]],
+      },
+      {
+        aberta: false,
+        categoria: "Planos Cartesianos",
+        questoes: [questoes[7]],
+      },
+    ];
+  }, [questoes]);
+
+  type SeccoesActionType = "seccao selecionada";
+
+  type SeccoesAction = {
+    type: SeccoesActionType;
+    selected: string;
+  };
+
+  type Seccao = {
+    aberta: boolean;
+    categoria: string;
+    questoes: DadosQuestao[];
+  };
+
+  const [seccoesState, dispatch] = useImmerReducer<Seccao[], SeccoesAction>(
+    (draft, action) => {
+      switch (action.type) {
+        case "seccao selecionada":
+          const seccao = draft.find(
+            (x) => x.categoria === action.selected,
+          ) as Seccao;
+          seccao.aberta = true;
+          break;
+      }
     },
-    {
-      categoria: "Geometria",
-      questoes: [questoes[1]],
-    },
-    {
-      categoria: "Planeamento & Areas",
-      questoes: [questoes[2], questoes[3], questoes[6]],
-    },
-    {
-      categoria: "Proporções",
-      questoes: [questoes[4]],
-    },
-    {
-      categoria: "Planos Cartesianos",
-      questoes: [questoes[7]],
-    },
-  ];
+    secoes,
+  );
 
   const [questaoSelecionada, setQuestaoSelecionada] = useState<
-    string | undefined
+    DadosQuestao | undefined
   >(undefined);
 
   return (
     <div className="flex flex-row gap-12">
       {/* Questoes */}
-      <section>
+      <section className="min-w-fit">
         <h2 className="text-xl font-bold w-fit px-3 py-1.5 rounded-md bg-orange-300/25 text-orange-600 tracking-wide shadow">
           Questoes
         </h2>
         <main className="p-3 py-4">
           <AnimatePresence>
             <ol>
-              {secoes.map((seccao, i) => (
+              {seccoesState.map((seccao, i) => (
                 <li key={i}>
                   <ol className="list-decimal list-inside flex flex-col">
                     <motion.div
@@ -161,29 +196,44 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                         {i + 1}.{` `}
                         {seccao.categoria}
                       </dl>
-                      <ArrowDownCircleIcon className="w-5 h-5 text-orange-400" />
+                      <ArrowDownCircleIcon
+                        className="w-5 h-5 text-orange-400"
+                        onClick={() => {
+                          dispatch({
+                            selected: seccao.categoria,
+                            type: "seccao selecionada",
+                          });
+                        }}
+                      />
                     </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: "10px" }}
-                      animate={{ opacity: 1, y: "0px" }}
-                      exit={{ opacity: 0, y: "10px" }}
-                      transition={{
-                        ease: "easeInOut",
-                        duration: 0.5,
-                        delay: 0.7,
-                      }}
-                      className="border-l-3 ml-[3px] pl-7 border-orange-500 pb-4 space-y-1"
-                    >
-                      {seccao.questoes.map((questao, j) => (
-                        <li
-                          key={j}
-                          style={Conteudo.style}
-                          className="duration-100 ease-in-out transition-all hover:translate-x-1 hover:font-semibold hover:text-md hover:text-sky-600 hover:cursor-pointer"
+                    <AnimatePresence>
+                      {seccao.aberta && (
+                        <motion.div
+                          initial={{ opacity: 0, y: "10px" }}
+                          animate={{ opacity: 1, y: "0px" }}
+                          exit={{ opacity: 0, y: "10px" }}
+                          transition={{
+                            ease: "easeInOut",
+                            duration: 0.5,
+                            delay: 0.5,
+                          }}
+                          className="border-l-3 ml-[3px] pl-7 border-orange-500 pb-4 space-y-1"
                         >
-                          {questao.questao.slice(0, 31).trim() + "..."}
-                        </li>
-                      ))}
-                    </motion.div>
+                          {seccao.questoes.map((questao, j) => (
+                            <li
+                              key={j}
+                              style={Conteudo.style}
+                              className="z-20 duration-100 ease-in-out transition-all hover:translate-x-1 hover:font-semibold hover:text-md hover:text-sky-600 hover:cursor-pointer"
+                              onClick={() => {
+                                setQuestaoSelecionada(questao);
+                              }}
+                            >
+                              {questao.questao.slice(0, 31).trim() + "..."}
+                            </li>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </ol>
                 </li>
               ))}
@@ -203,6 +253,9 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                 Sem questao Selecionada
               </p>
             </>
+          )}
+          {questaoSelecionada !== undefined && (
+            <p>{JSON.stringify(questaoSelecionada)}</p>
           )}
         </main>
       </section>
