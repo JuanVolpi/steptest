@@ -1,10 +1,11 @@
 "use client";
 
-import { PageTag } from "@/components/cards/Pagetag";
 import React, { useState } from "react";
 
 import { SimpleBlue } from "@/components/buttons/Button";
-import TestCard from "@/components/cards/TestCard";
+
+import TestCard from "@/components/cards/Card";
+import { PageTag } from "@/components/cards/Tags";
 import { PaperAirplane, Plus } from "@/components/icons/HeroIcons";
 import { SearchIcon } from "@/components/icons/SeachIcon";
 import CustomDropdown from "@/components/navigation/Dropdown";

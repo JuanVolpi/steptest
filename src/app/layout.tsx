@@ -1,4 +1,4 @@
-import BarraDeNavegacao from "@/componentes/navegacao/Navbar";
+import BarraDeNavegacao from "@/components/navigation/Navbar";
 import { Display } from "@/lib/fonts";
 import "@/styles/globals.scss";
 import styles from "@/styles/layout/root-layout.module.scss";

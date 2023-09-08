@@ -2,8 +2,10 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-import TabelaAlunos from "@/components/cards/ResultsTable";
-import { alunos, respostas } from "@/lib/mock_data/dados";
+import { Alunos, QuestoesProva } from "@/components/cards/Tables";
+
+import { alunos, questoes, respostas } from "@/lib/mock_data/dados";
+
 import {
   CubeTransparentIcon,
   DocumentTextIcon,
@@ -14,7 +16,9 @@ import {
   XCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/20/solid";
+
 import { Button, Divider, Input, Spacer, Tab, Tabs } from "@nextui-org/react";
+
 import React, { useMemo, useRef, useState } from "react";
 
 // Certifique-se de importar os dados corretos
@@ -80,9 +84,9 @@ export default function Dashboards() {
       case "Aluno-Aluno":
         return <></>;
       case "Questao-Questao":
-        return <></>;
+        return <QuestoesProva questoes={questoes} />;
       case "Vista Geral":
-        return <TabelaAlunos alunos={alunos} respostas={respostas} />;
+        return <Alunos alunos={alunos} respostas={respostas} />;
     }
   }
 
@@ -132,7 +136,7 @@ export default function Dashboards() {
             </section>
           </header>
           {/* Zona Lista Provas */}
-          <main className="max-h-[72vh] overflow-y-scroll space-y-4 snap-y scroll-smooth shadow-inner">
+          <main className="max-h-[68vh] overflow-y-scroll space-y-4 snap-y scroll-smooth shadow-inner">
             {seccoes.map(({ nome, numProvas }, i) => (
               <div
                 key={i}
@@ -412,7 +416,7 @@ function SeccaoProvas(props: SeccaoProvasProps) {
               className="w-full flex flex-col gap-4 items-center justify-evenly border-1.5 px-3 py-2 rounded border-fuchsia-300/50 bg-white snap-center ease-soft-spring duration-200 transition-all hover:border-fuchsia-300 hover:scale-105 hover:cursor-pointer"
               style={{
                 border:
-                  selecionada === nomeProva(i) ? "solid 2px blue" : undefined,
+                  selecionada === nomeProva(i) ? "solid 1.5px blue" : undefined,
               }}
               onClick={() => {
                 if (selecionada !== nomeProva(i)) {

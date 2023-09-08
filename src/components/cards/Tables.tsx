@@ -1,11 +1,16 @@
+import { Conteudo } from "@/lib/fonts";
 import { Alunos, Respostas } from "@/lib/mock_data/tipos";
+import { DadosQuestao } from "@/lib/types/componentes/cards";
+import { ArrowDownCircleIcon } from "@heroicons/react/20/solid";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 interface TabelaAlunosProps {
   alunos: Alunos;
   respostas: Respostas;
 }
 
-export default function Alunos({ alunos, respostas }: TabelaAlunosProps) {
+export function Alunos({ alunos, respostas }: TabelaAlunosProps) {
   // Crie um objeto para mapear as respostas corretas por questão
   const respostasCorretasPorQuestao: { [key: number]: string } = {};
   respostas.forEach((resposta) => {
@@ -94,5 +99,113 @@ export default function Alunos({ alunos, respostas }: TabelaAlunosProps) {
         ))}
       </tbody>
     </table>
+  );
+}
+
+export type QuestoesProvaProps = { questoes: DadosQuestao[] };
+
+export function QuestoesProva({ questoes }: QuestoesProvaProps) {
+  const secoes: { categoria: string; questoes: DadosQuestao[] }[] = [
+    {
+      categoria: "Trigonometria",
+      questoes: [questoes[0], questoes[5]],
+    },
+    {
+      categoria: "Geometria",
+      questoes: [questoes[1]],
+    },
+    {
+      categoria: "Planeamento & Areas",
+      questoes: [questoes[2], questoes[3], questoes[6]],
+    },
+    {
+      categoria: "Proporções",
+      questoes: [questoes[4]],
+    },
+    {
+      categoria: "Planos Cartesianos",
+      questoes: [questoes[7]],
+    },
+  ];
+
+  const [questaoSelecionada, setQuestaoSelecionada] = useState<
+    string | undefined
+  >(undefined);
+
+  return (
+    <div className="flex flex-row gap-12">
+      {/* Questoes */}
+      <section>
+        <h2 className="text-xl font-bold w-fit px-3 py-1.5 rounded-md bg-orange-300/25 text-orange-600 tracking-wide shadow">
+          Questoes
+        </h2>
+        <main className="p-3 py-4">
+          <AnimatePresence>
+            <ol>
+              {secoes.map((seccao, i) => (
+                <li key={i}>
+                  <ol className="list-decimal list-inside flex flex-col">
+                    <motion.div
+                      initial={{ opacity: 0, x: "-20px" }}
+                      animate={{ opacity: 1, x: "0px" }}
+                      exit={{ opacity: 0, x: "-20px" }}
+                      transition={{
+                        ease: "easeInOut",
+                        duration: 0.3,
+                        delay: Number(`0.${i + 1}`),
+                      }}
+                      className="inline-flex gap-2.5 items-center justify-start mb-0.5"
+                    >
+                      <div className="w-2.5 h-2.5 bg-orange-500 rounded-full" />
+                      <dl className="text-lg font-medium text-orange-500 underline underline-offset-4">
+                        {i + 1}.{` `}
+                        {seccao.categoria}
+                      </dl>
+                      <ArrowDownCircleIcon className="w-5 h-5 text-orange-400" />
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: "10px" }}
+                      animate={{ opacity: 1, y: "0px" }}
+                      exit={{ opacity: 0, y: "10px" }}
+                      transition={{
+                        ease: "easeInOut",
+                        duration: 0.5,
+                        delay: 0.7,
+                      }}
+                      className="border-l-3 ml-[3px] pl-7 border-orange-500 pb-4 space-y-1"
+                    >
+                      {seccao.questoes.map((questao, j) => (
+                        <li
+                          key={j}
+                          style={Conteudo.style}
+                          className="duration-100 ease-in-out transition-all hover:translate-x-1 hover:font-semibold hover:text-md hover:text-sky-600 hover:cursor-pointer"
+                        >
+                          {questao.questao.slice(0, 31).trim() + "..."}
+                        </li>
+                      ))}
+                    </motion.div>
+                  </ol>
+                </li>
+              ))}
+            </ol>
+          </AnimatePresence>
+        </main>
+      </section>
+      {/* Resultados */}
+      <section>
+        <h2 className="text-xl font-bold w-fit px-3 py-1.5 rounded-md bg-orange-300/25 text-orange-600 tracking-wide shadow">
+          Respostas
+        </h2>
+        <main className="p-3 py-4">
+          {questaoSelecionada === undefined && (
+            <>
+              <p className="text-default-500 bg-slate-100 p-3 py-2.5 rounded-md">
+                Sem questao Selecionada
+              </p>
+            </>
+          )}
+        </main>
+      </section>
+    </div>
   );
 }

@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { PageTag } from "@/components/cards/Pagetag";
 import CustomDropdown from "@/components/navigation/CustomDropdown";
-import ConfirmationModal from "@/components/popups/ConfirmationModal";
+
+import { PageTag } from "@/components/cards/Tags";
+import ConfirmationModal from "@/components/popups/Modal";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
   Button,
