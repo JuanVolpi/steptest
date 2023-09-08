@@ -156,7 +156,7 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
           const seccao = draft.find(
             (x) => x.categoria === action.selected,
           ) as Seccao;
-          seccao.aberta = true;
+          seccao.aberta = !seccao.aberta;
           break;
       }
     },
@@ -197,7 +197,10 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                         {seccao.categoria}
                       </dl>
                       <ArrowDownCircleIcon
-                        className="w-5 h-5 text-orange-400"
+                        className="w-5 h-5 text-orange-400 transition-all ease-soft-spring duration-250"
+                        style={{
+                          rotate: seccao.aberta ? "0deg" : "-90deg",
+                        }}
                         onClick={() => {
                           dispatch({
                             selected: seccao.categoria,
@@ -222,7 +225,13 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                           {seccao.questoes.map((questao, j) => (
                             <li
                               key={j}
-                              style={Conteudo.style}
+                              style={{
+                                fontFamily: Conteudo.style.fontFamily,
+                                color:
+                                  questaoSelecionada === questao
+                                    ? "blue"
+                                    : "inherit",
+                              }}
                               className="z-20 duration-100 ease-in-out transition-all hover:translate-x-1 hover:font-semibold hover:text-md hover:text-sky-600 hover:cursor-pointer"
                               onClick={() => {
                                 setQuestaoSelecionada(questao);
