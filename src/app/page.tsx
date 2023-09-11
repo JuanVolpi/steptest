@@ -74,6 +74,31 @@ export default function Home() {
             </ul>
           </div>
         </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6 my-5 border-2 hover:border-mblue ease-in-out transition-all">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Data: 11/09/2023</h2>
+            <h2 className="text-xl font-semibold mb-2">Página "Dashboards":</h2>
+            <ul className="list-disc list-inside">
+              <li>
+                Adição de detalhes das questões que agora mostram os detalhes
+                por questão.
+              </li>
+              <li>
+                Adição de um gráfico de pizza para visualizar as respostas dos
+                alunos de forma mais clara.
+              </li>
+              <li>
+                Adição de interações para permitir a visualização da resposta
+                individual de cada aluno.
+              </li>
+              <li>
+                Refatoramento e mudanças em códigos existentes para melhorias
+                gerais.
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
