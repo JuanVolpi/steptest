@@ -93,7 +93,7 @@ export default function Dashboards() {
   }
 
   return (
-    <main className="flex flex-row gap-4 pb-5 mx-auto transition-all ease-in-out duration-200">
+    <main className="flex flex-row gap-4 pb-5 w-full transition-all ease-in-out duration-200">
       {/* Selecionador turma, materia e dados */}
       <section className="min-w-[30%] max-w-fit bg-white p-4 pb-2 rounded max-h-fit">
         <h2 className="font-bold text-xl text-blue-500 bg-sky-100 p-2 rounded-md w-fit before:content-['#'] before:mr-1 before:text-blue-300 hover:before:text-blue-500 before:ease-soft-spring before:duration-250">
@@ -164,7 +164,7 @@ export default function Dashboards() {
         <Divider className="bg-slate-200" />
       </section>
       {/* Representação dos dados */}
-      <section>
+      <section className="400 w-full">
         {/* Zona Dashboards */}
         <AnimatePresence>
           {provaSelecionada !== undefined && (
@@ -173,7 +173,7 @@ export default function Dashboards() {
               animate={{ opacity: 1, x: "-0%" }}
               exit={{ opacity: 0, x: "200%" }}
               transition={{ ease: "easeInOut", duration: 0.7 }}
-              className="space-y-4 p-4 bg-white rounded-md mb-5"
+              className="space-y-4 p-4 bg-white w-fit rounded-md mb-5"
             >
               <header className="inline-flex gap-3 items-baseline">
                 <h2 className="font-bold text-xl text-blue-500 bg-sky-100 p-2 rounded-md w-fit before:content-['#'] before:mr-1 before:text-blue-300 hover:before:text-blue-500 before:ease-soft-spring before:duration-250">
@@ -297,7 +297,7 @@ export default function Dashboards() {
                   animate={{ x: "-0%" }}
                   exit={{ x: "100%" }}
                   transition={{ ease: "easeInOut", duration: 0.7 }}
-                  className="w-full h-fit aspect-video rounded bg-white p-4"
+                  className="h-fit min-w-full rounded bg-white p-4"
                 >
                   <div className="inline-flex gap-2 items-center">
                     <h2 className="text-lg font-bold text-fuchsia-600 p-2 px-3 bg-fuchsia-100 rounded-md w-fit">
@@ -316,6 +316,7 @@ export default function Dashboards() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ ease: "easeInOut", duration: 0.7 }}
+                    className="min-w-full"
                   >
                     {handleDashboardSelect()}
                   </motion.section>
