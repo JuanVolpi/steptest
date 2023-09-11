@@ -1,9 +1,18 @@
 import { Conteudo } from "@/lib/fonts";
+import { respostas } from "@/lib/mock_data/dados";
 import { Alunos, Respostas } from "@/lib/mock_data/tipos";
 import { DadosQuestao } from "@/lib/types/componentes/cards";
-import { ArrowDownCircleIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowDownCircleIcon,
+  ChartPieIcon,
+  DocumentTextIcon,
+} from "@heroicons/react/20/solid";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { Select, SelectItem } from "@nextui-org/react";
+import { Chart } from "chart.js/auto";
+import {} from "chart.js/helpers";
 import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useImmerReducer } from "use-immer";
 
 interface TabelaAlunosProps {
@@ -167,10 +176,50 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
     DadosQuestao | undefined
   >(undefined);
 
+  const [textoSelecionado, setTextoSelecionado] = useState<string>();
+
+  const chart = document.createElement("canvas") as HTMLCanvasElement;
+  const reff = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    new Chart(chart as HTMLCanvasElement, {
+      type: "pie",
+      data: {
+        labels: ["A", "B", "C", "D"],
+        datasets: [
+          {
+            label: "My First Dataset",
+            data: [10, 3, 5, 7],
+            backgroundColor: ["tomato", "orange", "green", "blueviolet"],
+            hoverOffset: 0,
+            order: 1,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            align: "center",
+            display: false,
+          },
+        },
+      },
+    });
+
+    reff.current?.replaceChildren(chart);
+  }, [reff, chart]);
+
+  const opcoesResposta = [
+    { letra: "A", cor: "bg-red-400" },
+    { letra: "B", cor: "bg-yellow-400" },
+    { letra: "C", cor: "bg-lime-400" },
+    { letra: "D", cor: "bg-blue-400" },
+  ];
+
   return (
-    <div className="flex flex-row gap-12">
+    <div className="flex flex-row gap-12 min-w-full">
       {/* Questoes */}
-      <section className="min-w-fit">
+      <section className="min-w-fit sticky top-0">
         <h2 className="text-xl font-bold w-fit px-3 py-1.5 rounded-md bg-orange-300/25 text-orange-600 tracking-wide shadow">
           Questoes
         </h2>
@@ -251,11 +300,11 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
         </main>
       </section>
       {/* Resultados */}
-      <section>
+      <section className="w-full">
         <h2 className="text-xl font-bold w-fit px-3 py-1.5 rounded-md bg-orange-300/25 text-orange-600 tracking-wide shadow">
           Respostas
         </h2>
-        <main className="p-3 py-4">
+        <main className="px-3 py-4">
           {questaoSelecionada === undefined && (
             <>
               <p className="text-default-500 bg-slate-100 p-3 py-2.5 rounded-md">
@@ -264,7 +313,155 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
             </>
           )}
           {questaoSelecionada !== undefined && (
-            <p>{JSON.stringify(questaoSelecionada)}</p>
+            <section className="space-y-10">
+              <motion.section
+                initial={{ opacity: 0, x: "10px" }}
+                animate={{ opacity: 1, x: "0px" }}
+                exit={{ opacity: 0, x: "10px" }}
+                className="space-y-4"
+              >
+                <header className="flex flex-row gap-4 items-center justify-start w-full">
+                  <QuestionMarkCircleIcon className="w-8 h-8 text-orange-500" />
+                  <h3 className="text-xl font-bold tracking-tight">Questao</h3>
+                  {/* Questao & contexto */}
+                  <Select
+                    radius="sm"
+                    variant="flat"
+                    label="Textos da questao"
+                    color="primary"
+                    startContent={<DocumentTextIcon className="w-6 h-6" />}
+                    onChange={(change) => {
+                      setTextoSelecionado(change.target.value);
+                    }}
+                    classNames={{
+                      base: "h-12 max-w-[230px]",
+                    }}
+                  >
+                    <SelectItem
+                      key={"Contexto"}
+                      value={"Contexto"}
+                      defaultChecked
+                    >
+                      Contexto
+                    </SelectItem>
+                    <SelectItem key={"Questão"} value={"Questão"}>
+                      Questão
+                    </SelectItem>
+                  </Select>
+                  <i className="text-orange-200 ">15 Avaliações</i>
+                </header>
+                <main className="grid grid-cols-[0.15fr_2fr] grid-rows-1">
+                  <div />
+                  <div className="border border-orange-400 shadow bg-white p-3.5 max-w-[60ch] rounded-md max-h-[155px] overflow-y-scroll scroll-smooth">
+                    <p style={Conteudo.style}>
+                      {textoSelecionado === "Questão"
+                        ? questaoSelecionada.questao
+                        : questaoSelecionada.contextualizacao}
+                    </p>
+                  </div>
+                </main>
+              </motion.section>
+              <motion.section
+                initial={{ opacity: 0, x: "10px" }}
+                animate={{ opacity: 1, x: "0px" }}
+                exit={{ opacity: 0, x: "10px" }}
+                className="space-y-4"
+              >
+                <header className="flex flex-row gap-4 items-center justify-start w-full">
+                  <ChartPieIcon className="w-8 h-8 text-orange-500" />
+                  {/* Questao & contexto */}
+                  <h3 className="text-xl font-bold tracking-tight">Dados</h3>
+                </header>
+                <main className="grid grid-cols-[0.15fr_.75fr_1fr] grid-rows-1">
+                  <div />
+                  <div
+                    className=" max-w-[250px] max-h-[250px] bg-white"
+                    ref={reff}
+                  />
+                  <div className="w-fit">
+                    <h4 className="font-bold text-blue-500 border-b-2 border-b-slate-300 w-full">
+                      Legenda
+                    </h4>
+                    <ul className="p-1.5 px-3 space-y-2">
+                      <dl className="-ml-3 text-sm text-default-500">
+                        Universo de Resposta
+                      </dl>
+                      <div className="pl-2 space-y-1">
+                        {opcoesResposta.map((opcao) => (
+                          <li
+                            key={opcao.letra}
+                            className="flex items-baseline gap-2"
+                          >
+                            <div
+                              className={`w-3 h-3 ${opcao.cor} rounded-sm`}
+                            />
+                            <p>{opcao.letra}</p>
+                          </li>
+                        ))}
+                      </div>
+                    </ul>
+                  </div>
+                </main>
+              </motion.section>
+              <motion.section
+                initial={{ opacity: 0, x: "10px" }}
+                animate={{ opacity: 1, x: "0px" }}
+                exit={{ opacity: 0, x: "10px" }}
+                className="space-y-3"
+              >
+                <header className="flex flex-row gap-4 items-center justify-start w-full">
+                  <ChartPieIcon className="w-8 h-8 text-orange-500" />
+                  {/* Questao & contexto */}
+                  <h3 className="text-xl font-bold tracking-tight">
+                    Interações
+                  </h3>
+                </header>
+                <main className="grid grid-cols-[0.15fr_2fr] grid-rows-1">
+                  <div />
+                  <AnimatePresence>
+                    <motion.div
+                      className={`flex flex-row flex-wrap items-start gap-2.5`}
+                    >
+                      {opcoesResposta.map((opcao, id) => (
+                        <motion.div
+                          initial={{ opacity: 0, x: "10px" }}
+                          animate={{ opacity: 1, x: "0px" }}
+                          exit={{ opacity: 0, x: "10px" }}
+                          whileHover={{
+                            scale: 1.05,
+                          }}
+                          key={id}
+                          className="flex flex-col gap-2 rounded-md border-2 overflow-clip pb-3 w-fit "
+                        >
+                          <p className="font-semibold p-2 w-full text-center bg-orange-400 text-white">
+                            {opcao.letra}
+                          </p>
+                          <br />
+                          {respostas
+                            .filter(
+                              (resposta) =>
+                                resposta.idQuestao ===
+                                  questoes.indexOf(questaoSelecionada) &&
+                                opcao.letra === resposta.resposta,
+                            )
+                            .map((resposta, i) => {
+                              return (
+                                <p
+                                  key={i}
+                                  style={Conteudo.style}
+                                  className="px-3.5 text-left text transition-all ease-in-out duration-100 hover:font-semibold hover:text-fuchsia-400"
+                                >
+                                  {resposta.nomeAluno}
+                                </p>
+                              );
+                            })}
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  </AnimatePresence>
+                </main>
+              </motion.section>
+            </section>
           )}
         </main>
       </section>
