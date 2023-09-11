@@ -1,3 +1,5 @@
+export type OpcaoResposta = "A" | "B" | "C" | "D";
+
 export type Aluno = {
   nome: string;
   turma: string;
@@ -9,8 +11,8 @@ export type Alunos = Aluno[];
 export type Resposta = {
   nomeAluno: string;
   idQuestao: number;
-  resposta: string;
-  correta: string;
+  resposta: OpcaoResposta;
+  correta: OpcaoResposta;
 };
 
 export type Respostas = Resposta[];

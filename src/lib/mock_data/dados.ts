@@ -1,7 +1,5 @@
 import { DadosQuestao } from "../types/componentes/cards";
-import { Alunos, Respostas } from "./tipos";
-
-export type OpcaoResposta = "A" | "B" | "C" | "D";
+import { Alunos, OpcaoResposta, Respostas } from "./tipos";
 
 export function traduzLetraParaIndexResposta(letra: OpcaoResposta) {
   switch (letra) {
