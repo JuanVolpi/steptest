@@ -21,6 +21,34 @@ export default function Home() {
     <div className="bg-white rounded-lg shadow-md self-center p-6 w-full max-h-[98%] h-full md:w-2/3 lg:w-1/2">
       <h1 className="text-3xl font-semibold mb-4">Registro de Atualizações</h1>
       <div className="max-h-[90%] overflow-y-scroll">
+
+      <div className="bg-white rounded-lg shadow-md p-6 my-5 border-2 hover:border-mblue ease-in-out transition-all">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Data: 11/09/2023</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              Página &quot;Dashboards&quot;:
+            </h2>
+            <ul className="list-disc list-inside">
+              <li>
+                Adição de detalhes das questões que agora mostram os detalhes
+                por questão.
+              </li>
+              <li>
+                Adição de um gráfico de pizza para visualizar as respostas dos
+                alunos de forma mais clara.
+              </li>
+              <li>
+                Adição de interações para permitir a visualização da resposta
+                individual de cada aluno.
+              </li>
+              <li>
+                Refatoramento e mudanças em códigos existentes para melhorias
+                gerais.
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div className="bg-white rounded-lg shadow-md p-6 my-5 border-2 hover:border-mblue ease-in-out transition-all">
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2">Data: 07/09/2023</h2>
@@ -75,32 +103,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 my-5 border-2 hover:border-mblue ease-in-out transition-all">
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Data: 11/09/2023</h2>
-            <h2 className="text-xl font-semibold mb-2">
-              Página &quot;Dashboards&quot;:
-            </h2>
-            <ul className="list-disc list-inside">
-              <li>
-                Adição de detalhes das questões que agora mostram os detalhes
-                por questão.
-              </li>
-              <li>
-                Adição de um gráfico de pizza para visualizar as respostas dos
-                alunos de forma mais clara.
-              </li>
-              <li>
-                Adição de interações para permitir a visualização da resposta
-                individual de cada aluno.
-              </li>
-              <li>
-                Refatoramento e mudanças em códigos existentes para melhorias
-                gerais.
-              </li>
-            </ul>
-          </div>
-        </div>
+        
+
       </div>
     </div>
   );
