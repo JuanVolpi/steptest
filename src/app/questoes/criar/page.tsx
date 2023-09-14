@@ -1,9 +1,10 @@
 "use client";
 
 import { SmallDeleteButton, SmallSelectAllButton } from "@/components/buttons";
-import Contexto from "@/components/inputs/Contexto";
+import { Contexto, Questao } from "@/components/inputs";
+import ImageUpload from "@/components/inputs/Image";
 import { Conteudo } from "@/lib/fonts";
-import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
+import { QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
 import { Divider } from "@nextui-org/divider";
 import {
@@ -56,7 +57,14 @@ export default function App() {
 
   const baseState: NewType = {
     questao: ["questao", "contexto", "imgs"],
-    identificador: [],
+    identificador: [
+      "area-de-conhecimento",
+      "nivel-de-dificuldade",
+      "ano",
+      "codigo",
+      "ordem",
+      "descritor",
+    ],
     extra: [],
   };
 
@@ -187,7 +195,7 @@ export default function App() {
                 </h3>
                 <CheckboxGroup
                   label="Informações atribuidas à questão "
-                  defaultValue={["questao"]}
+                  defaultValue={["ano"]}
                   classNames={{
                     label: "text-sm",
                     wrapper: "pt-0.5 px-2",
@@ -251,7 +259,7 @@ export default function App() {
           </main>
         </AnimatePresence>
       </section>
-      <section className="flex flex-col justify-between h-full w-full rounded-md bg-white p-6">
+      <section className="flex flex-col gap-6 h-full w-full rounded-md bg-white p-6">
         <motion.fieldset
           initial={{ opacity: 0, x: "-20px" }}
           animate={{ opacity: 1, x: "0px" }}
@@ -282,8 +290,15 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main>
-            <Contexto></Contexto>
+          <main className="flex flex-row flex-wrap gap-6 items-start justify-start">
+            <div className="flex flex-row gap-1 items-start">
+              <XMarkIcon className="w-5 h-5 text-red-500 transition-all ease-in-out duration-200 hover:cursor-pointer hover:scale-110" />
+              <Questao emitTextContent={(text: string) => {}} />
+            </div>
+            <div className="flex flex-row gap-1 items-start">
+              <XMarkIcon className="w-5 h-5 text-red-500 transition-all ease-in-out duration-200 hover:cursor-pointer hover:scale-110" />
+              <ImageUpload />
+            </div>
           </main>
         </motion.fieldset>
         <motion.fieldset
@@ -316,8 +331,8 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main>
-            <Contexto></Contexto>
+          <main className="flex flex-row flex-wrap gap-6 items-center justify-start">
+            <Contexto />
           </main>
         </motion.fieldset>
         <motion.fieldset
