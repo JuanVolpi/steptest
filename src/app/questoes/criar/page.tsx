@@ -1,39 +1,34 @@
 "use client";
 
 import { SmallDeleteButton, SmallSelectAllButton } from "@/components/buttons";
-
 import Contexto from "@/components/inputs/Contexto";
 import { Conteudo } from "@/lib/fonts";
-import {
-  ChatBubbleBottomCenterTextIcon,
-  CheckCircleIcon,
-  QuestionMarkCircleIcon,
-  TrashIcon,
-} from "@heroicons/react/20/solid";
-import { Button } from "@nextui-org/button";
-import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
+import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
+import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
 import { Divider } from "@nextui-org/divider";
-import { Tooltip } from "@nextui-org/react";
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import { useImmerReducer } from "use-immer";
 
-export default function app() {
+export default function App() {
   /* TODOs
     - Filtrozao
 
     Zona professor & aluno
-    
+
     Linha de cima: Drop-down
       Ano, area, codigo
   */
-
-  /* 
+  /*
     [_] Dispatch: Action (type) + Value
     [_] Reducer: (action ?) -> ok... action.x => abcd(value)
     [X] State: obj
   */
-
   type Action = {
     type: "toggle" | "select all" | "deselect all";
     seccao: "questao" | "identificador" | "extra";
@@ -46,7 +41,7 @@ export default function app() {
         return void (draft[action.seccao] = action.value as string[]);
       case "deselect all":
         return void (draft[action.seccao] = baseState[action.seccao].filter(
-          (x) => x === "questao"
+          (x) => x === "questao",
         ));
       case "select all":
         return void (draft[action.seccao] = baseState[action.seccao]);
@@ -74,7 +69,7 @@ export default function app() {
   return (
     <div className="grid grid-cols-[1fr_3fr] gap-5 grid-rows-1 h-full w-full ">
       <section className="h-full w-full rounded-md bg-white p-3 px-4 overflow-y-scroll">
-        <header className="space-y-1.5">
+        <header className="space-y-1.5 sticky top-0 bg-white z-10">
           <h2 className="text-lg font-bold tracking-tight p-2 px-3 text-blue-500 bg-blue-300/20 rounded-md">
             Campos
           </h2>
@@ -144,7 +139,6 @@ export default function app() {
                     value="questao"
                     style={Conteudo.style}
                     isRequired
-                    isSelected
                     isDisabled
                     classNames={{
                       base: "opacity-100",
@@ -257,30 +251,109 @@ export default function app() {
           </main>
         </AnimatePresence>
       </section>
-      <section className="h-full w-full rounded-md bg-white p-3 px-4">
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+      <section className="flex flex-col justify-between h-full w-full rounded-md bg-white p-6">
+        <motion.fieldset
+          initial={{ opacity: 0, x: "-20px" }}
+          animate={{ opacity: 1, x: "0px" }}
+          exit={{ opacity: 0, x: "-20px" }}
           transition={{ ease: "easeInOut", duration: 0.7 }}
-          className="p-6 pt-4 border border-green-400 rounded-md shadow"
+          className="p-6 pt-4 border border-green-400 rounded-md"
         >
-          <Contexto></Contexto>
-        </motion.section>
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          <legend className="font-semibold px-2 space-x-2 inline-flex">
+            <p className="font-bold tracking-tight bg-green-100 text-green-700 p-2 py-1 rounded-md">
+              Questão
+            </p>
+            <Popover placement="right-start" radius="sm">
+              <PopoverTrigger>
+                <Button size="sm" variant="flat" isIconOnly>
+                  <QuestionMarkCircleIcon className="w-5 h-5 text-slate-500/50 transition-all ease-in-out duration-200 hover:text-blue-400" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <p
+                  className="max-w-[45ch] p-1 py-2.5 max-h-[100px] overflow-auto font-medium text-[15px] line-clamp-5"
+                  style={Conteudo.style}
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Distinctio voluptatibus sed nisi. Suscipit commodi enim
+                  consequuntur ipsum adipisci dolore quis cupiditate harum
+                  facere incidunt, laudantium quas at nemo eligendi nobis!
+                </p>
+              </PopoverContent>
+            </Popover>
+          </legend>
+          <main>
+            <Contexto></Contexto>
+          </main>
+        </motion.fieldset>
+        <motion.fieldset
+          initial={{ opacity: 0, x: "-20px" }}
+          animate={{ opacity: 1, x: "0px" }}
+          exit={{ opacity: 0, x: "-20px" }}
           transition={{ ease: "easeInOut", duration: 0.7 }}
-          className="p-6 pt-4 border border-blue-400 rounded-md shadow"
-        ></motion.section>
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          className="p-6 pt-4 border border-blue-400 rounded-md"
+        >
+          <legend className="font-semibold px-2 space-x-2 inline-flex">
+            <p className="font-bold tracking-tight bg-blue-100 text-blue-700 p-2 py-1 rounded-md">
+              Identificadores
+            </p>
+            <Popover placement="right-start" radius="sm">
+              <PopoverTrigger>
+                <Button size="sm" variant="flat" isIconOnly>
+                  <QuestionMarkCircleIcon className="w-5 h-5 text-slate-500/50 transition-all ease-in-out duration-200 hover:text-blue-400" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <p
+                  className="max-w-[45ch] p-1 py-2.5 max-h-[100px] overflow-auto font-medium text-[15px] line-clamp-5"
+                  style={Conteudo.style}
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Distinctio voluptatibus sed nisi. Suscipit commodi enim
+                  consequuntur ipsum adipisci dolore quis cupiditate harum
+                  facere incidunt, laudantium quas at nemo eligendi nobis!
+                </p>
+              </PopoverContent>
+            </Popover>
+          </legend>
+          <main>
+            <Contexto></Contexto>
+          </main>
+        </motion.fieldset>
+        <motion.fieldset
+          initial={{ opacity: 0, x: "-20px" }}
+          animate={{ opacity: 1, x: "0px" }}
+          exit={{ opacity: 0, x: "-20px" }}
           transition={{ ease: "easeInOut", duration: 0.7 }}
-          className="p-6 pt-4 border border-fuchsia-400 rounded-md shadow"
-        ></motion.section>
+          className="p-6 pt-4 border border-fuchsia-400 rounded-md"
+        >
+          <legend className="font-semibold px-2 space-x-2 inline-flex">
+            <p className="font-bold tracking-tight bg-fuchsia-100 text-fuchsia-700 p-2 py-1 rounded-md">
+              Informação
+            </p>
+            <Popover placement="right-start" radius="sm">
+              <PopoverTrigger>
+                <Button size="sm" variant="flat" isIconOnly>
+                  <QuestionMarkCircleIcon className="w-5 h-5 text-slate-500/50 transition-all ease-in-out duration-200 hover:text-blue-400" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <p
+                  className="max-w-[45ch] p-1 py-2.5 max-h-[100px] overflow-auto font-medium text-[15px] line-clamp-5"
+                  style={Conteudo.style}
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Distinctio voluptatibus sed nisi. Suscipit commodi enim
+                  consequuntur ipsum adipisci dolore quis cupiditate harum
+                  facere incidunt, laudantium quas at nemo eligendi nobis!
+                </p>
+              </PopoverContent>
+            </Popover>
+          </legend>
+          <main>
+            <Contexto></Contexto>
+          </main>
+        </motion.fieldset>
       </section>
     </div>
   );
