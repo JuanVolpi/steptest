@@ -38,7 +38,7 @@ export default function Questao(props: QuestaoProps) {
         placeholder="O gato saltou da arvore..."
         readOnly={locked}
         classNames={{
-          inputWrapper: "border rounded-md",
+          inputWrapper: "border rounded-md w-[400px]",
           input: "text-md",
         }}
         minRows={1}

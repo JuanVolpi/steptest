@@ -1,14 +1,9 @@
-import { Conteudo } from "@/lib/fonts";
+import { Conteudo, Titulo } from "@/lib/fonts";
 import { respostas } from "@/lib/mock_data/dados";
 import { Alunos, Respostas } from "@/lib/mock_data/tipos";
 import { DadosQuestao } from "@/lib/types/componentes/cards";
-import {
-  ArrowDownCircleIcon,
-  ChartPieIcon,
-  DocumentTextIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowDownCircleIcon, ChartPieIcon } from "@heroicons/react/20/solid";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { Select, SelectItem } from "@nextui-org/react";
 import { Chart } from "chart.js/auto";
 import {} from "chart.js/helpers";
 import { AnimatePresence, motion } from "framer-motion";
@@ -172,11 +167,11 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
     secoes,
   );
 
+  const [posicaoQuestao, setPosicaoQuestao] = useState<string>();
+
   const [questaoSelecionada, setQuestaoSelecionada] = useState<
     DadosQuestao | undefined
   >(undefined);
-
-  const [textoSelecionado, setTextoSelecionado] = useState<string>();
 
   const chart = document.createElement("canvas") as HTMLCanvasElement;
   const reff = useRef<HTMLDivElement>(null);
@@ -224,6 +219,20 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
           Questoes
         </h2>
         <main className="p-3 py-4">
+          {questaoSelecionada !== undefined && (
+            <div
+              className="inline-flex items-center gap-3 text-base py-1 pb-4"
+              style={Conteudo.style}
+            >
+              {/* Selected questao */}
+              <h4 className="text-lg font-semibold tracking-wide text-blue-500 underline underline-offset-4">
+                Selecionada
+              </h4>
+              <p className="bg-orange-100 text-orange-600 p-2 px-2.5 rounded-md font-semibold">
+                Q{posicaoQuestao?.split("|")[0]}.{posicaoQuestao?.split("|")[1]}
+              </p>
+            </div>
+          )}
           <AnimatePresence>
             <ol>
               {seccoesState.map((seccao, i) => (
@@ -284,6 +293,7 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                               className="z-20 duration-100 ease-in-out transition-all hover:translate-x-1 hover:font-semibold hover:text-md hover:text-sky-600 hover:cursor-pointer"
                               onClick={() => {
                                 setQuestaoSelecionada(questao);
+                                setPosicaoQuestao(`${i + 1}|${j + 1}`);
                               }}
                             >
                               {questao.questao.slice(0, 31).trim() + "..."}
@@ -322,42 +332,57 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
               >
                 <header className="flex flex-row gap-4 items-center justify-start w-full">
                   <QuestionMarkCircleIcon className="w-8 h-8 text-orange-500" />
-                  <h3 className="text-xl font-bold tracking-tight">Questao</h3>
-                  {/* Questao & contexto */}
-                  <Select
-                    radius="sm"
-                    variant="flat"
-                    label="Textos da questao"
-                    color="primary"
-                    startContent={<DocumentTextIcon className="w-6 h-6" />}
-                    onChange={(change) => {
-                      setTextoSelecionado(change.target.value);
-                    }}
-                    classNames={{
-                      base: "h-12 max-w-[230px]",
-                    }}
-                  >
-                    <SelectItem
-                      key={"Contexto"}
-                      value={"Contexto"}
-                      defaultChecked
-                    >
-                      Contexto
-                    </SelectItem>
-                    <SelectItem key={"Questão"} value={"Questão"}>
-                      Questão
-                    </SelectItem>
-                  </Select>
-                  <i className="text-orange-200 ">15 Avaliações</i>
+                  <div className="inline-flex items-baseline gap-4">
+                    <h3 className="text-xl font-bold tracking-tight">
+                      Questao
+                    </h3>
+                    <p className="text-orange-400 text-sm">15 Avaliações</p>
+                  </div>
                 </header>
                 <main className="grid grid-cols-[0.15fr_2fr] grid-rows-1">
                   <div />
-                  <div className="border border-orange-400 shadow bg-white p-3.5 max-w-[60ch] rounded-md max-h-[155px] overflow-y-scroll scroll-smooth">
-                    <p style={Conteudo.style}>
-                      {textoSelecionado === "Questão"
-                        ? questaoSelecionada.questao
-                        : questaoSelecionada.contextualizacao}
-                    </p>
+                  <div className="space-y-4">
+                    <div className="space-y-4">
+                      <h4
+                        className="font-medium text-lg text-orange-600"
+                        style={Titulo.style}
+                      >
+                        Contexto
+                      </h4>
+                      {questaoSelecionada.contextualizacao !== undefined && (
+                        <p
+                          style={Conteudo.style}
+                          className="border border-orange-400 shadow bg-white p-3.5 max-w-[60ch] rounded-md max-h-[200px] overflow-y-scroll scroll-smooth"
+                        >
+                          {questaoSelecionada.contextualizacao}
+                        </p>
+                      )}
+                      {questaoSelecionada.contextualizacao === undefined && (
+                        <>
+                          <div className="p-[1px]" />
+                          <i
+                            style={Conteudo.style}
+                            className="text-medium font-medium bg-slate-200 text-slate-400 p-2 rounded-lg w-full"
+                          >
+                            Sem Contexto
+                          </i>
+                        </>
+                      )}
+                    </div>
+                    <div>
+                      <h4
+                        className="font-medium text-lg text-orange-600"
+                        style={Titulo.style}
+                      >
+                        Questao
+                      </h4>
+                      <p
+                        style={Conteudo.style}
+                        className="border border-orange-400 shadow bg-white p-3.5 max-w-[60ch] rounded-md max-h-[200px] overflow-y-scroll scroll-smooth"
+                      >
+                        {questaoSelecionada.questao}
+                      </p>
+                    </div>
                   </div>
                 </main>
               </motion.section>
@@ -370,7 +395,9 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                 <header className="flex flex-row gap-4 items-center justify-start w-full">
                   <ChartPieIcon className="w-8 h-8 text-orange-500" />
                   {/* Questao & contexto */}
-                  <h3 className="text-xl font-bold tracking-tight">Dados</h3>
+                  <h3 className="text-xl font-bold tracking-tight">
+                    Representação Gráfica
+                  </h3>
                 </header>
                 <main className="grid grid-cols-[0.15fr_.75fr_1fr] grid-rows-1">
                   <div />
@@ -413,7 +440,7 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                   <ChartPieIcon className="w-8 h-8 text-orange-500" />
                   {/* Questao & contexto */}
                   <h3 className="text-xl font-bold tracking-tight">
-                    Interações
+                    Respostas da turma
                   </h3>
                 </header>
                 <main className="grid grid-cols-[0.15fr_2fr] grid-rows-1">
