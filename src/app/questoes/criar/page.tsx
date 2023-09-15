@@ -1,8 +1,13 @@
 "use client";
 
-import { SmallDeleteButton, SmallSelectAllButton } from "@/components/buttons";
+import {
+  SmallDeleteButton,
+  SmallSelectAllButton,
+  SmallChevronUpButton,
+  SmallChevronDownButton,
+} from "@/components/buttons";
+import { QuestoesProva } from "@/components/cards/Tables";
 import { Contexto, Questao } from "@/components/inputs";
-import ImageUpload from "@/components/inputs/Image";
 import { Conteudo } from "@/lib/fonts";
 import { QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
@@ -30,6 +35,7 @@ export default function App() {
     [_] Reducer: (action ?) -> ok... action.x => abcd(value)
     [X] State: obj
   */
+
   type Action = {
     type: "toggle" | "select all" | "deselect all";
     seccao: "questao" | "identificador" | "extra";
@@ -42,7 +48,7 @@ export default function App() {
         return void (draft[action.seccao] = action.value as string[]);
       case "deselect all":
         return void (draft[action.seccao] = baseState[action.seccao].filter(
-          (x) => x === "questao",
+          (x) => x === "questao"
         ));
       case "select all":
         return void (draft[action.seccao] = baseState[action.seccao]);
@@ -70,9 +76,33 @@ export default function App() {
 
   const [state, dispatch] = useImmerReducer<NewType, Action>(reducer, {
     questao: ["questao"],
-    identificador: [],
+    identificador: [""],
     extra: [],
   });
+
+  const componentesQuestao = [
+    <>{state.questao.includes("contexto") && <Contexto></Contexto>}</>,
+    <>
+      {state.questao.includes("questao") && (
+        <Questao
+          emitTextContent={function (text: string): void {
+            throw new Error("Function not implemented.");
+          }}
+        ></Questao>
+      )}
+    </>,
+  ];
+
+  const handleMoveUp = (index: number) => {
+    if (index > 0) {
+      const newComponentesQuestao = [...componentesQuestao];
+      const temp = newComponentesQuestao[index];
+      newComponentesQuestao[index] = newComponentesQuestao[index - 1];
+      newComponentesQuestao[index - 1] = temp;
+      forceRerender(newComponentesQuestao);
+      console.log(temp);
+    }
+  };
 
   return (
     <div className="grid grid-cols-[1fr_3fr] gap-5 grid-rows-1 h-full w-full ">
@@ -290,15 +320,14 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main className="flex flex-row flex-wrap gap-6 items-start justify-start">
-            <div className="flex flex-row gap-1 items-start">
-              <XMarkIcon className="w-5 h-5 text-red-500 transition-all ease-in-out duration-200 hover:cursor-pointer hover:scale-110" />
-              <Questao emitTextContent={(text: string) => {}} />
-            </div>
-            <div className="flex flex-row gap-1 items-start">
-              <XMarkIcon className="w-5 h-5 text-red-500 transition-all ease-in-out duration-200 hover:cursor-pointer hover:scale-110" />
-              <ImageUpload />
-            </div>
+          <main>
+            {componentesQuestao.map((x, i) => {
+              return (
+                <div key={i} className="flex flex-row m-3">
+                  {x}
+                </div>
+              );
+            })}
           </main>
         </motion.fieldset>
         <motion.fieldset
@@ -331,8 +360,8 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main className="flex flex-row flex-wrap gap-6 items-center justify-start">
-            <Contexto />
+          <main>
+            <Contexto></Contexto>
           </main>
         </motion.fieldset>
         <motion.fieldset
@@ -372,4 +401,7 @@ export default function App() {
       </section>
     </div>
   );
+}
+function forceRerender(newComponentesQuestao: import("react").JSX.Element[]) {
+  throw new Error("Function not implemented.");
 }
