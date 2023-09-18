@@ -244,7 +244,7 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                       exit={{ opacity: 0, x: "-20px" }}
                       transition={{
                         ease: "easeInOut",
-                        duration: 0.3,
+                        duration: 1,
                         delay: Number(`0.${i + 1}`),
                       }}
                       className="inline-flex gap-2.5 items-center justify-start mb-0.5"
@@ -312,15 +312,13 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
       {/* Resultados */}
       <section className="w-full">
         <h2 className="text-xl font-bold w-fit px-3 py-1.5 rounded-md bg-orange-300/25 text-orange-600 tracking-wide shadow">
-          Respostas
+          Questões da Prova
         </h2>
         <main className="px-3 py-4">
           {questaoSelecionada === undefined && (
-            <>
-              <p className="text-default-500 bg-slate-100 p-3 py-2.5 rounded-md">
-                Sem questao Selecionada
-              </p>
-            </>
+            <p className="text-default-500 bg-slate-100 p-3 py-2.5 rounded-md">
+              Sem questao Selecionada
+            </p>
           )}
           {questaoSelecionada !== undefined && (
             <section className="space-y-10">
