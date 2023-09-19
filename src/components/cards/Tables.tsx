@@ -1,12 +1,14 @@
 import { Conteudo, Titulo } from "@/lib/fonts";
 import { respostas, traduzIndexRespostaParaLetra } from "@/lib/mock_data/dados";
 import { Alunos, Respostas } from "@/lib/mock_data/tipos";
-import { DadosQuestao } from "@/lib/types/componentes/cards";
+import { DadosQuestao, RespostaAluno } from "@/lib/types/componentes/cards";
 import { ArrowDownCircleIcon } from "@heroicons/react/20/solid";
+
 import {
   ChartPieIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/solid";
+
 import { Spacer } from "@nextui-org/react";
 import { Chart } from "chart.js/auto";
 import { AnimatePresence, motion } from "framer-motion";
@@ -437,7 +439,7 @@ export function QuestoesProva({ questoes }: QuestoesProvaProps) {
                                 questao.respostas.indexOf(
                                   questao.respostas.find(
                                     (opcao) => opcao.correta,
-                                  ),
+                                  ) as RespostaAluno,
                                 ),
                               )}
                             </p>

@@ -8,11 +8,11 @@ export type Aluno = {
 
 export type Alunos = Aluno[];
 
-export type Resposta = {
+export type DadosResposta = {
   nomeAluno: string;
   idQuestao: number;
   resposta: OpcaoResposta;
   correta: OpcaoResposta;
 };
 
-export type Respostas = Resposta[];
+export type Respostas = DadosResposta[];

@@ -32,7 +32,7 @@ export type GenericCardProps = {
 
 export type DificuldadeQuestao = "Fácil" | "Médio" | "Difícil";
 
-export type Resposta = {
+export type RespostaAluno = {
   correta: boolean;
   conteudo: string;
 };
@@ -42,7 +42,7 @@ export type DadosQuestao = {
   dificuldade: DificuldadeQuestao;
   contextualizacao?: string;
   questao: string;
-  respostas: Resposta[];
+  respostas: RespostaAluno[];
   imgApoio?: string;
   nome: string;
 };
