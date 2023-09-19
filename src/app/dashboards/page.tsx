@@ -124,6 +124,7 @@ export default function Dashboards() {
             tituloSeccao={nome}
             onProvaSelect={(prova) => {
               setProvaSelecionada(prova);
+              setOption("dashboards");
             }}
           />
         </div>
@@ -134,7 +135,7 @@ export default function Dashboards() {
   return (
     <main className="flex flex-row gap-4 pb-5 w-full transition-all ease-in-out duration-200">
       {/* Selecionador turma, materia e dados */}
-      <section className="max-w-[35%] min-w-fit bg-transparent rounded-md h-screen max-h-[85%] overflow-clip flex flex-row drop-shadow">
+      <section className="max-w-[35%] min-w-fit bg-transparent rounded-md h-fit overflow-clip flex flex-row drop-shadow">
         <header className="space-y-5 bg-white z-20 p-4">
           <Button
             isIconOnly
@@ -343,7 +344,10 @@ export default function Dashboards() {
                           startContent={
                             <GlobeAmericasIcon className="w-5 h-5" />
                           }
-                          onClick={() => setSelectedDashboard("Vista Geral")}
+                          onClick={() => {
+                            setSelectedDashboard("Vista Geral");
+                            setOption(undefined);
+                          }}
                         >
                           Vista Geral
                         </Button>
@@ -354,9 +358,10 @@ export default function Dashboards() {
                           startContent={
                             <QuestionMarkCircleIcon className="w-5 h-5" />
                           }
-                          onClick={() =>
-                            setSelectedDashboard("Questao-Questao")
-                          }
+                          onClick={() => {
+                            setSelectedDashboard("Questao-Questao");
+                            setOption(undefined);
+                          }}
                         >
                           Questão-A-Questão
                         </Button>

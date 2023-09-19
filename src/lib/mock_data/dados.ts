@@ -13,6 +13,18 @@ export function traduzLetraParaIndexResposta(letra: OpcaoResposta) {
       return 3;
   }
 }
+export function traduzIndexRespostaParaLetra(num: number) {
+  switch (num) {
+    case 0:
+      return "A";
+    case 1:
+      return "B";
+    case 2:
+      return "C";
+    case 3:
+      return "D";
+  }
+}
 
 export const questoes: DadosQuestao[] = [
   {
