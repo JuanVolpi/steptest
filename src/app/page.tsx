@@ -43,7 +43,7 @@ export default function Home() {
               <ul className="list-disc list-inside">
                 <li>Adição da página &quot;Questões&quot;.</li>
                 <li>
-                  Amostra inicial na reimplementação da página "Criar Questões".
+                  Amostra inicial na reimplementação da página &quot;Criar Questões&quot;
                 </li>
               </ul>
             </div>
