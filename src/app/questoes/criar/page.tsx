@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  SmallDeleteButton,
-  SmallSelectAllButton,
-  SmallChevronUpButton,
-  SmallChevronDownButton,
-} from "@/components/buttons";
-import { QuestoesProva } from "@/components/cards/Tables";
+import { SmallDeleteButton, SmallSelectAllButton } from "@/components/buttons";
 import { Contexto, Questao } from "@/components/inputs";
 import { Conteudo } from "@/lib/fonts";
-import { QuestionMarkCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
 import { Divider } from "@nextui-org/divider";
 import {
@@ -48,7 +42,7 @@ export default function App() {
         return void (draft[action.seccao] = action.value as string[]);
       case "deselect all":
         return void (draft[action.seccao] = baseState[action.seccao].filter(
-          (x) => x === "questao"
+          (x) => x === "questao",
         ));
       case "select all":
         return void (draft[action.seccao] = baseState[action.seccao]);
@@ -80,18 +74,19 @@ export default function App() {
     extra: [],
   });
 
-  const componentesQuestao = [
-    <>{state.questao.includes("contexto") && <Contexto></Contexto>}</>,
-    <>
-      {state.questao.includes("questao") && (
-        <Questao
-          emitTextContent={function (text: string): void {
-            throw new Error("Function not implemented.");
-          }}
-        ></Questao>
-      )}
-    </>,
-  ];
+  const componentesQuestao = Array.from(
+    { length: baseState.questao.length },
+    (_, i) => {
+      (<>{state.questao.includes("contexto") && <Contexto></Contexto>}</>),
+        (
+          <>
+            {state.questao.includes("questao") && (
+              <Questao emitTextContent={function (text: string): void {}} />
+            )}
+          </>
+        );
+    },
+  );
 
   const handleMoveUp = (index: number) => {
     if (index > 0) {
