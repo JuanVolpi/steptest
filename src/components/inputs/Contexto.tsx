@@ -1,17 +1,17 @@
-import { Textarea } from "@nextui-org/react";
-import { motion } from "framer-motion";
-import React from "react";
+import { Textarea } from '@nextui-org/react';
+import { motion } from 'framer-motion';
+import React from 'react';
 
 export default function Contexto() {
   let errorMessageState = false;
-  let errorMessage = "Erro";
+  let errorMessage = 'Erro';
 
   const validationState = (valor: boolean) => {
     if (valor) {
-      return "valid";
+      return 'valid';
     } else {
       errorMessageState = true;
-      return "invalid";
+      return 'invalid';
     }
   };
 
@@ -22,7 +22,7 @@ export default function Contexto() {
     return errorMessageState ? errorMessage : null;
   };
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
 
   return (
     <>
@@ -30,8 +30,8 @@ export default function Contexto() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ ease: "easeInOut", duration: 0.7 }}
-        className="p-6 pt-4 border border-green-400 rounded-md shadow"
+        transition={{ ease: 'easeInOut', duration: 0.7 }}
+        className="p-6 pt-4 border-b border-green-400 rounded-md"
       >
         <Textarea
           variant="bordered"

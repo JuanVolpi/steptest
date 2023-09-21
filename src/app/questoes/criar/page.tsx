@@ -1,6 +1,10 @@
 "use client";
 
-import { SmallDeleteButton, SmallSelectAllButton } from "@/components/buttons";
+import {
+  MoveUpAndDownButton,
+  SmallDeleteButton,
+  SmallSelectAllButton,
+} from "@/components/buttons";
 import { Contexto, Questao } from "@/components/inputs";
 import { Conteudo } from "@/lib/fonts";
 import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
@@ -13,6 +17,7 @@ import {
   PopoverTrigger,
 } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { useImmerReducer } from "use-immer";
 
 export default function App() {
@@ -35,20 +40,6 @@ export default function App() {
     seccao: "questao" | "identificador" | "extra";
     value?: string[];
   };
-
-  function reducer(draft: NewType, action: Action) {
-    switch (action.type) {
-      case "toggle":
-        return void (draft[action.seccao] = action.value as string[]);
-      case "deselect all":
-        return void (draft[action.seccao] = baseState[action.seccao].filter(
-          (x) => x === "questao",
-        ));
-      case "select all":
-        return void (draft[action.seccao] = baseState[action.seccao]);
-    }
-  }
-
   type NewType = {
     questao: string[];
     identificador: string[];
@@ -68,37 +59,82 @@ export default function App() {
     extra: [],
   };
 
+  const trocadorDeIndices = (x: number, y: number, lista: any[]): any[] => {
+    const z = lista[y];
+    lista[y] = lista[x];
+    lista[x] = z;
+    return lista;
+  };
+
+  const veCaralhos = (palavralhos: string) => {
+    return state.questao.includes(palavralhos);
+  };
+
+  const [componentesQuestao, setComponentesQuestao] = useState([
+    (index: number) => {
+      if (veCaralhos("contexto"))
+        return (
+          <div className="flex flex-row">
+            <MoveUpAndDownButton
+              clickUp={function (): void {
+                /* setComponentesQuestao(
+                  trocadorDeIndices(index - 1, index, componentesQuestao)
+                ); */
+              }}
+              clickDown={function (): void {
+                console.log(index);
+              }}
+            ></MoveUpAndDownButton>
+            <Contexto></Contexto>
+          </div>
+        );
+    },
+
+    (index: number) => {
+      return (
+        state.questao.includes("questao") && (
+          <div className="flex flex-row">
+            <MoveUpAndDownButton
+              clickUp={function (): void {
+                /* setComponentesQuestao(
+                  trocadorDeIndices(index - 1, index, componentesQuestao)
+                ); */
+              }}
+              clickDown={function (): void {
+                console.log(index);
+              }}
+            ></MoveUpAndDownButton>
+            <Questao
+              emitTextContent={function (text: string): void {
+                throw new Error("Function not implemented.");
+              }}
+            ></Questao>
+          </div>
+        )
+      );
+    },
+  ]);
+
+  function reducer(draft: NewType, action: Action) {
+    console.log(action);
+    switch (action.type) {
+      case "toggle":
+        draft[action.seccao] = action.value as string[];
+        return void setComponentesQuestao(componentesQuestao);
+      case "deselect all":
+        return void (draft[action.seccao] = baseState[action.seccao].filter(
+          (x) => x === "questao",
+        ));
+      case "select all":
+        return void (draft[action.seccao] = baseState[action.seccao]);
+    }
+  }
+
   const [state, dispatch] = useImmerReducer<NewType, Action>(reducer, {
     questao: ["questao"],
     identificador: [""],
     extra: [],
   });
-
-  const componentesQuestao = Array.from(
-    { length: baseState.questao.length },
-    (_, i) => {
-      (<>{state.questao.includes("contexto") && <Contexto></Contexto>}</>),
-        (
-          <>
-            {state.questao.includes("questao") && (
-              <Questao emitTextContent={function (text: string): void {}} />
-            )}
-          </>
-        );
-    },
-  );
-
-  const handleMoveUp = (index: number) => {
-    if (index > 0) {
-      const newComponentesQuestao = [...componentesQuestao];
-      const temp = newComponentesQuestao[index];
-      newComponentesQuestao[index] = newComponentesQuestao[index - 1];
-      newComponentesQuestao[index - 1] = temp;
-      forceRerender(newComponentesQuestao);
-      console.log(temp);
-    }
-  };
-
   return (
     <div className="grid grid-cols-[1fr_3fr] gap-5 grid-rows-1 h-full w-full ">
       <section className="h-full w-full rounded-md bg-white p-3 px-4 overflow-y-scroll">
@@ -109,6 +145,8 @@ export default function App() {
           <h4 className="text-sm text-slate-900/40 p-2 bg-slate-200/30 rounded">
             Adicione e remova campos para a criação da questão.
           </h4>
+          <p>{JSON.stringify(state.questao)}</p>
+          <p>{JSON.stringify(state.questao.includes("contexto"))}</p>
         </header>
         <div className="p-3" />
         <AnimatePresence>
@@ -316,10 +354,10 @@ export default function App() {
             </Popover>
           </legend>
           <main>
-            {componentesQuestao.map((x, i) => {
+            {componentesQuestao.map((e, i) => {
               return (
                 <div key={i} className="flex flex-row m-3">
-                  {x}
+                  {e(i)}
                 </div>
               );
             })}
