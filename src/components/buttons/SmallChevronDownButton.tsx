@@ -3,9 +3,9 @@ import {
   CheckCircleIcon,
   ChevronUpIcon,
   ChevronDownIcon,
-} from "@heroicons/react/20/solid";
-import { Button, Tooltip } from "@nextui-org/react";
-import { type } from "os";
+} from '@heroicons/react/20/solid';
+import { Button, Tooltip } from '@nextui-org/react';
+import { type } from 'os';
 
 export type SmallChevronUpProps = {
   click?: () => void;
@@ -14,7 +14,7 @@ export type SmallChevronUpProps = {
 export default function SmallChevronDownButton(props: SmallChevronUpProps) {
   return (
     <>
-      <Tooltip content="Mover para cima" placement="right">
+      <Tooltip content="Mover para baixo" placement="right">
         <Button
           size="sm"
           variant="flat"

@@ -1,6 +1,5 @@
-import { ChevronUpIcon } from "@heroicons/react/20/solid";
-import { Button, Tooltip } from "@nextui-org/react";
-import { type } from "os";
+import { ChevronUpIcon } from '@heroicons/react/20/solid';
+import { Button, Tooltip } from '@nextui-org/react';
 
 export type SmallChevronDownProps = {
   click?: () => void;
@@ -9,7 +8,7 @@ export type SmallChevronDownProps = {
 export default function SmallChevronUpButton(props: SmallChevronDownProps) {
   return (
     <>
-      <Tooltip content="Mover para Baixo" placement="right">
+      <Tooltip content="Mover para cima" placement="right">
         <Button
           size="sm"
           variant="flat"
