@@ -26,3 +26,10 @@ export type Turma = {
 };
 
 export type TurmasAvaliadas = Turma[];
+
+export type Escola = {
+  nome: string;
+  notaMedia: number;
+};
+
+export type Rede = Escola[];

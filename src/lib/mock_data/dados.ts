@@ -1,5 +1,26 @@
 import { DadosQuestao } from '../types/componentes/cards';
-import { Alunos, OpcaoResposta, Respostas, TurmasAvaliadas } from './tipos';
+import {
+  Alunos,
+  OpcaoResposta,
+  Respostas,
+  TurmasAvaliadas,
+  Rede,
+} from './tipos';
+
+export const rede: Rede = [
+  {
+    nome: 'Escola 1',
+    notaMedia: 6,
+  },
+  {
+    nome: 'Escola 2',
+    notaMedia: 8,
+  },
+  {
+    nome: 'Escola 3',
+    notaMedia: 7,
+  },
+];
 
 export const turmasAvaliadas: TurmasAvaliadas = [
   {
