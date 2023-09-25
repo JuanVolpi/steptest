@@ -1,4 +1,4 @@
-export type OpcaoResposta = "A" | "B" | "C" | "D";
+export type OpcaoResposta = 'A' | 'B' | 'C' | 'D';
 
 export type Aluno = {
   nome: string;
@@ -16,3 +16,13 @@ export type DadosResposta = {
 };
 
 export type Respostas = DadosResposta[];
+
+export type Turma = {
+  ano: string;
+  alunos: number;
+  notaMaxima: number;
+  notaMinima: number;
+  notaMedia: number;
+};
+
+export type TurmasAvaliadas = Turma[];
