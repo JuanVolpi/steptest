@@ -1,25 +1,24 @@
-'use client';
+"use client";
 
 import {
+  MoveUpAndDownButton,
   SmallDeleteButton,
   SmallSelectAllButton,
-  MoveUpAndDownButton,
-} from '@/components/buttons';
-import { Contexto, Questao } from '@/components/inputs';
-import { Conteudo } from '@/lib/fonts';
-import { QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
-import { Divider } from '@nextui-org/divider';
+} from "@/components/buttons";
+import { Contexto, Questao } from "@/components/inputs";
+import { Conteudo } from "@/lib/fonts";
+import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
+import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
+import { Divider } from "@nextui-org/divider";
 import {
   Button,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@nextui-org/react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Anybody } from 'next/font/google';
-import { useState } from 'react';
-import { useImmerReducer } from 'use-immer';
+} from "@nextui-org/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { useImmerReducer } from "use-immer";
 
 export default function App() {
   /* TODOs
@@ -37,8 +36,8 @@ export default function App() {
   */
 
   type Action = {
-    type: 'toggle' | 'select all' | 'deselect all';
-    seccao: 'questao' | 'identificador' | 'extra';
+    type: "toggle" | "select all" | "deselect all";
+    seccao: "questao" | "identificador" | "extra";
     value?: string[];
   };
   type NewType = {
@@ -48,14 +47,14 @@ export default function App() {
   };
 
   const baseState: NewType = {
-    questao: ['questao', 'contexto', 'imgs'],
+    questao: ["questao", "contexto", "imgs"],
     identificador: [
-      'area-de-conhecimento',
-      'nivel-de-dificuldade',
-      'ano',
-      'codigo',
-      'ordem',
-      'descritor',
+      "area-de-conhecimento",
+      "nivel-de-dificuldade",
+      "ano",
+      "codigo",
+      "ordem",
+      "descritor",
     ],
     extra: [],
   };
@@ -73,7 +72,7 @@ export default function App() {
 
   const [componentesQuestao, setComponentesQuestao] = useState([
     (index: number) => {
-      if (veCaralhos('contexto'))
+      if (veCaralhos("contexto"))
         return (
           <div className="flex flex-row">
             <MoveUpAndDownButton
@@ -93,7 +92,7 @@ export default function App() {
 
     (index: number) => {
       return (
-        state.questao.includes('questao') && (
+        state.questao.includes("questao") && (
           <div className="flex flex-row">
             <MoveUpAndDownButton
               clickUp={function (): void {
@@ -107,7 +106,7 @@ export default function App() {
             ></MoveUpAndDownButton>
             <Questao
               emitTextContent={function (text: string): void {
-                throw new Error('Function not implemented.');
+                throw new Error("Function not implemented.");
               }}
             ></Questao>
           </div>
@@ -119,21 +118,21 @@ export default function App() {
   function reducer(draft: NewType, action: Action) {
     console.log(action);
     switch (action.type) {
-      case 'toggle':
+      case "toggle":
         draft[action.seccao] = action.value as string[];
         return void setComponentesQuestao(componentesQuestao);
-      case 'deselect all':
+      case "deselect all":
         return void (draft[action.seccao] = baseState[action.seccao].filter(
-          (x) => x === 'questao'
+          (x) => x === "questao",
         ));
-      case 'select all':
+      case "select all":
         return void (draft[action.seccao] = baseState[action.seccao]);
     }
   }
 
   const [state, dispatch] = useImmerReducer<NewType, Action>(reducer, {
-    questao: ['questao'],
-    identificador: [''],
+    questao: ["questao"],
+    identificador: [""],
     extra: [],
   });
   return (
@@ -147,7 +146,7 @@ export default function App() {
             Adicione e remova campos para a criação da questão.
           </h4>
           <p>{JSON.stringify(state.questao)}</p>
-          <p>{JSON.stringify(state.questao.includes('contexto'))}</p>
+          <p>{JSON.stringify(state.questao.includes("contexto"))}</p>
         </header>
         <div className="p-3" />
         <AnimatePresence>
@@ -156,7 +155,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ ease: 'easeInOut', duration: 0.7 }}
+              transition={{ ease: "easeInOut", duration: 0.7 }}
               className="p-6 pt-4 border border-green-400 rounded-md shadow"
             >
               <header className="flex flex-row items-center justify-between gap-4 w-full">
@@ -167,17 +166,17 @@ export default function App() {
                   <SmallDeleteButton
                     click={() =>
                       dispatch({
-                        type: 'deselect all',
-                        seccao: 'questao',
+                        type: "deselect all",
+                        seccao: "questao",
                       })
                     }
                   />
                   <SmallSelectAllButton
                     click={() => {
                       dispatch({
-                        type: 'select all',
-                        seccao: 'questao',
-                        value: ['questao', 'contexto'],
+                        type: "select all",
+                        seccao: "questao",
+                        value: ["questao", "contexto"],
                       });
                     }}
                   />
@@ -192,14 +191,14 @@ export default function App() {
                   label="Texto apresentado na questao"
                   defaultValue={state.questao}
                   classNames={{
-                    label: 'text-sm',
-                    wrapper: 'pt-0.5 px-2',
+                    label: "text-sm",
+                    wrapper: "pt-0.5 px-2",
                   }}
                   value={state.questao}
                   onValueChange={(value) =>
                     dispatch({
-                      type: 'toggle',
-                      seccao: 'questao',
+                      type: "toggle",
+                      seccao: "questao",
                       value: value,
                     })
                   }
@@ -213,7 +212,7 @@ export default function App() {
                     isRequired
                     isDisabled
                     classNames={{
-                      base: 'opacity-100',
+                      base: "opacity-100",
                     }}
                   >
                     Questao
@@ -240,7 +239,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ ease: 'easeInOut', duration: 0.7 }}
+              transition={{ ease: "easeInOut", duration: 0.7 }}
               className="p-6 pt-4 border border-blue-400 rounded-md shadow"
             >
               <header className="flex flex-row items-center justify-between gap-4 w-full">
@@ -259,10 +258,10 @@ export default function App() {
                 </h3>
                 <CheckboxGroup
                   label="Informações atribuidas à questão "
-                  defaultValue={['ano']}
+                  defaultValue={["ano"]}
                   classNames={{
-                    label: 'text-sm',
-                    wrapper: 'pt-0.5 px-2',
+                    label: "text-sm",
+                    wrapper: "pt-0.5 px-2",
                   }}
                 >
                   <Checkbox value="area-de-conhecimento">
@@ -282,7 +281,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ ease: 'easeInOut', duration: 0.7 }}
+              transition={{ ease: "easeInOut", duration: 0.7 }}
               className="p-6 pt-4 border border-fuchsia-400 rounded-md shadow"
             >
               <header className="flex flex-row items-center justify-between gap-4 w-full">
@@ -301,10 +300,10 @@ export default function App() {
                 </h3>
                 <CheckboxGroup
                   label="Conteúdos adicionais para os educadores"
-                  defaultValue={['questao']}
+                  defaultValue={["questao"]}
                   classNames={{
-                    label: 'text-sm',
-                    wrapper: 'pt-0.5 px-2',
+                    label: "text-sm",
+                    wrapper: "pt-0.5 px-2",
                   }}
                 >
                   <Checkbox value="area-de-conhecimento">
@@ -325,10 +324,10 @@ export default function App() {
       </section>
       <section className="flex flex-col gap-6 h-full w-full rounded-md bg-white p-6">
         <motion.fieldset
-          initial={{ opacity: 0, x: '-20px' }}
-          animate={{ opacity: 1, x: '0px' }}
-          exit={{ opacity: 0, x: '-20px' }}
-          transition={{ ease: 'easeInOut', duration: 0.7 }}
+          initial={{ opacity: 0, x: "-20px" }}
+          animate={{ opacity: 1, x: "0px" }}
+          exit={{ opacity: 0, x: "-20px" }}
+          transition={{ ease: "easeInOut", duration: 0.7 }}
           className="p-6 pt-4 border border-green-400 rounded-md"
         >
           <legend className="font-semibold px-2 space-x-2 inline-flex">
@@ -365,10 +364,10 @@ export default function App() {
           </main>
         </motion.fieldset>
         <motion.fieldset
-          initial={{ opacity: 0, x: '-20px' }}
-          animate={{ opacity: 1, x: '0px' }}
-          exit={{ opacity: 0, x: '-20px' }}
-          transition={{ ease: 'easeInOut', duration: 0.7 }}
+          initial={{ opacity: 0, x: "-20px" }}
+          animate={{ opacity: 1, x: "0px" }}
+          exit={{ opacity: 0, x: "-20px" }}
+          transition={{ ease: "easeInOut", duration: 0.7 }}
           className="p-6 pt-4 border border-blue-400 rounded-md"
         >
           <legend className="font-semibold px-2 space-x-2 inline-flex">
@@ -399,10 +398,10 @@ export default function App() {
           </main>
         </motion.fieldset>
         <motion.fieldset
-          initial={{ opacity: 0, x: '-20px' }}
-          animate={{ opacity: 1, x: '0px' }}
-          exit={{ opacity: 0, x: '-20px' }}
-          transition={{ ease: 'easeInOut', duration: 0.7 }}
+          initial={{ opacity: 0, x: "-20px" }}
+          animate={{ opacity: 1, x: "0px" }}
+          exit={{ opacity: 0, x: "-20px" }}
+          transition={{ ease: "easeInOut", duration: 0.7 }}
           className="p-6 pt-4 border border-fuchsia-400 rounded-md"
         >
           <legend className="font-semibold px-2 space-x-2 inline-flex">
@@ -436,6 +435,6 @@ export default function App() {
     </div>
   );
 }
-function forceRerender(newComponentesQuestao: import('react').JSX.Element[]) {
-  throw new Error('Function not implemented.');
+function forceRerender(newComponentesQuestao: import("react").JSX.Element[]) {
+  throw new Error("Function not implemented.");
 }
