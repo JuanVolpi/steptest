@@ -5,7 +5,9 @@ import {
   SmallDeleteButton,
   SmallSelectAllButton,
 } from "@/components/buttons";
-import { Contexto, Questao } from "@/components/inputs";
+import { Contexto, ImageUpload, Questao } from "@/components/inputs";
+import { ContextoPreview } from "@/components/inputs/Contexto";
+import { QuestaoPreview } from "@/components/inputs/Questao";
 import { Conteudo } from "@/lib/fonts";
 import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
@@ -17,33 +19,30 @@ import {
   PopoverTrigger,
 } from "@nextui-org/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import React from "react";
 import { useImmerReducer } from "use-immer";
 
 export default function App() {
-  /* TODOs
-    - Filtrozao
-
-    Zona professor & aluno
-
-    Linha de cima: Drop-down
-      Ano, area, codigo
-  */
-  /*
-    [_] Dispatch: Action (type) + Value
-    [_] Reducer: (action ?) -> ok... action.x => abcd(value)
-    [X] State: obj
-  */
-
   type Action = {
     type: "toggle" | "select all" | "deselect all";
     seccao: "questao" | "identificador" | "extra";
     value?: string[];
   };
+
   type NewType = {
     questao: string[];
     identificador: string[];
     extra: string[];
+  };
+
+  type SectionComponents = {
+    section: "questao" | "imgs" | "contexto";
+    componente: {
+      input: React.JSX.Element;
+      preview:
+        | undefined
+        | ((props: { [key: string]: any }) => React.JSX.Element);
+    };
   };
 
   const baseState: NewType = {
@@ -66,61 +65,11 @@ export default function App() {
     return lista;
   };
 
-  const veCaralhos = (palavralhos: string) => {
-    return state.questao.includes(palavralhos);
-  };
-
-  const [componentesQuestao, setComponentesQuestao] = useState([
-    (index: number) => {
-      if (veCaralhos("contexto"))
-        return (
-          <div className="flex flex-row">
-            <MoveUpAndDownButton
-              clickUp={function (): void {
-                /* setComponentesQuestao(
-                  trocadorDeIndices(index - 1, index, componentesQuestao)
-                ); */
-              }}
-              clickDown={function (): void {
-                console.log(index);
-              }}
-            ></MoveUpAndDownButton>
-            <Contexto></Contexto>
-          </div>
-        );
-    },
-
-    (index: number) => {
-      return (
-        state.questao.includes("questao") && (
-          <div className="flex flex-row">
-            <MoveUpAndDownButton
-              clickUp={function (): void {
-                /* setComponentesQuestao(
-                  trocadorDeIndices(index - 1, index, componentesQuestao)
-                ); */
-              }}
-              clickDown={function (): void {
-                console.log(index);
-              }}
-            ></MoveUpAndDownButton>
-            <Questao
-              emitTextContent={function (text: string): void {
-                throw new Error("Function not implemented.");
-              }}
-            ></Questao>
-          </div>
-        )
-      );
-    },
-  ]);
-
   function reducer(draft: NewType, action: Action) {
     console.log(action);
     switch (action.type) {
       case "toggle":
-        draft[action.seccao] = action.value as string[];
-        return void setComponentesQuestao(componentesQuestao);
+        return void (draft[action.seccao] = action.value as string[]);
       case "deselect all":
         return void (draft[action.seccao] = baseState[action.seccao].filter(
           (x) => x === "questao",
@@ -130,11 +79,108 @@ export default function App() {
     }
   }
 
+  const [questionSectionState, dispatchSectionState] = useImmerReducer<
+    {
+      [key: string]: string;
+    },
+    { type: "questao" | "contexto" | "imagem"; value: string }
+  >(
+    (draft, action) => {
+      switch (action.type) {
+        case "questao":
+          return void (draft.questao = action.value);
+        case "contexto":
+          return void (draft.contexto = action.value);
+        case "imagem":
+          return void (draft.imagem = action.value);
+      }
+    },
+    {
+      questao: "",
+      contexto: "",
+      imagem: "",
+    },
+  );
+
   const [state, dispatch] = useImmerReducer<NewType, Action>(reducer, {
     questao: ["questao"],
     identificador: [""],
     extra: [],
   });
+
+  const [seccaoQuestao, dispatchSecQuestao] = useImmerReducer<
+    {
+      componentes: SectionComponents[];
+    },
+    { action: "up" | "down"; index: number }
+  >(
+    (draft, action) => {
+      switch (action.action) {
+        case "up":
+          if (action.index - 1 < 0) return;
+          draft.componentes = trocadorDeIndices(
+            action.index - 1,
+            action.index,
+            draft.componentes,
+          );
+          return;
+
+        case "down":
+          if (action.index + 1 >= draft.componentes.length) return;
+          draft.componentes = trocadorDeIndices(
+            action.index + 1,
+            action.index,
+            draft.componentes,
+          );
+          return;
+      }
+    },
+    {
+      componentes: [
+        {
+          section: "contexto",
+          componente: {
+            input: (
+              <Contexto
+                emitTextContent={function (text: string): void {
+                  dispatchSectionState({ type: "contexto", value: text });
+                }}
+              />
+            ),
+            preview: (props: { [key: string]: any }) => (
+              <ContextoPreview texto={props.texto} />
+            ),
+          },
+        },
+        {
+          section: "imgs",
+          componente: {
+            input: <ImageUpload />,
+            preview: undefined,
+          },
+        },
+        {
+          section: "questao",
+          componente: {
+            input: (
+              <Questao
+                emitTextContent={function (text: string): void {
+                  dispatchSectionState({
+                    type: "questao",
+                    value: text,
+                  });
+                }}
+              />
+            ),
+            preview: (props: { [key: string]: any }) => (
+              <QuestaoPreview texto={props.texto} />
+            ),
+          },
+        },
+      ],
+    },
+  );
+
   return (
     <div className="grid grid-cols-[1fr_3fr] gap-5 grid-rows-1 h-full w-full ">
       <section className="h-full w-full rounded-md bg-white p-3 px-4 overflow-y-scroll">
@@ -145,8 +191,6 @@ export default function App() {
           <h4 className="text-sm text-slate-900/40 p-2 bg-slate-200/30 rounded">
             Adicione e remova campos para a criação da questão.
           </h4>
-          <p>{JSON.stringify(state.questao)}</p>
-          <p>{JSON.stringify(state.questao.includes("contexto"))}</p>
         </header>
         <div className="p-3" />
         <AnimatePresence>
@@ -322,7 +366,7 @@ export default function App() {
           </main>
         </AnimatePresence>
       </section>
-      <section className="flex flex-col gap-6 h-full w-full rounded-md bg-white p-6">
+      <section className="flex flex-col gap-6 h-full max-h-screen overflow-y-scroll w-full rounded-md bg-white p-6">
         <motion.fieldset
           initial={{ opacity: 0, x: "-20px" }}
           animate={{ opacity: 1, x: "0px" }}
@@ -353,14 +397,46 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main>
-            {componentesQuestao.map((e, i) => {
-              return (
-                <div key={i} className="flex flex-row m-3">
-                  {e(i)}
-                </div>
-              );
-            })}
+          <main className="grid grid-cols-[.7fr_1fr] gap-10  items-start justify-between">
+            <section>
+              {seccaoQuestao.componentes.map((e, index) => {
+                return (
+                  state.questao.includes(e.section) && (
+                    <div key={index} className="flex flex-row min-w-full pb-6">
+                      {
+                        <div className="flex flex-row ">
+                          <MoveUpAndDownButton
+                            clickUp={function (): void {
+                              dispatchSecQuestao({
+                                action: "up",
+                                index,
+                              });
+                            }}
+                            clickDown={function (): void {
+                              dispatchSecQuestao({
+                                action: "down",
+                                index,
+                              });
+                            }}
+                          />
+                          {e.componente.input}
+                        </div>
+                      }
+                    </div>
+                  )
+                );
+              })}
+            </section>
+            <section className="w-full flex flex-col gap-3">
+              {seccaoQuestao.componentes.map(
+                (e, i) =>
+                  e.componente.preview !== undefined &&
+                  state.questao.includes(e.section) &&
+                  e.componente.preview({
+                    texto: questionSectionState[e.section],
+                  }),
+              )}
+            </section>
           </main>
         </motion.fieldset>
         <motion.fieldset
@@ -393,9 +469,6 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main>
-            <Contexto></Contexto>
-          </main>
         </motion.fieldset>
         <motion.fieldset
           initial={{ opacity: 0, x: "-20px" }}
@@ -427,9 +500,6 @@ export default function App() {
               </PopoverContent>
             </Popover>
           </legend>
-          <main>
-            <Contexto></Contexto>
-          </main>
         </motion.fieldset>
       </section>
     </div>

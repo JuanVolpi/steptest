@@ -1,5 +1,6 @@
 import { Conteudo } from "@/lib/fonts";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/20/solid";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { Textarea } from "@nextui-org/react";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -8,7 +9,7 @@ export type QuestaoProps = {
   emitTextContent: (text: string) => void;
 };
 
-export default function Questao(props: QuestaoProps) {
+export function Questao(props: QuestaoProps) {
   const [locked, setLocked] = useState(false);
 
   return (
@@ -49,5 +50,24 @@ export default function Questao(props: QuestaoProps) {
         }}
       />
     </div>
+  );
+}
+
+export type QuestaoPreviewProps = {
+  // textSize?: "sm" | "md" | "lg" | "xl";
+  texto: string;
+};
+
+export function QuestaoPreview(props: QuestaoPreviewProps) {
+  return (
+    <main className="text-sm font-medium flex flex-row gap-2 items-start justify-start min-w-fit border-2 rounded-lg shadow-sm bg-white p-3 py-4 pr-6">
+      <QuestionMarkCircleIcon className="w-6 h-6 text-blue-500" />
+      <pre
+        className="max-w-[65ch] pt-0.5 overflow-x-auto py-3"
+        style={Conteudo.style}
+      >
+        {props.texto.length < 1 ? "Sem conteudo" : props.texto}
+      </pre>
+    </main>
   );
 }

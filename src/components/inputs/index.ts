@@ -1,8 +1,8 @@
-import Contexto from '@/components/inputs/Contexto';
+import { Contexto } from '@/components/inputs/Contexto';
 import ImageUpload from '@/components/inputs/Image';
-import Questao from '@/components/inputs/Questao';
+import { Questao, QuestaoPreview } from '@/components/inputs/Questao';
 
 export {
-  Contexto, ImageUpload, Questao
+  Contexto, ImageUpload, Questao, QuestaoPreview
 };
 
