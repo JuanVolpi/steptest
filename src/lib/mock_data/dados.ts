@@ -24,32 +24,39 @@ export const rede: Rede = [
 
 export const turmasAvaliadas: TurmasAvaliadas = [
   {
-    ano: '5 A',
+    ano: '5º A',
     alunos: 28,
     notaMaxima: 8,
     notaMinima: 4,
     notaMedia: 6,
   },
   {
-    ano: '5 B',
+    ano: '5º B',
     alunos: 19,
     notaMaxima: 8,
     notaMinima: 2,
     notaMedia: 7,
   },
   {
-    ano: '5 C',
+    ano: '5º C',
     alunos: 33,
     notaMaxima: 8,
     notaMinima: 5,
     notaMedia: 6,
   },
   {
-    ano: '5 D',
+    ano: '5º D',
     alunos: 21,
     notaMaxima: 7,
     notaMinima: 3,
     notaMedia: 5,
+  },
+  {
+    ano: '5º E',
+    alunos: 31,
+    notaMaxima: 9,
+    notaMinima: 5,
+    notaMedia: 7,
   },
 ];
 
