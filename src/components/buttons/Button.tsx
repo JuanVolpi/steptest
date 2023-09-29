@@ -58,7 +58,11 @@ export function SimpleYellow({
   endIcon,
   content,
   href,
+  onClick,
+  selected,
 }: {
+  onClick?: () => void;
+  selected: boolean;
   content: any;
   href?: string;
   endIcon?: JSX;
@@ -73,6 +77,10 @@ export function SimpleYellow({
       endContent={endIcon}
       href={href}
       as={Link}
+      style={{
+        border: selected ? "2px solid orange" : "inherit",
+      }}
+      onClick={onClick}
     >
       {content}
     </Button>

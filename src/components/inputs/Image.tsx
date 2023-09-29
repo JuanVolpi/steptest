@@ -3,7 +3,8 @@ import {
   LockOpenIcon,
   PhotoIcon,
 } from "@heroicons/react/20/solid";
-import { useRef, useState } from "react";
+import { Skeleton } from "@nextui-org/react";
+import { ReactNode, useRef, useState } from "react";
 
 export type ImagemProps = {};
 
@@ -58,5 +59,19 @@ export default function ImageUpload(props: ImagemProps) {
         </label>
       </main>
     </div>
+  );
+}
+
+export type ImageUploadPreviewProps = {
+  image: ReactNode;
+};
+
+export function ImageUploadPreview(props: ImageUploadPreviewProps) {
+  return (
+    <main className="text-sm font-medium flex flex-row gap-2 items-start justify-start min-w-fit border-2 rounded-lg shadow-sm bg-white p-3 py-4 pr-6">
+      <Skeleton className="">
+        <div className="min-w-full min-h-[200px]">{props.image}</div>
+      </Skeleton>
+    </main>
   );
 }

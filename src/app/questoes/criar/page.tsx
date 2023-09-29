@@ -5,10 +5,15 @@ import {
   SmallDeleteButton,
   SmallSelectAllButton,
 } from "@/components/buttons";
-import { Contexto, ImageUpload, Questao } from "@/components/inputs";
+import {
+  Contexto,
+  ImageUpload,
+  ImageUploadPreview,
+  Questao,
+} from "@/components/inputs";
 import { ContextoPreview } from "@/components/inputs/Contexto";
 import { QuestaoPreview } from "@/components/inputs/Questao";
-import { Conteudo } from "@/lib/fonts";
+import { Conteudo, Titulo } from "@/lib/fonts";
 import { QuestionMarkCircleIcon } from "@heroicons/react/20/solid";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
 import { Divider } from "@nextui-org/divider";
@@ -156,7 +161,9 @@ export default function App() {
           section: "imgs",
           componente: {
             input: <ImageUpload />,
-            preview: undefined,
+            preview: (props: { [key: string]: any }) => (
+              <ImageUploadPreview image={undefined} />
+            ),
           },
         },
         {
@@ -428,8 +435,16 @@ export default function App() {
               })}
             </section>
             <section className="w-full flex flex-col gap-3">
+              {seccaoQuestao.componentes.length > 0 && (
+                <h2
+                  className="text-2xl tracking-wide font-medium p-2 bg-blue-100 rounded text-blue-600"
+                  style={Titulo.style}
+                >
+                  Preview
+                </h2>
+              )}
               {seccaoQuestao.componentes.map(
-                (e, i) =>
+                (e) =>
                   e.componente.preview !== undefined &&
                   state.questao.includes(e.section) &&
                   e.componente.preview({
@@ -504,7 +519,4 @@ export default function App() {
       </section>
     </div>
   );
-}
-function forceRerender(newComponentesQuestao: import("react").JSX.Element[]) {
-  throw new Error("Function not implemented.");
 }
