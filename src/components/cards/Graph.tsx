@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import Chart from 'chart.js/auto';
-import { turmasAvaliadas } from '@/lib/mock_data/dados';
-import { Divider } from '@nextui-org/react';
-import Ranking from './Ranking';
+import { turmasAvaliadas } from "@/lib/mock_data/dados";
+import { Divider } from "@nextui-org/react";
+import Chart from "chart.js/auto";
+import { useEffect } from "react";
+import Ranking from "./Ranking";
 
 export default function Graph() {
   useEffect(() => {
@@ -10,41 +10,41 @@ export default function Graph() {
 
     const datasets = [
       {
-        type: 'bar',
-        label: 'Nota Mínima',
+        type: "bar",
+        label: "Nota Mínima",
         data: turmasAvaliadas.map((turma) => turma.notaMinima),
-        backgroundColor: 'rgba(215, 3, 252, 0.3)',
-        borderColor: 'rgba(215, 3, 252)',
+        backgroundColor: "rgba(215, 3, 252, 0.3)",
+        borderColor: "rgba(215, 3, 252)",
         borderWidth: 1,
         borderRadius: 5,
         borderSkipped: false,
         barThickness: 35,
       },
       {
-        type: 'line',
-        label: 'Linha Nota Me',
-        backgroundColor: 'rgba(244, 252, 3, 0.3)',
-        borderColor: 'rgba(244, 252, 3)',
+        type: "line",
+        label: "Linha Nota Me",
+        backgroundColor: "rgba(244, 252, 3, 0.3)",
+        borderColor: "rgba(244, 252, 3)",
         fill: false,
         data: turmasAvaliadas.map((turma) => turma.notaMedia),
       },
       {
-        type: 'bar',
-        label: 'Nota Média',
+        type: "bar",
+        label: "Nota Média",
         data: turmasAvaliadas.map((turma) => turma.notaMedia),
-        backgroundColor: 'rgba(244, 252, 3, 0.3)',
-        borderColor: 'rgba(244, 252, 3)',
+        backgroundColor: "rgba(244, 252, 3, 0.3)",
+        borderColor: "rgba(244, 252, 3)",
         borderWidth: 1,
         borderRadius: 5,
         borderSkipped: false,
         barThickness: 35,
       },
       {
-        type: 'bar',
-        label: 'Nota Máxima',
+        type: "bar",
+        label: "Nota Máxima",
         data: turmasAvaliadas.map((turma) => turma.notaMaxima),
-        backgroundColor: 'rgba(3, 227, 252, 0.3)',
-        borderColor: 'rgba(3, 227, 252)',
+        backgroundColor: "rgba(3, 227, 252, 0.3)",
+        borderColor: "rgba(3, 227, 252)",
         borderWidth: 1,
         borderRadius: 5,
         borderSkipped: false,
@@ -52,8 +52,8 @@ export default function Graph() {
       },
     ];
 
-    const chart = new Chart('myChart', {
-      type: 'bar',
+    const chart = new Chart("myChart", {
+      type: "bar",
       data: {
         labels: labels,
         datasets: datasets,
@@ -63,11 +63,11 @@ export default function Graph() {
         plugins: {
           legend: {
             display: true,
-            position: 'top',
+            position: "top",
           },
           title: {
             display: true,
-            text: 'Turmas Avaliadas',
+            text: "Turmas Avaliadas",
           },
         },
         scales: {
