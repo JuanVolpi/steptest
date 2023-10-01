@@ -1,4 +1,4 @@
-import { Conteudo, Titulo } from "@/lib/fonts";
+import { Conteudo, Display, Titulo } from "@/lib/fonts";
 import {
   AdjustmentsHorizontalIcon,
   ChartPieIcon,
@@ -7,10 +7,20 @@ import {
   ListBulletIcon,
   MagnifyingGlassIcon,
   PencilSquareIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/react/20/solid";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { Divider } from "@nextui-org/divider";
-import { Button, Input, Spacer, Tab, Tabs, Textarea } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Input,
+  Spacer,
+  Tab,
+  Tabs,
+  Textarea,
+} from "@nextui-org/react";
 import Chart from "chart.js/auto";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TextInputAutoCompleteOptions } from "../inputs/TextAutoComplete";
@@ -95,28 +105,33 @@ export default function EscolaGraph() {
     [],
   );
 
-  new Chart(chart, {
-    type: "bar",
-    data: {
-      labels: ["Norte", "Sul", "Este", "Oeste"],
-      datasets: newLocal,
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          text: "aaa",
-          align: "center",
-          display: false,
-        },
-        legend: {
-          display: false,
+  useEffect(() => {
+    new Chart(chart, {
+      type: "bar",
+      data: {
+        labels: ["Norte", "Sul", "Este", "Oeste"],
+        datasets: newLocal,
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            text: "aaa",
+            align: "center",
+            display: false,
+          },
+          legend: {
+            display: false,
+          },
+          decimation: {
+            enabled: true,
+          },
         },
       },
-    },
-  });
-  useEffect(() => {
-    charArea.current?.replaceWith(chart);
+    });
+    chart.style.width = "100%";
+    chart.style.height = "100%";
+    charArea.current?.replaceChildren(chart);
   }, [charArea, chart, newLocal]);
 
   return (
@@ -244,7 +259,7 @@ export default function EscolaGraph() {
         </section>
       </header>
       <main className="bg-white rounded-md p-3 px-3.5 w-full h-fit border border-slate-300">
-        <div className="min-w-full min-h-full grid grid-cols-[2.5fr_1.5fr] grid-rows-1 items-start justify-center gap-3">
+        <div className="min-w-full min-h-full grid grid-cols-[2.4fr_1.5fr] grid-rows-1 items-start justify-center gap-4 place-content-center">
           {/* placeholder for the chart */}
           <div ref={charArea}></div>
           <div className="w-full h-full">
@@ -384,7 +399,171 @@ export default function EscolaGraph() {
                     <span className="mt-[1px]">Lista de Métricas</span>
                   </div>
                 }
-              ></Tab>
+              >
+                <section className="p-1 rounded border-2 border-slate-300  bg-white space-y-1 hover:border-blue-200 duration-300 ease-in-out">
+                  <header className="p-2">
+                    <h4
+                      style={Titulo.style}
+                      className="text-lg font-medium text-fuchsia-600 drop-shadow"
+                    >
+                      Métricas para esta prova
+                    </h4>
+                    <h6 className="text-sm text-slate-400 drop-shadow-sm -mt-1">
+                      Uma lista dos objetivos para cada escola.
+                    </h6>
+                  </header>
+                  <Divider className="bg-slate-200 w-[90%] mx-2" />
+                  <main className="p-2 px-3">
+                    <Accordion variant="splitted">
+                      <AccordionItem
+                        key="1"
+                        aria-label="Metrica 1"
+                        title={
+                          <div>
+                            <h4
+                              className="text-blue-800 font-medium tracking-wide p-2.5 py-1 rounded-md bg-slate-200 w-fit"
+                              style={Titulo.style}
+                            >
+                              Media Alvo
+                            </h4>
+                            <span className="text-sm px-2.5 text-slate-500 flex flex-row items-center gap-1 pt-1">
+                              <QuestionMarkCircleIcon className="w-4 h-4 text-slate-400/80" />
+                              <p className="pt-0.5">
+                                Media que a escola quer/têm de obter.
+                              </p>
+                            </span>
+                          </div>
+                        }
+                      >
+                        <section className="flex flex-col gap-2 items-start justify-start px-3.5 w-full">
+                          <header className="flex flex-row gap-2 w-full items-center justify-between">
+                            <h4
+                              className="min-w-fit text-lg drop-shadow"
+                              style={Titulo.style}
+                            >
+                              Regiao em análise
+                            </h4>
+                            <div>
+                              <Input
+                                // label="Qual categoria?"
+                                placeholder={"Regiao (N,S,E,O)"}
+                                classNames={{
+                                  base: "max-w-[175px]",
+                                  input:
+                                    "placeholder:italic placeholder:opacity-40 max-w-[45ch]",
+                                  label: "text-sm font-semibold",
+                                }}
+                                variant="flat"
+                                color="primary"
+                                isClearable
+                                size="sm"
+                                radius="sm"
+                                labelPlacement="outside"
+                                value={regiao}
+                                onValueChange={handleFilterInput}
+                                startContent={
+                                  <MagnifyingGlassIcon className="w-4 h-4 text-blue-500" />
+                                }
+                                onClear={() => {
+                                  setShowAutoComplete(false);
+                                }}
+                              />
+                              <TextInputAutoCompleteOptions
+                                opcoes={regiaoOpcoes}
+                                onSelection={setRegiao}
+                                isOpen={showAutoComplete}
+                                closeSyncState={() =>
+                                  setShowAutoComplete(false)
+                                }
+                                currentText={regiao}
+                                filterOpcoes={false}
+                              />
+                            </div>
+                          </header>
+                          <main className="space-y-4">
+                            {new Array(3).fill(1).map((_, i) => {
+                              return (
+                                <section
+                                  key={i}
+                                  className="flex flex-col gap-2 pt-2"
+                                >
+                                  <div className="flex flex-row items-center gap-3">
+                                    <h5 className="font-semibold tracking-tight px-3 py-1 bg-orange-500/20 rounded-md text-orange-600 drop-shadow">
+                                      Escola {i + 1}
+                                    </h5>
+                                    <h6
+                                      className="bg-red-400/30 text-red-600 text-sm font-extrabold px-1.5 py-1 rounded-md"
+                                      style={Display.style}
+                                    >
+                                      #1
+                                    </h6>
+                                  </div>
+                                  <div className="flex flex-row gap-0 items-start justify-start w-full">
+                                    <span
+                                      className="flex flex-row gap-2 items-end text-md px-2"
+                                      style={Conteudo.style}
+                                    >
+                                      <p className="font-semibold tracking-tight px-3 py-1 border border-slate-400/80 rounded-md text-slate-600 drop-shadow">
+                                        Atual
+                                      </p>
+                                      <p className="font-semibold tracking-tight px-3 py-1 bg-red-500/20 rounded-md text-red-600 drop-shadow">
+                                        4.5
+                                      </p>
+                                    </span>
+                                    <span
+                                      className="flex flex-row gap-0 text-md px-2 items-center"
+                                      style={Conteudo.style}
+                                    >
+                                      <p className="font-semibold tracking-tight px-3 py-1 border border-slate-400/80 text-slate-600 drop-shadow rounded">
+                                        Alvo
+                                      </p>
+                                      <span className="flex flex-row gap-2 items-center text-md px-2">
+                                        <p className="bg-green-400/50 px-2 py-0.5 rounded">
+                                          6.5
+                                        </p>
+                                        <span className="text-sm flex items-center gap-2">
+                                          <p className="bg-slate-200 p-1 rounded font-medium">
+                                            +.2
+                                          </p>
+                                          <p className="bg-slate-200 p-1 rounded font-medium">
+                                            -.2
+                                          </p>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </section>
+                              );
+                            })}
+                          </main>
+                          <footer></footer>
+                          <Divider />
+                        </section>
+                      </AccordionItem>
+                      <AccordionItem
+                        key="2"
+                        aria-label="Metrica 2"
+                        title={
+                          <div>
+                            <h4
+                              className="text-blue-800 font-medium tracking-wide p-2.5 py-1 rounded-md bg-slate-200 w-fit"
+                              style={Titulo.style}
+                            >
+                              Media Base
+                            </h4>
+                            <span className="text-sm px-2.5 text-slate-500 flex flex-row items-center gap-1 pt-1">
+                              <QuestionMarkCircleIcon className="w-4 h-4 text-slate-400/80" />
+                              <p className="pt-0.5">
+                                Media obrigatoria para a escola.
+                              </p>
+                            </span>
+                          </div>
+                        }
+                      ></AccordionItem>
+                    </Accordion>
+                  </main>
+                </section>
+              </Tab>
             </Tabs>
           </div>
         </div>
