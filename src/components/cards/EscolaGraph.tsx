@@ -75,72 +75,68 @@ export default function EscolaGraph() {
     () => [randomInInterval(6.4, 2), randomInInterval(4.2, 2)],
     [],
   );
-  const newLocal = useMemo(
-    () => [
-      {
-        label: "Media minima",
-        data: [5, 5, 5, 5],
-        fill: false,
-        borderColor: "lime",
-        tension: 0.3,
-        type: "line",
-      },
-      {
-        label: "Media Alvo",
-        data: [5.5, 7, 5.6],
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.3,
-        type: "line",
-      },
-      {
-        label: "Sala 1",
-        data: sala_1_data,
-        borderColor: "white",
-        backgroundColor: "rgba(100, 153, 233, 0.65)",
-        borderWidth: 2,
-        borderRadius: 6,
-        borderSkipped: false,
-      },
-      {
-        label: "Sala 2",
-        data: sala_2_data,
-        borderColor: "white",
-        backgroundColor: "rgba(158, 221, 255, 0.65)",
-        borderWidth: 2,
-        borderRadius: 6,
-        borderSkipped: false,
-      },
-      {
-        label: "Sala 3",
-        data: sala_3_data,
-        borderColor: "white",
-        backgroundColor: "rgba(166, 236, 200, 0.65)",
-        borderWidth: 2,
-        borderRadius: 6,
-        borderSkipped: false,
-      },
-      {
-        label: "Media Atual",
-        data: [
-          sala_1_data.reduce((a, c) => a + c, 0) / sala_1_data.length,
-          sala_2_data.reduce((a, c) => a + c, 0) / sala_2_data.length,
-          sala_3_data.reduce((a, c) => a + c, 0) / sala_3_data.length,
-        ],
-        type: "bubble",
-        radius: 10,
-        backgroundColor: "rgba(0, 115, 115, .5)",
-      },
-    ],
-    [sala_1_data, sala_2_data, sala_3_data],
-  );
 
   useEffect(() => {
     new Chart(chart, {
       type: "bar",
       data: {
         labels: Array.from(regioesSet),
-        datasets: newLocal,
+        datasets: [
+          {
+            label: "Media minima",
+            data: [5, 5, 5, 5],
+            fill: false,
+            borderColor: "lime",
+            tension: 0.3,
+            type: "line",
+          },
+          {
+            label: "Media Alvo",
+            data: [5.5, 7, 5.6],
+            fill: false,
+            borderColor: "rgb(75, 192, 192)",
+            tension: 0.3,
+            type: "line",
+          },
+          {
+            label: "Sala 1",
+            data: sala_1_data,
+            borderColor: "white",
+            backgroundColor: "rgba(100, 153, 233, 0.65)",
+            borderWidth: 2,
+            borderRadius: 6,
+            borderSkipped: false,
+          },
+          {
+            label: "Sala 2",
+            data: sala_2_data,
+            borderColor: "white",
+            backgroundColor: "rgba(158, 221, 255, 0.65)",
+            borderWidth: 2,
+            borderRadius: 6,
+            borderSkipped: false,
+          },
+          {
+            label: "Sala 3",
+            data: sala_3_data,
+            borderColor: "white",
+            backgroundColor: "rgba(166, 236, 200, 0.65)",
+            borderWidth: 2,
+            borderRadius: 6,
+            borderSkipped: false,
+          },
+          {
+            label: "Media Atual",
+            data: [
+              sala_1_data.reduce((a, c) => a + c, 0) / sala_1_data.length,
+              sala_2_data.reduce((a, c) => a + c, 0) / sala_2_data.length,
+              sala_3_data.reduce((a, c) => a + c, 0) / sala_3_data.length,
+            ],
+            type: "bubble",
+            radius: 10,
+            backgroundColor: "rgba(0, 115, 115, .5)",
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -164,7 +160,7 @@ export default function EscolaGraph() {
     charArea.current!.style.width = "100%";
     charArea.current!.style.height = "100%";
     charArea.current?.replaceChildren(chart);
-  }, [charArea, chart, newLocal, regioesSet]);
+  }, [charArea, chart, regioesSet, sala_1_data, sala_2_data, sala_3_data]);
 
   return (
     <section className="flex flex-col gap-4 bg-slate-200 w-full h-full rounded-md p-3">

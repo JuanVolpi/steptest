@@ -1,9 +1,5 @@
-import { Button, Divider } from '@nextui-org/react';
-
-import { HighlightSpanKind } from 'typescript';
-import { Title } from 'chart.js';
-import { Titulo } from '@/lib/fonts';
-import { respostas, turmasAvaliadas } from '@/lib/mock_data/dados';
+import { Titulo } from "@/lib/fonts";
+import { respostas, turmasAvaliadas } from "@/lib/mock_data/dados";
 
 export default function AveragesTable() {
   let correctAnswers: {
@@ -31,7 +27,7 @@ export default function AveragesTable() {
       correctAnswers[element.idQuestao].corretas /
       correctAnswers[element.idQuestao].respostas;
     correctAnswers[element.idQuestao].media = Number(
-      (correctAnswers[element.idQuestao].media * 100).toFixed(2)
+      (correctAnswers[element.idQuestao].media * 100).toFixed(2),
     );
   });
 
