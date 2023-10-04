@@ -68,7 +68,10 @@ export default function Ranking() {
     <div className="space-y-4 h-96 overflow-scroll">
       {rankList.map((rank, index) => {
         return (
-          <div className="flex flex-row gap-9 w-max h-fit text-3xl rounded-full hover:bg-sky-200 transition-all ease-in-out duration-200">
+          <div
+            key={index}
+            className="flex flex-row gap-9 w-max h-fit text-3xl rounded-full hover:bg-sky-200 transition-all ease-in-out duration-200"
+          >
             <section className="flex flex-row gap-3">
               <div className="w-max h-full border-b-3 rounded-full p-3 shadow align-middle">
                 {rankingMedals(index + 1)}
