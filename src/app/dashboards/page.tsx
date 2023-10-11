@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from "framer-motion";
 
-import { Alunos, QuestoesProva } from '@/components/cards/Tables';
+import { Alunos, QuestoesProva } from "@/components/cards/Tables";
 
-import { alunos, questoes, respostas } from '@/lib/mock_data/dados';
+import { alunos, questoes, respostas } from "@/lib/mock_data/dados";
 
 import {
   ClipboardDocumentListIcon,
@@ -15,7 +15,7 @@ import {
   QuestionMarkCircleIcon,
   XCircleIcon,
   XMarkIcon,
-} from '@heroicons/react/20/solid';
+} from "@heroicons/react/20/solid";
 
 import {
   Button,
@@ -25,23 +25,23 @@ import {
   Tab,
   Tabs,
   Tooltip,
-} from '@nextui-org/react';
+} from "@nextui-org/react";
 
-import EscolaGraph from '@/components/cards/EscolaGraph';
-import { TextInputAutoCompleteOptions } from '@/components/inputs/TextAutoComplete';
-import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
-import React, { useMemo, useRef, useState } from 'react';
-import Graph from '@/components/cards/Graph';
+import EscolaGraph from "@/components/cards/EscolaGraph";
+import Graph from "@/components/cards/Graph";
+import { TextInputAutoCompleteOptions } from "@/components/inputs/TextAutoComplete";
+import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
+import React, { useMemo, useRef, useState } from "react";
 
 // Certifique-se de importar os dados corretos
 
 export default function Dashboards() {
   const seccoes: { nome: string; numProvas: number }[] = useMemo(() => {
     return [
-      { nome: 'Matemática', numProvas: 5 },
-      { nome: 'Ciências', numProvas: 2 },
-      { nome: 'Português', numProvas: 3 },
-      { nome: 'Frações', numProvas: 6 },
+      { nome: "Matemática", numProvas: 5 },
+      { nome: "Ciências", numProvas: 2 },
+      { nome: "Português", numProvas: 3 },
+      { nome: "Frações", numProvas: 6 },
     ];
   }, []);
 
@@ -49,13 +49,13 @@ export default function Dashboards() {
     return seccoes.map(({ nome }) => nome);
   }, [seccoes]);
 
-  const [filterText, setFilterText] = useState<string>('');
+  const [filterText, setFilterText] = useState<string>("");
   const [showAutoComplete, setShowAutoComplete] = useState(false);
   const [provaSelecionada, setProvaSelecionada] = useState<string | undefined>(
-    undefined
+    undefined,
   );
 
-  type Dashboard = 'Vista Geral' | 'Escola' | 'Questao-Questao' | 'Turmas';
+  type Dashboard = "Vista Geral" | "Escola" | "Questao-Questao" | "Turmas";
   const [selectedDashboard, setSelectedDashboard] = useState<
     Dashboard | undefined
   >();
@@ -63,7 +63,7 @@ export default function Dashboards() {
   const seccoesObj: { [key: string]: HTMLDivElement } = useMemo(() => {
     return Object.fromEntries([
       sectionNames,
-      new Array(sectionNames.length).fill(React.createElement('div')),
+      new Array(sectionNames.length).fill(React.createElement("div")),
     ]);
   }, [sectionNames]);
 
@@ -95,20 +95,20 @@ export default function Dashboards() {
     switch (selectedDashboard) {
       case undefined:
         return <></>;
-      case 'Escola':
+      case "Escola":
         return <EscolaGraph />;
-      case 'Questao-Questao':
+      case "Questao-Questao":
         return <QuestoesProva questoes={questoes} />;
-      case 'Vista Geral':
+      case "Vista Geral":
         return <Alunos alunos={alunos} respostas={respostas} />;
-      case 'Turmas':
+      case "Turmas":
         return <Graph />;
     }
   }
 
-  const [last, setLast] = useState<'provas' | 'dashboards'>('provas');
-  const [option, setOption] = useState<'provas' | 'dashboards' | undefined>(
-    'provas'
+  const [last, setLast] = useState<"provas" | "dashboards">("provas");
+  const [option, setOption] = useState<"provas" | "dashboards" | undefined>(
+    "provas",
   );
 
   const provas = useMemo(
@@ -120,7 +120,7 @@ export default function Dashboards() {
             refs.current[nome] = e as HTMLDivElement;
           }}
           className={`rounded-md py-2.5 ${
-            filterText === nome ? 'bg-fuchsia-100/50' : 'bg-inherit'
+            filterText === nome ? "bg-fuchsia-100/50" : "bg-inherit"
           }`}
         >
           <SeccaoProvas
@@ -128,12 +128,12 @@ export default function Dashboards() {
             tituloSeccao={nome}
             onProvaSelect={(prova) => {
               setProvaSelecionada(prova);
-              setOption('dashboards');
+              setOption("dashboards");
             }}
           />
         </div>
       )),
-    [seccoes, refs, filterText]
+    [seccoes, refs, filterText],
   );
 
   return (
@@ -143,7 +143,7 @@ export default function Dashboards() {
         <header className="space-y-5 bg-white z-20 p-4">
           <Button
             isIconOnly
-            color={option !== undefined ? 'danger' : 'primary'}
+            color={option !== undefined ? "danger" : "primary"}
             onClick={() => {
               if (option !== undefined) {
                 setOption(undefined);
@@ -153,19 +153,19 @@ export default function Dashboards() {
             <AnimatePresence>
               {option !== undefined ? (
                 <motion.div
-                  initial={{ opacity: 0, rotate: '180deg' }}
-                  animate={{ opacity: 1, rotate: '0deg' }}
-                  exit={{ opacity: 0, rotate: '180deg' }}
-                  transition={{ ease: 'easeInOut', duration: 0.5 }}
+                  initial={{ opacity: 0, rotate: "180deg" }}
+                  animate={{ opacity: 1, rotate: "0deg" }}
+                  exit={{ opacity: 0, rotate: "180deg" }}
+                  transition={{ ease: "easeInOut", duration: 0.5 }}
                 >
                   <XMarkIcon className="w-6 h-6" />
                 </motion.div>
               ) : (
                 <motion.div
-                  initial={{ opacity: 0, rotate: '180deg' }}
-                  animate={{ opacity: 1, rotate: '0deg' }}
-                  exit={{ opacity: 0, rotate: '180deg' }}
-                  transition={{ ease: 'easeInOut', duration: 0.5 }}
+                  initial={{ opacity: 0, rotate: "180deg" }}
+                  animate={{ opacity: 1, rotate: "0deg" }}
+                  exit={{ opacity: 0, rotate: "180deg" }}
+                  transition={{ ease: "easeInOut", duration: 0.5 }}
                 >
                   <Bars3BottomLeftIcon className="w-6 h-6" />
                 </motion.div>
@@ -183,7 +183,7 @@ export default function Dashboards() {
             >
               <Button
                 variant="flat"
-                onClick={() => setOption('provas')}
+                onClick={() => setOption("provas")}
                 size="md"
                 isIconOnly
                 color="primary"
@@ -201,7 +201,7 @@ export default function Dashboards() {
             >
               <Button
                 variant="flat"
-                onClick={() => setOption('dashboards')}
+                onClick={() => setOption("dashboards")}
                 size="md"
                 isIconOnly
                 color="primary"
@@ -214,12 +214,12 @@ export default function Dashboards() {
           <Divider />
         </header>
         <AnimatePresence>
-          {option !== undefined && option === 'provas' && (
+          {option !== undefined && option === "provas" && (
             <motion.section
-              initial={{ opacity: 0, x: '-150%' }}
-              animate={{ opacity: 1, x: '0%' }}
-              exit={{ opacity: 0, x: '-150%' }}
-              transition={{ ease: 'easeInOut', duration: 1 }}
+              initial={{ opacity: 0, x: "-150%" }}
+              animate={{ opacity: 1, x: "0%" }}
+              exit={{ opacity: 0, x: "-150%" }}
+              transition={{ ease: "easeInOut", duration: 1 }}
               className="space-y-4 p-4 bg-white border-l-2 border-l-slate-300 border-dashed"
             >
               <header className="space-y-5">
@@ -233,10 +233,10 @@ export default function Dashboards() {
                 <section className="space-y-2 mt-3 mb-6 ">
                   <Input
                     label="Qual categoria?"
-                    placeholder={'Nome da categoria'}
+                    placeholder={"Nome da categoria"}
                     classNames={{
-                      input: 'placeholder:italic placeholder:opacity-40',
-                      label: 'text-sm font-semibold',
+                      input: "placeholder:italic placeholder:opacity-40",
+                      label: "text-sm font-semibold",
                     }}
                     variant="flat"
                     color="primary"
@@ -268,13 +268,13 @@ export default function Dashboards() {
             </motion.section>
           )}
           {option !== undefined &&
-            option === 'dashboards' &&
+            option === "dashboards" &&
             provaSelecionada !== undefined && (
               <motion.section
-                initial={{ opacity: 0, x: '-150%' }}
-                animate={{ opacity: 1, x: '0%' }}
-                exit={{ opacity: 0, x: '-150%' }}
-                transition={{ ease: 'easeInOut', duration: 1 }}
+                initial={{ opacity: 0, x: "-150%" }}
+                animate={{ opacity: 1, x: "0%" }}
+                exit={{ opacity: 0, x: "-150%" }}
+                transition={{ ease: "easeInOut", duration: 1 }}
                 className="space-y-4 p-4 bg-white border-l-2 border-l-slate-300 border-dashed"
               >
                 <header className="space-y-5">
@@ -288,25 +288,25 @@ export default function Dashboards() {
                   <AnimatePresence>
                     {selectedDashboard !== undefined && (
                       <motion.div
-                        initial={{ opacity: 0, x: '-20px' }}
-                        animate={{ opacity: 1, x: '0px' }}
+                        initial={{ opacity: 0, x: "-20px" }}
+                        animate={{ opacity: 1, x: "0px" }}
                         exit={{
                           opacity: 0,
-                          y: '20px',
-                          animationDelay: '0.2s',
+                          y: "20px",
+                          animationDelay: "0.2s",
                         }}
-                        transition={{ ease: 'easeInOut', duration: 0.35 }}
+                        transition={{ ease: "easeInOut", duration: 0.35 }}
                         className="inline-flex gap-2 my-2 items-center"
                       >
                         <h3 className="text-blue-500 font-medium text-md">
                           Dashboard selecionado:
                         </h3>
                         <motion.div
-                          initial={{ opacity: 0, y: '15px' }}
-                          animate={{ opacity: 1, y: '0px' }}
-                          exit={{ opacity: 0, y: '-15px' }}
+                          initial={{ opacity: 0, y: "15px" }}
+                          animate={{ opacity: 1, y: "0px" }}
+                          exit={{ opacity: 0, y: "-15px" }}
                           transition={{
-                            ease: 'easeInOut',
+                            ease: "easeInOut",
                             duration: 0.25,
                             delay: 0.2,
                           }}
@@ -330,15 +330,15 @@ export default function Dashboards() {
                     color="secondary"
                     variant="underlined"
                     classNames={{
-                      base: 'rounded-md border border-fuchsia-400 mb-1 py-1 shadow w-fit',
+                      base: "rounded-md border border-fuchsia-400 mb-1 py-1 shadow w-fit",
                     }}
                   >
                     <Tab key="Provas" title="Específicos para prova">
                       <motion.div
-                        initial={{ opacity: 0, y: '-15px' }}
-                        animate={{ opacity: 1, y: '0px' }}
-                        exit={{ opacity: 0, y: '-15px' }}
-                        transition={{ ease: 'easeInOut', duration: 0.35 }}
+                        initial={{ opacity: 0, y: "-15px" }}
+                        animate={{ opacity: 1, y: "0px" }}
+                        exit={{ opacity: 0, y: "-15px" }}
+                        transition={{ ease: "easeInOut", duration: 0.35 }}
                         className="flex flex-row flex-wrap items-center justify-start gap-2"
                       >
                         <Button
@@ -349,7 +349,7 @@ export default function Dashboards() {
                             <GlobeAmericasIcon className="w-5 h-5" />
                           }
                           onClick={() => {
-                            setSelectedDashboard('Vista Geral');
+                            setSelectedDashboard("Vista Geral");
                             setOption(undefined);
                           }}
                         >
@@ -363,7 +363,7 @@ export default function Dashboards() {
                             <QuestionMarkCircleIcon className="w-5 h-5" />
                           }
                           onClick={() => {
-                            setSelectedDashboard('Questao-Questao');
+                            setSelectedDashboard("Questao-Questao");
                             setOption(undefined);
                           }}
                         >
@@ -373,10 +373,10 @@ export default function Dashboards() {
                     </Tab>
                     <Tab key="Turmas" title="Específica para Turmas">
                       <motion.div
-                        initial={{ opacity: 0, y: '-15px' }}
-                        animate={{ opacity: 1, y: '0px' }}
-                        exit={{ opacity: 0, y: '-15px' }}
-                        transition={{ ease: 'easeInOut', duration: 0.35 }}
+                        initial={{ opacity: 0, y: "-15px" }}
+                        animate={{ opacity: 1, y: "0px" }}
+                        exit={{ opacity: 0, y: "-15px" }}
+                        transition={{ ease: "easeInOut", duration: 0.35 }}
                         className="flex flex-row flex-wrap items-center justify-center gap-2"
                       >
                         <Button
@@ -385,7 +385,7 @@ export default function Dashboards() {
                           size="md"
                           startContent={<HomeModernIcon className="w-5 h-5" />}
                           onClick={() => {
-                            setSelectedDashboard('Turmas');
+                            setSelectedDashboard("Turmas");
                             setOption(undefined);
                           }}
                         >
@@ -395,10 +395,10 @@ export default function Dashboards() {
                     </Tab>
                     <Tab key="Alunos" title="Específica para Rede Escolar">
                       <motion.div
-                        initial={{ opacity: 0, y: '-15px' }}
-                        animate={{ opacity: 1, y: '0px' }}
-                        exit={{ opacity: 0, y: '-15px' }}
-                        transition={{ ease: 'easeInOut', duration: 0.35 }}
+                        initial={{ opacity: 0, y: "-15px" }}
+                        animate={{ opacity: 1, y: "0px" }}
+                        exit={{ opacity: 0, y: "-15px" }}
+                        transition={{ ease: "easeInOut", duration: 0.35 }}
                         className="flex flex-row flex-wrap items-center justify-center gap-2"
                       >
                         <Button
@@ -406,7 +406,7 @@ export default function Dashboards() {
                           color="success"
                           size="md"
                           startContent={<HomeModernIcon className="w-5 h-5" />}
-                          onClick={() => setSelectedDashboard('Escola')}
+                          onClick={() => setSelectedDashboard("Escola")}
                         >
                           Analise Por Escola
                         </Button>
@@ -424,18 +424,18 @@ export default function Dashboards() {
 
         <AnimatePresence>
           <motion.section
-            initial={{ opacity: 0, x: '200%' }}
-            animate={{ opacity: 1, x: '-0%' }}
-            exit={{ opacity: 0, x: '200%' }}
-            transition={{ ease: 'easeInOut', duration: 0.7 }}
+            initial={{ opacity: 0, x: "200%" }}
+            animate={{ opacity: 1, x: "-0%" }}
+            exit={{ opacity: 0, x: "200%" }}
+            transition={{ ease: "easeInOut", duration: 0.7 }}
           >
             <AnimatePresence>
               {selectedDashboard !== undefined && (
                 <motion.div
-                  initial={{ x: '100%' }}
-                  animate={{ x: '-0%' }}
-                  exit={{ x: '100%' }}
-                  transition={{ ease: 'easeInOut', duration: 0.7 }}
+                  initial={{ x: "100%" }}
+                  animate={{ x: "-0%" }}
+                  exit={{ x: "100%" }}
+                  transition={{ ease: "easeInOut", duration: 0.7 }}
                   className="h-fit min-w-full rounded bg-white p-4"
                 >
                   <div className="inline-flex gap-2 items-center">
@@ -454,7 +454,7 @@ export default function Dashboards() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ ease: 'easeInOut', duration: 0.7 }}
+                    transition={{ ease: "easeInOut", duration: 0.7 }}
                     className="min-w-full"
                   >
                     {handleDashboardSelect()}
@@ -476,7 +476,7 @@ export type SeccaoProvasProps = {
 };
 
 function SeccaoProvas(props: SeccaoProvasProps) {
-  const [selecionada, setSelecionada] = useState('');
+  const [selecionada, setSelecionada] = useState("");
   function nomeProva(i: number): string {
     return `${props.tituloSeccao} ${i}`;
   }
@@ -501,7 +501,7 @@ function SeccaoProvas(props: SeccaoProvasProps) {
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
               transition={{
-                ease: 'circInOut',
+                ease: "circInOut",
                 duration: 0.35,
                 delay: Number(`0.${i + 1}`),
               }}
@@ -509,15 +509,15 @@ function SeccaoProvas(props: SeccaoProvasProps) {
               className="w-full flex flex-col gap-4 items-center justify-evenly border-1.5 px-3 py-2 rounded border-fuchsia-300/50 bg-white snap-center ease-soft-spring duration-200 transition-all hover:border-fuchsia-300 hover:scale-105 hover:cursor-pointer"
               style={{
                 border:
-                  selecionada === nomeProva(i) ? 'solid 1.5px blue' : undefined,
+                  selecionada === nomeProva(i) ? "solid 1.5px blue" : undefined,
               }}
               onClick={() => {
                 if (selecionada !== nomeProva(i)) {
                   setSelecionada(nomeProva(i));
                   props.onProvaSelect(nomeProva(i));
                 } else {
-                  setSelecionada('');
-                  props.onProvaSelect('');
+                  setSelecionada("");
+                  props.onProvaSelect("");
                 }
               }}
             >
@@ -531,11 +531,11 @@ function SeccaoProvas(props: SeccaoProvasProps) {
                 <p
                   className={`font-bold ${
                     i % 2 === 0
-                      ? 'text-green-600 bg-green-600/10'
-                      : 'text-orange-500 bg-orange-500/10'
+                      ? "text-green-600 bg-green-600/10"
+                      : "text-orange-500 bg-orange-500/10"
                   } px-3 py-0.5  rounded-md`}
                 >
-                  {i % 2 === 0 ? 'Corrigida' : 'Corrigir'}
+                  {i % 2 === 0 ? "Corrigida" : "Corrigir"}
                 </p>
               </main>
             </motion.li>
