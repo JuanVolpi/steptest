@@ -28,7 +28,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { TextInputAutoCompleteOptions } from "../inputs/TextAutoComplete";
 
 export default function EscolaGraph() {
-  const regiaoOpcoes = ["Escola São 1", "Escola São 2", "Escola São 3"];
+  const regiaoOpcoes = ["Escola 1", "Escola 2", "Escola 3"];
   const [showAutoComplete, setShowAutoComplete] = useState(false);
   const [regiao, setRegiao] = useState<string>("");
   const [regioesSet, setRegioesSet] = useState<Set<string>>(new Set());
@@ -59,22 +59,66 @@ export default function EscolaGraph() {
   const charArea = useRef<HTMLDivElement>(null);
   const chart: HTMLCanvasElement = document.createElement("canvas");
 
-  const sala_1_data: number[] = useMemo(
-    () => [
-      randomInInterval(7, 2),
-      randomInInterval(8, 2),
-      randomInInterval(5.4, 2),
+  const dados_turmas = useMemo(
+    (): { name: string; class_grades: (number | undefined)[] }[] => [
+      {
+        name: "Escola 1",
+        //              1    2    3
+        class_grades: [6.3, 5.6, 7.1],
+      },
+      {
+        name: "Escola 2",
+        //              1    2    3
+        class_grades: [5.2, undefined, 6.5],
+      },
+      {
+        name: "Escola 3",
+        //              1    2    3
+        class_grades: [4.2, 3.5, 6.4],
+      },
     ],
     [],
   );
-  const sala_2_data: number[] = useMemo(
-    () => [randomInInterval(6, 2), 0, randomInInterval(7, 2)],
-    [],
-  );
-  const sala_3_data: number[] = useMemo(
-    () => [randomInInterval(6.4, 2), randomInInterval(4.2, 2)],
-    [],
-  );
+
+  function genGraphCol(
+    class_index: number,
+    column_name: string,
+  ): {
+    colum_name: string;
+    colum_grades: number[];
+  } {
+    let ret = {
+      colum_name: column_name,
+      colum_grades: new Array<number>(),
+    };
+
+    dados_turmas.forEach((school) => {
+      let grade = school.class_grades[class_index];
+      console.log(`CUR: ${school.name} -> ${grade}`);
+      if (grade !== undefined) ret.colum_grades.push(grade);
+      else ret.colum_grades.push(0);
+    });
+
+    return ret;
+  }
+
+  function calculateAverageSchoolGrade(school_name: string): number {
+    // Unsafe, assumes that the given school name is contained in dados_turmas
+    let grades_class = dados_turmas.find(
+      (school) => school.name === school_name,
+    )?.class_grades!;
+
+    let grades: number[] = [];
+    for (let grade of grades_class) if (grade !== undefined) grades.push(grade);
+
+    let average_school_grade =
+      grades.reduce((a, b) => a + b, 0) / grades.length;
+
+    console.log(`Grades: ${grades}`);
+    console.log(`Escola: ${school_name}, Average: ${average_school_grade}`);
+
+    return average_school_grade;
+  }
 
   useEffect(() => {
     new Chart(chart, {
@@ -100,7 +144,9 @@ export default function EscolaGraph() {
           },
           {
             label: "Sala 1",
-            data: sala_1_data,
+            data: genGraphCol(0, "Sala 1").colum_grades,
+            order: 0,
+            grouped: true,
             borderColor: "white",
             backgroundColor: "rgba(100, 153, 233, 0.65)",
             borderWidth: 2,
@@ -109,7 +155,7 @@ export default function EscolaGraph() {
           },
           {
             label: "Sala 2",
-            data: sala_2_data,
+            data: genGraphCol(1, "Sala 2").colum_grades,
             borderColor: "white",
             backgroundColor: "rgba(158, 221, 255, 0.65)",
             borderWidth: 2,
@@ -118,7 +164,7 @@ export default function EscolaGraph() {
           },
           {
             label: "Sala 3",
-            data: sala_3_data,
+            data: genGraphCol(2, "Sala 3").colum_grades,
             borderColor: "white",
             backgroundColor: "rgba(166, 236, 200, 0.65)",
             borderWidth: 2,
@@ -126,13 +172,13 @@ export default function EscolaGraph() {
             borderSkipped: false,
           },
           {
+            type: "bubble",
             label: "Media Atual",
             data: [
-              sala_1_data.reduce((a, c) => a + c, 0) / sala_1_data.length,
-              sala_2_data.reduce((a, c) => a + c, 0) / sala_2_data.length,
-              sala_3_data.reduce((a, c) => a + c, 0) / sala_3_data.length,
+              calculateAverageSchoolGrade("Escola 1"),
+              calculateAverageSchoolGrade("Escola 2"),
+              calculateAverageSchoolGrade("Escola 3"),
             ],
-            type: "bubble",
             radius: 10,
             backgroundColor: "rgba(0, 115, 115, .5)",
           },
@@ -142,12 +188,12 @@ export default function EscolaGraph() {
         responsive: true,
         plugins: {
           title: {
-            text: "aaa",
+            text: "",
             align: "center",
             display: false,
           },
           legend: {
-            display: false,
+            display: true,
           },
           decimation: {
             enabled: true,
@@ -155,12 +201,15 @@ export default function EscolaGraph() {
         },
       },
     });
-    chart.style.width = "100%";
-    chart.style.height = "100%";
+  }, [chart, regioesSet, dados_turmas]);
+
+  useEffect(() => {
+    // chart.style.width = "100%";
+    // chart.style.height = "100%";
     charArea.current!.style.width = "100%";
     charArea.current!.style.height = "100%";
     charArea.current?.replaceChildren(chart);
-  }, [charArea, chart, regioesSet, sala_1_data, sala_2_data, sala_3_data]);
+  }, [charArea, chart, dados_turmas]);
 
   return (
     <section className="flex flex-col gap-4 bg-slate-200 w-full h-full rounded-md p-3">
