@@ -1,0 +1,96 @@
+.wrapper {
+  @apply flex flex-col gap-3 px-8 py-5 justify-center items-start w-full h-fit bg-white rounded shadow;
+
+  header {
+    @apply w-full;
+
+    .divider {
+      @apply h-[3px] rounded-full bg-slate-100;
+    }
+
+    h1 {
+      @apply text-3xl font-semibold text-orange-300;
+    }
+  }
+
+  main {
+    // @apply grid gap-20 grid-rows-1 grid-cols-2 w-full;
+    @apply flex flex-row gap-20 flex-wrap w-full justify-between;
+
+    section {
+      @apply py-2 max-w-2xl w-full;
+
+      &.right {
+        .inputs-parent {
+          @apply flex flex-row flex-wrap items-center justify-start p-3 pr-7;
+
+          div {
+            @apply w-full min-w-[300px] flex flex-row gap-3 align-middle items-center justify-between;
+            @apply bg-indigo-50 m-1 rounded-full pr-5;
+
+            h4 {
+              @apply font-semibold px-4 py-1 rounded-full bg-blue-500 text-white self-center align-middle;
+            }
+          }
+        }
+      }
+
+      &.left {
+        @apply flex flex-col gap-4;
+
+        .print-controls {
+          @apply flex flex-row gap-5 py-5 w-full items-start;
+
+          .print {
+            @apply transition-all duration-200 ease-soft-spring;
+
+            &:hover {
+              @apply scale-105;
+            }
+          }
+
+          .impr-cor {
+            @apply max-w-[200px] w-full justify-evenly;
+          }
+
+          .num-copias {
+            @apply flex flex-col gap-3 p-3 rounded border shadow max-w-[300px] w-full;
+
+            .selector {
+              @apply flex flex-row gap-1 items-start;
+              .select-turma {
+                @apply flex flex-col gap-1 justify-between;
+              }
+              .select-num {
+                @apply flex flex-col gap-1 justify-between text-sm text-blue-600;
+              }
+            }
+          }
+        }
+      }
+
+      header {
+        @apply w-full;
+        h3 {
+          @apply text-xl font-semibold text-blue-600;
+        }
+      }
+    }
+
+    .controls {
+      // Label do Checkbox group
+      .tittle {
+        @apply text-gray-950 text-lg font-medium;
+      }
+
+      .combo-input {
+        @apply flex flex-row gap-3 justify-start items-center border-2 rounded-md px-4 py-3 my-1 max-w-sm shadow-sm;
+        @apply transition-all duration-200 ease-soft-spring;
+
+        &:hover {
+          @apply border-blue-700 shadow shadow-blue-200 scale-105;
+        }
+      }
+    }
+  }
+}
