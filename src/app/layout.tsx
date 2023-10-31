@@ -1,5 +1,7 @@
+import BarraDeNavegacao from "@/components/navigation/Navbar";
 import { Display } from "@/lib/fonts";
 import "@/styles/globals.scss";
+import styles from "@/styles/layout/root-layout.module.scss";
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 
@@ -14,9 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt" className="light">
+    <html lang="pt" className="w-full h-full bg-lgreen ">
       <body style={Display.style}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <BarraDeNavegacao />
+          <div className={styles.RootLayout}>{children}</div>
+        </Providers>
       </body>
     </html>
   );

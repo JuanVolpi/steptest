@@ -1,0 +1,30 @@
+.Main {
+  @apply w-64 h-96 border-2 border-transparent bg-white rounded-lg ease-in-out duration-400 flex align-middle self-center justify-center;
+  &:hover {
+    @apply border-mblue;
+  }
+  .Wrap {
+    @apply flex p-2 max-w-full max-h-full flex-col align-middle self-center justify-center overflow-hidden;
+    .NomeProva {
+      @apply p-2 m-1 bg-lyellow h-10 max-w-[90%] overflow-hidden w-fit rounded-lg self-center whitespace-nowrap;
+    }
+    .NumQuest {
+      @apply h-fit text-agreen  flex flex-row align-middle justify-center  overflow-hidden w-fit rounded-lg self-center whitespace-nowrap;
+    }
+    .Img {
+      @apply w-full h-28 mb-5 mt-5;
+    }
+    .LowerInfo {
+      @apply p-2;
+      .Disciplina {
+        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg  whitespace-nowrap;
+      }
+      .Recomendacao {
+        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg  whitespace-nowrap;
+      }
+      .Materia {
+        @apply h-fit flex flex-row overflow-hidden w-fit rounded-lg whitespace-nowrap;
+      }
+    }
+  }
+}
